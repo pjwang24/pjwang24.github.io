@@ -104,6 +104,35 @@
       padding: 20px;
       margin-top: 30px;
     }
+    .section h2 {
+      text-align: left;
+      font-size: 24px;
+    }
+
+    .experience-item {
+      margin-bottom: 20px;
+    }
+
+    .experience-item h3 {
+      font-weight: bold;
+      font-size: 18px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .experience-item ul {
+      list-style-type: disc;
+      padding-left: 20px;
+    }
+
+    .experience-item ul li {
+      margin-bottom: 5px;
+    }
+
+    .date {
+      font-weight: normal;
+      font-style: italic;
+    }
   </style>
 </head>
 <body>
@@ -158,19 +187,39 @@
 
   <!-- Experience Section -->
   <section class="section" id="experience">
-    <h2>Experience</h2>
-    <h3>Computer Science Peer Advisor - UC Berkeley (Aug. 2024 - Present)</h3>
-    <p>First official hire as a peer advisor for the EECS department, providing guidance to students.</p>
+  <h2>Experience</h2>
 
-    <h3>Data Science Researcher - Honda Research Institute (Jan. 2024 - Present)</h3>
-    <p>Applied L2 Ridge Regression and K-Means clustering to analyze driving patterns and optimize telematics data.</p>
+  <div class="experience-item">
+    <h3>Computer Science Peer Advisor | UC Berkeley - College of Engineering <span class="date">Aug. 2024 - Present</span></h3>
+    <ul>
+      <li>First official hire as a peer advisor for the EECS department.</li>
+    </ul>
+  </div>
 
-    <h3>Technology Intern - Accenture (Jun. 2023 - Jul. 2023)</h3>
-    <p>Implemented cloud computing solutions with Azure Kubernetes Service and automated workflows using Python scripts.</p>
+  <div class="experience-item">
+    <h3>Data Science Researcher | Honda Research Institute <span class="date">Jan. 2024 - Present</span></h3>
+    <ul>
+      <li>Applied L2 Ridge Regression to address multicollinearity in telematics data.</li>
+      <li>Utilized K-Means clustering to analyze driving patterns and reduce congestion.</li>
+    </ul>
+  </div>
 
-    <h3>Machine Learning Engineer - IEEE (Aug. 2020 - Jun. 2022)</h3>
-    <p>Published research on "Finger-Vein Recognition using a NASNet with a Cutout" and accelerated ML model training using custom CUDA kernels.</p>
-  </section>
+  <div class="experience-item">
+    <h3>Technology Intern | Accenture <span class="date">Jun. 2023 - Jul. 2023</span></h3>
+    <ul>
+      <li>Implemented cloud computing solutions on Microsoft Azure using Azure Kubernetes Service.</li>
+      <li>Developed automation scripts to streamline workflows.</li>
+    </ul>
+  </div>
+
+  <div class="experience-item">
+    <h3>Machine Learning Engineer | IEEE <span class="date">Aug. 2020 - Jun. 2022</span></h3>
+    <ul>
+      <li>Published research paper "Finger-Vein Recognition using NASNet with a Cutout" in 2021 ISPACS.</li>
+      <li>Designed Python ML models using NAS framework (Gradient-based Optimization).</li>
+    </ul>
+  </div>
+</section>
 
   <!-- Projects Section -->
   <section class="section" id="projects">
