@@ -39,6 +39,25 @@
       text-decoration: underline;
       color: #1e90ff;
     }
+    .banner {
+      background-color: #1a6a88;
+      padding: 20px;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+    .banner img {
+      width: 80px;
+      height: 80px;
+      margin-right: 20px;
+    }
+    .banner h3 {
+      margin: 0;
+      font-size: 24px;
+      color: white;
+    }
     .skills-section {
       text-align: center;
       margin: 20px 0;
@@ -66,6 +85,18 @@
       padding-left: 10px;
       transition: width 1.5s ease-in-out;
     }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    .project {
+      background-color: white;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      color: black;
+    }
     footer {
       background-color: #333;
       color: white;
@@ -84,6 +115,13 @@
 </header>
 
 <div class="container">
+  <!-- Education Banner -->
+  <section class="banner">
+    <img src="https://brand.berkeley.edu/wp-content/uploads/2019/11/primary-logo-2-line-blue-gold.png" alt="Berkeley Logo">
+    <h3>University of California, Berkeley<br>B.S. Computer Science<br>GPA: 3.5/4.0</h3>
+  </section>
+
+  <!-- Skills Section -->
   <section class="skills-section" id="skills">
     <h2>Skills</h2>
     <div class="skill">
@@ -118,7 +156,44 @@
     </div>
   </section>
 
-  <!-- Additional sections like Experience and Projects can go here -->
+  <!-- Experience Section -->
+  <section class="section" id="experience">
+    <h2>Experience</h2>
+    <h3>Computer Science Peer Advisor - UC Berkeley (Aug. 2024 - Present)</h3>
+    <p>First official hire as a peer advisor for the EECS department, providing guidance to students.</p>
+
+    <h3>Data Science Researcher - Honda Research Institute (Jan. 2024 - Present)</h3>
+    <p>Applied L2 Ridge Regression and K-Means clustering to analyze driving patterns and optimize telematics data.</p>
+
+    <h3>Technology Intern - Accenture (Jun. 2023 - Jul. 2023)</h3>
+    <p>Implemented cloud computing solutions with Azure Kubernetes Service and automated workflows using Python scripts.</p>
+
+    <h3>Machine Learning Engineer - IEEE (Aug. 2020 - Jun. 2022)</h3>
+    <p>Published research on "Finger-Vein Recognition using a NASNet with a Cutout" and accelerated ML model training using custom CUDA kernels.</p>
+  </section>
+
+  <!-- Projects Section -->
+  <section class="section" id="projects">
+    <h2>Projects</h2>
+    <div class="projects-grid">
+      <div class="project">
+        <h3>CPU Design & Implementation</h3>
+        <p>Developed a RISC-V CPU in Logisim, including ALU, register files, and instruction types. Tested with custom RISC-V assembly tests.</p>
+      </div>
+      <div class="project">
+        <h3>MOSFET Amplifier Design</h3>
+        <p>Designed a common-source amplifier, simulating voltage gain and frequency response using LTSpice.</p>
+      </div>
+      <div class="project">
+        <h3>Berkeley Formula Racing</h3>
+        <p>Integrated MOSFETs into power management circuits, improving system reliability for multi-axis acceleration data measurement.</p>
+      </div>
+      <div class="project">
+        <h3>Merger Arbitrage Analysis</h3>
+        <p>Optimized Monte Carlo simulation to project M&A data, improving data retrieval time by 23% using NumPy and SciPy.</p>
+      </div>
+    </div>
+  </section>
 </div>
 
 <footer>
