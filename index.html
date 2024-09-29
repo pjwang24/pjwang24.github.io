@@ -14,34 +14,47 @@
     }
     header {
       background-color: #333;
-      color: #fff;
+      color: white;
       padding: 20px;
       text-align: center;
     }
-    section {
-      padding: 20px;
-      margin: 0 auto;
+    .container {
       max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
     }
     h1, h2 {
       color: #fff;
+      text-align: center;
+    }
+    p {
+      font-size: 18px;
+      text-align: center;
     }
     a {
-      color: #ffffff; /* Set links to white */
+      color: #ffffff;
       text-decoration: none;
     }
     a:hover {
-      color: #1e90ff; /* Hover effect to blue */
+      text-decoration: underline;
+      color: #1e90ff;
     }
-    .skills {
+    .skills-section {
+      text-align: center;
       margin: 20px 0;
     }
-    .skill-bar {
+    .skill {
       background-color: #333;
       border-radius: 25px;
       padding: 10px;
       margin-bottom: 15px;
-      width: 100%;
+      width: 80%;
+      margin: 0 auto;
+    }
+    .skill-bar {
+      background-color: #000;
+      border-radius: 25px;
+      overflow: hidden;
     }
     .skill-bar-inner {
       height: 30px;
@@ -49,127 +62,87 @@
       background-color: #1e90ff;
       width: 0%;
       line-height: 30px;
-      padding-left: 10px;
       color: white;
-    }
-    .skill-label {
-      padding-bottom: 5px;
-      font-size: 18px;
-      text-transform: uppercase;
-    }
-    .languages {
-      display: flex;
-      justify-content: space-around;
-      margin-top: 30px;
-    }
-    .languages img {
-      width: 50px;
-      height: 50px;
+      padding-left: 10px;
+      transition: width 1.5s ease-in-out;
     }
     footer {
       background-color: #333;
-      color: #fff;
-      padding: 20px;
+      color: white;
       text-align: center;
+      padding: 20px;
       margin-top: 30px;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Peter Wang</h1>
-    <p>Email: <a href="mailto:pjwang2324@berkeley.edu">pjwang2324@berkeley.edu</a></p>
-    <p><a href="https://www.linkedin.com/in/peterwang-eecs/" target="_blank">LinkedIn</a> | <a href="https://github.com/pjwang24" target="_blank">GitHub</a></p>
-  </header>
 
-  <section>
-    <h2>About Me</h2>
-    <p>I am Peter Wang, a Computer Science major at UC Berkeley with a passion for CPU design, machine learning, and hardware projects. My expertise ranges from Python, Java, and CUDA to analog circuit design and verification. I’m always excited to collaborate and learn in dynamic environments.</p>
-  </section>
+<header>
+  <h1>Peter Wang</h1>
+  <p>Email: <a href="mailto:pjwang2324@berkeley.edu">pjwang2324@berkeley.edu</a></p>
+  <p><a href="https://www.linkedin.com/in/peterwang-eecs/" target="_blank">LinkedIn</a> | <a href="https://github.com/pjwang24" target="_blank">GitHub</a></p>
+</header>
 
-  <section class="skills">
+<div class="container">
+  <section class="skills-section" id="skills">
     <h2>Skills</h2>
     <div class="skill">
-      <div class="skill-label">Python (75%)</div>
+      <div>Python (75%)</div>
       <div class="skill-bar">
         <div class="skill-bar-inner" style="width: 75%;"></div>
       </div>
     </div>
     <div class="skill">
-      <div class="skill-label">Java (65%)</div>
+      <div>Java (65%)</div>
       <div class="skill-bar">
         <div class="skill-bar-inner" style="width: 65%;"></div>
       </div>
     </div>
     <div class="skill">
-      <div class="skill-label">C/C++ (60%)</div>
+      <div>C/C++ (60%)</div>
       <div class="skill-bar">
         <div class="skill-bar-inner" style="width: 60%;"></div>
       </div>
     </div>
     <div class="skill">
-      <div class="skill-label">SQL (65%)</div>
+      <div>SQL (65%)</div>
       <div class="skill-bar">
         <div class="skill-bar-inner" style="width: 65%;"></div>
       </div>
     </div>
     <div class="skill">
-      <div class="skill-label">Shell/Bash/VIM (55%)</div>
+      <div>Shell/Bash/VIM (55%)</div>
       <div class="skill-bar">
         <div class="skill-bar-inner" style="width: 55%;"></div>
       </div>
     </div>
   </section>
 
-  <section>
-    <h2>Experience</h2>
+  <!-- Additional sections like Experience and Projects can go here -->
+</div>
 
-    <h3>Computer Science Peer Advisor - UC Berkeley (Aug. 2024 - Present)</h3>
-    <p>First official hire as a peer advisor for the EECS department, providing guidance to students.</p>
+<footer>
+  <p>Feel free to reach out at <a href="mailto:pjwang2324@berkeley.edu">pjwang2324@berkeley.edu</a> or connect on <a href="https://www.linkedin.com/in/peterwang-eecs/" target="_blank">LinkedIn</a>.</p>
+</footer>
 
-    <h3>Data Science Researcher - Honda Research Institute (Jan. 2024 - Present)</h3>
-    <p>Applied L2 Ridge Regression and K-Means clustering to analyze driving patterns and optimize telematics data, reducing urban congestion.</p>
+<script>
+  // Skill bars animation
+  window.onload = function() {
+    const bars = document.querySelectorAll('.skill-bar-inner');
+    bars.forEach(bar => {
+      let width = 0;
+      const targetWidth = bar.style.width;
+      const interval = setInterval(() => {
+        if (width >= parseInt(targetWidth)) {
+          clearInterval(interval);
+        } else {
+          width++;
+          bar.style.width = width + '%';
+        }
+      }, 15); // Speed of animation
+    });
+  };
+</script>
 
-    <h3>Technology Intern - Accenture (Jun. 2023 - Jul. 2023)</h3>
-    <p>Implemented cloud computing solutions with Azure Kubernetes Service and automated machine learning workflows using Python scripts.</p>
-
-    <h3>Machine Learning Engineer - IEEE (Aug. 2020 - Jun. 2022)</h3>
-    <p>Published research on "Finger-Vein Recognition using a NASNet with a Cutout" and accelerated ML model training using custom CUDA kernels.</p>
-  </section>
-
-  <section>
-    <h2>Tools & Technologies I Use</h2>
-    <div class="languages">
-      <img src="https://cdn-icons-png.flaticon.com/512/5968/5968350.png" alt="Java">
-      <img src="https://cdn-icons-png.flaticon.com/512/5968/5968351.png" alt="Python">
-      <img src="https://cdn-icons-png.flaticon.com/512/919/919852.png" alt="C++">
-      <img src="https://cdn-icons-png.flaticon.com/512/6132/6132222.png" alt="Flutter">
-      <img src="https://cdn-icons-png.flaticon.com/512/2772/2772128.png" alt="SQL">
-      <img src="https://cdn-icons-png.flaticon.com/512/732/732212.png" alt="Git">
-    </div>
-  </section>
-
-  <footer>
-    <p>Feel free to reach out at <a href="mailto:pjwang2324@berkeley.edu">pjwang2324@berkeley.edu</a> or connect on <a href="https://www.linkedin.com/in/peterwang-eecs/" target="_blank">LinkedIn</a>.</p>
-  </footer>
-
-  <script>
-    // Animate the skill bars
-    window.onload = function() {
-      const bars = document.querySelectorAll('.skill-bar-inner');
-      bars.forEach(bar => {
-        let width = 0;
-        const targetWidth = bar.style.width;
-        const interval = setInterval(() => {
-          if (width >= parseInt(targetWidth)) {
-            clearInterval(interval);
-          } else {
-            width++;
-            bar.style.width = width + '%';
-          }
-        }, 15); // Speed of animation
-      });
-    };
-  </script>
 </body>
 </html>
