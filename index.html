@@ -58,33 +58,7 @@
       font-size: 24px;
       color: white;
     }
-    .skills-section {
-      text-align: center;
-      margin: 20px 0;
-    }
-    .skill {
-      background-color: #333;
-      border-radius: 25px;
-      padding: 10px;
-      margin-bottom: 15px;
-      width: 80%;
-      margin: 0 auto;
-    }
-    .skill-bar {
-      background-color: #000;
-      border-radius: 25px;
-      overflow: hidden;
-    }
-    .skill-bar-inner {
-      height: 30px;
-      border-radius: 25px;
-      background-color: #1e90ff;
-      width: 0%;
-      line-height: 30px;
-      color: white;
-      padding-left: 10px;
-      transition: width 1.5s ease-in-out;
-    }
+
     .projects-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -104,6 +78,8 @@
       padding: 20px;
       margin-top: 30px;
     }
+
+    /* New CSS for Experience Section */
     .section h2 {
       text-align: left;
       font-size: 24px;
@@ -133,6 +109,35 @@
       font-weight: normal;
       font-style: italic;
     }
+
+    /* Skills Section */
+    .skills-section {
+      margin: 20px 0;
+    }
+    .skill {
+      background-color: #333;
+      border-radius: 25px;
+      padding: 10px;
+      margin-bottom: 15px;
+      width: 80%;
+      margin: 0 auto;
+    }
+    .skill-bar {
+      background-color: #000;
+      border-radius: 25px;
+      overflow: hidden;
+    }
+    .skill-bar-inner {
+      height: 30px;
+      border-radius: 25px;
+      background-color: #1e90ff;
+      width: 0%;
+      line-height: 30px;
+      color: white;
+      padding-left: 10px;
+      transition: width 1.5s ease-in-out;
+    }
+
   </style>
 </head>
 <body>
@@ -148,6 +153,43 @@
   <section class="banner">
     <img src="https://github.com/pjwang24/pjwang24.github.io/blob/main/logo-variations-thumbnail-gold-blue.png?raw=true" alt="Berkeley Logo">
     <h3>University of California, Berkeley<br>B.S. Computer Science<br>GPA: 3.5/4.0</h3>
+  </section>
+
+  <!-- Experience Section -->
+  <section class="section" id="experience">
+    <h2>Experience</h2>
+
+    <div class="experience-item">
+      <h3>Computer Science Peer Advisor | UC Berkeley - College of Engineering <span class="date">Aug. 2024 - Present</span></h3>
+      <ul>
+        <li>First official hire as a peer advisor for the EECS department.</li>
+      </ul>
+    </div>
+
+    <div class="experience-item">
+      <h3>Data Science Researcher | Honda Research Institute <span class="date">Jan. 2024 - Present</span></h3>
+      <ul>
+        <li>Applied L2 Ridge Regression to address multicollinearity in telematics data.</li>
+        <li>Utilized K-Means clustering to analyze driving patterns and reduce congestion.</li>
+      </ul>
+    </div>
+
+    <div class="experience-item">
+      <h3>Technology Intern | Accenture <span class="date">Jun. 2023 - Jul. 2023</span></h3>
+      <ul>
+        <li>Implemented cloud computing solutions on Microsoft Azure using Azure Kubernetes Service.</li>
+        <li>Developed automation scripts to streamline workflows.</li>
+      </ul>
+    </div>
+
+    <div class="experience-item">
+      <h3>Machine Learning Engineer | IEEE <span class="date">Aug. 2020 - Jun. 2022</span></h3>
+      <ul>
+        <li>Published research paper "Finger-Vein Recognition using NASNet with a Cutout" in 2021 ISPACS.</li>
+        <li>Designed Python ML models using NAS framework (Gradient-based Optimization).</li>
+      </ul>
+    </div>
+
   </section>
 
   <!-- Skills Section -->
@@ -185,44 +227,6 @@
     </div>
   </section>
 
-  <!-- Experience Section -->
-  <section class="section" id="experience">
-  <h2>Experience</h2>
-
-  <div class="experience-item">
-    <h3>Computer Science Peer Advisor | UC Berkeley - College of Engineering <span class="date">Aug. 2024 - Present</span></h3>
-    <ul>
-      <li>First official hire as a peer advisor for the EECS department.</li>
-    </ul>
-  </div>
-
-  <div class="experience-item">
-    <h3>Data Science Researcher | Honda Research Institute <span class="date">Jan. 2024 - Present</span></h3>
-    <ul>
-      <li>Applied L2 Ridge Regression to address multicollinearity in telematics data.</li>
-      <li>Utilized K-Means clustering to analyze driving patterns and reduce congestion.</li>
-      <li>Conducted exploratory data analysis with NumPy and SciPy, identifying key energy inefficiencies.</li>
-    </ul>
-  </div>
-
-  <div class="experience-item">
-    <h3>Technology Intern | Accenture <span class="date">Jun. 2023 - Jul. 2023</span></h3>
-    <ul>
-      <li>Implemented cloud computing solutions on Microsoft Azure to efficiently scale machine learning models using Azure Kubernetes Service (AKS) and Azure Machine Learning</li>
-      <li>Developed and deployed automation scripts to streamline workflows.</li>
-    </ul>
-  </div>
-
-  <div class="experience-item">
-    <h3>Machine Learning Engineer | IEEE <span class="date">Aug. 2020 - Jun. 2022</span></h3>
-    <ul>
-      <li>Published research paper "Finger-Vein Recognition using NASNet with a Cutout" in 2021 ISPACS, IEEE.</li>
-      <li>Designed Python ML models using NAS framework (Gradient-based Optimization).</li>
-      <li>Utilized CUDA for parallelized training, implementing custom CUDA kernels to accelerate convolutional layers and matrix multiplications, reducing model training time by 36%</li>
-    </ul>
-  </div>
-</section>
-
   <!-- Projects Section -->
   <section class="section" id="projects">
     <h2>Projects</h2>
@@ -248,27 +252,4 @@
 </div>
 
 <footer>
-  <p>Feel free to reach out at <a href="mailto:pjwang2324@berkeley.edu">pjwang2324@berkeley.edu</a> or connect on <a href="https://www.linkedin.com/in/peterwang-eecs/" target="_blank">LinkedIn</a>.</p>
-</footer>
-
-<script>
-  // Skill bars animation
-  window.onload = function() {
-    const bars = document.querySelectorAll('.skill-bar-inner');
-    bars.forEach(bar => {
-      let width = 0;
-      const targetWidth = bar.style.width;
-      const interval = setInterval(() => {
-        if (width >= parseInt(targetWidth)) {
-          clearInterval(interval);
-        } else {
-          width++;
-          bar.style.width = width + '%';
-        }
-      }, 15); // Speed of animation
-    });
-  };
-</script>
-
-</body>
-</html>
+  <p>Feel free to reach out at <a href="mailto:pjwang2324@berkeley.edu">pjwang2324@berkeley.edu</a> or connect on <a href="https://www.linkedin.com/in/peterwang-eecs/" target="_blank">Linked
