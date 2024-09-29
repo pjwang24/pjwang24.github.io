@@ -9,36 +9,67 @@
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background-color: #1e1e1e;
-      color: #f4f4f4;
+      height: 100vh;
+      background-image: url('https://github.com/pjwang24/pjwang24.github.io/blob/main/mebackground.jpeg?raw=true'); /* Background Image */
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      position: relative;
+      color: white;
     }
+
+    /* Adding a dark overlay to make text readable */
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6); /* This dims the background */
+      z-index: 1;
+    }
+
+    .content {
+      position: relative;
+      z-index: 2; /* Ensures content appears above the overlay */
+      text-align: center;
+      padding-top: 50px;
+    }
+
     header {
       background-color: #333;
       color: white;
       padding: 20px;
       text-align: center;
     }
+
     .container {
       max-width: 1000px;
       margin: 0 auto;
       padding: 20px;
     }
+
     h1, h2 {
       color: #fff;
       text-align: center;
     }
+
     p {
       font-size: 18px;
       text-align: center;
     }
+
     a {
       color: #ffffff;
       text-decoration: none;
     }
+
     a:hover {
       text-decoration: underline;
       color: #1e90ff;
     }
+
     .banner {
       background-color: #1a6a88;
       padding: 20px;
@@ -48,11 +79,13 @@
       justify-content: center;
       margin-bottom: 40px;
     }
+
     .banner img {
       width: 80px;
       height: 80px;
       margin-right: 20px;
     }
+
     .banner h3 {
       margin: 0;
       font-size: 24px;
@@ -64,13 +97,15 @@
       grid-template-columns: repeat(2, 1fr);
       gap: 20px;
     }
+
     .project {
       background-color: white;
       padding: 15px;
       border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       color: black;
     }
+
     footer {
       background-color: #333;
       color: white;
@@ -79,7 +114,7 @@
       margin-top: 30px;
     }
 
-    /* New CSS for Experience Section */
+    /* Experience Section */
     .section h2 {
       text-align: left;
       font-size: 24px;
@@ -114,6 +149,7 @@
     .skills-section {
       margin: 20px 0;
     }
+
     .skill {
       background-color: #333;
       border-radius: 25px;
@@ -122,11 +158,13 @@
       width: 80%;
       margin: 0 auto;
     }
+
     .skill-bar {
       background-color: #000;
       border-radius: 25px;
       overflow: hidden;
     }
+
     .skill-bar-inner {
       height: 30px;
       border-radius: 25px;
@@ -137,7 +175,6 @@
       padding-left: 10px;
       transition: width 1.5s ease-in-out;
     }
-
   </style>
 </head>
 <body>
