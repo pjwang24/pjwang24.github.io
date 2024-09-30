@@ -9,194 +9,181 @@
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      height: 100vh;
-      background-image: url('https://github.com/pjwang24/pjwang24.github.io/blob/main/golden%20gate%20bridge.png?raw=true'); /* Background Image */
-      background-size: cover;
-      background-position: center;
-      background-attachment: fixed;
-      position: relative;
-      color: white;
-    }
-    /* Education Section */
-    .education-banner {
-      background-color: #D4AF37; /* Soft golden color */
-      padding: 20px;
-      border-radius: 15px;
+      background-color: #f5f5f5;
       color: black;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 40px;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
-    
-    .education-banner img {
-      width: 80px;
-      height: 80px;
-      margin-right: 20px;
-    }
-    
-    .education-banner h3 {
-      margin: 0;
-      font-size: 24px;
-      color: black;
-    }
-    .content {
-      position: relative;
-      z-index: 2; /* Ensures content appears above the overlay */
-      text-align: center;
-      padding-top: 50px;
+
+    /* Dark Mode */
+    body.dark-mode {
+      background-color: #181818;
+      color: #f5f5f5;
     }
 
     header {
       background-color: #333;
       color: white;
-      padding: 20px;
       text-align: center;
+      padding: 20px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      transition: background-color 0.3s ease;
     }
 
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-
-    h1 {
-      color: #fff;
-      text-align: center;
-    }
-    h2 {
-      color: black; /* Set the color to black */
-      text-align: center;
-    }
-    p {
-      font-size: 18px;
-      text-align: center;
+    header.dark-mode {
+      background-color: #111;
     }
 
     a {
-      color: #ffffff;
+      color: #1e90ff;
       text-decoration: none;
     }
 
     a:hover {
       text-decoration: underline;
-      color: #1e90ff;
     }
 
-    .banner {
-      background-color: #1a6a88;
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
       padding: 20px;
-      border-radius: 15px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 40px;
     }
 
-    .banner img {
-      width: 80px;
-      height: 80px;
-      margin-right: 20px;
+    h1, h2 {
+      text-align: center;
     }
 
-    .banner h3 {
-      margin: 0;
-      font-size: 24px;
-      color: white;
+    h1 {
+      font-size: 36px;
     }
 
-    .projects-grid {
+    h2 {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    .education-banner, .experience-item, .project, .skill {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+      transition: transform 0.3s ease;
+    }
+
+    .education-banner:hover, .experience-item:hover, .project:hover, .skill:hover {
+      transform: translateY(-5px);
+    }
+
+    /* Dark Mode Styling for Cards */
+    body.dark-mode .education-banner, body.dark-mode .experience-item, body.dark-mode .project, body.dark-mode .skill {
+      background-color: #333;
+    }
+
+    .skills-section {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 20px;
     }
 
-    .project {
-      background-color: white;
-      padding: 15px;
-      border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      color: black;
-    }
-
-    footer {
-      background-color: #333;
-      color: white;
-      text-align: center;
-      padding: 20px;
-      margin-top: 30px;
-    }
-
-    /* Experience Section */
-    .skills-section h2 {
-      color: black !important;
-      font-size: 24px;
-      font-weight: bold;
-      margin-bottom: 10px;
-      text-align: center;
-    }
-
-    .experience-item {
-      background-color: rgba(26, 106, 136, 0.9); /* Dark blue block */
-      padding: 20px;
-      border-radius: 10px;
-      margin-bottom: 20px;
-      color: white;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow for better contrast */
-    }
-
-    .experience-item h3 {
-      font-weight: bold;
-      font-size: 18px;
+    .skills-section .skill {
       display: flex;
-      justify-content: space-between;
-    }
-
-    .experience-item ul {
-      list-style-type: disc;
-      padding-left: 20px;
-    }
-
-    .experience-item ul li {
-      margin-bottom: 5px;
-    }
-
-    .date {
-      font-weight: normal;
-      font-style: italic;
-      color: #f0f0f0;
-    }
-
-    /* Skills Section */
-    .skills-section {
-      margin: 20px 0;
-      text-align: center;
-    }
-
-    .skill {
-      background-color: #333;
-      border-radius: 25px;
-      padding: 10px;
-      margin-bottom: 15px;
-      width: 80%;
-      margin: 0 auto;
+      flex-direction: column;
+      align-items: center;
     }
 
     .skill-bar {
-      background-color: #000;
+      width: 100%;
+      background-color: #eee;
       border-radius: 25px;
       overflow: hidden;
     }
 
     .skill-bar-inner {
-      height: 30px;
-      border-radius: 25px;
+      height: 20px;
       background-color: #1e90ff;
-      width: 0%;
-      line-height: 30px;
-      color: white;
-      padding-left: 10px;
+      width: 0;
       transition: width 1.5s ease-in-out;
+    }
+
+    /* Experience and Projects Sections */
+    .experience-item, .project {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      transition: transform 0.3s ease;
+    }
+
+    .experience-item:hover, .project:hover {
+      transform: translateY(-5px);
+    }
+
+    /* Responsive Grid for Projects */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      position: sticky;
+      bottom: 0;
+      width: 100%;
+    }
+
+    /* Dark Mode Toggle Button */
+    .dark-mode-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: #333;
+      color: white;
+      border: none;
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      z-index: 1000;
+    }
+
+    .dark-mode-toggle.dark-mode {
+      background-color: #111;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 500px;
+    }
+
+    .close-btn {
+      background-color: #333;
+      color: white;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
     }
   </style>
 </head>
@@ -208,55 +195,31 @@
   <p><a href="https://www.linkedin.com/in/peterwang-eecs/" target="_blank">LinkedIn</a> | <a href="https://github.com/pjwang24" target="_blank">GitHub</a></p>
 </header>
 
+<!-- Dark Mode Toggle Button -->
+<button class="dark-mode-toggle">Toggle Dark Mode</button>
+
 <div class="container">
-  <!-- Education Banner -->
+  <!-- Education Section -->
   <section class="education-banner">
     <img src="https://github.com/pjwang24/pjwang24.github.io/blob/main/logo-variations-thumbnail-gold-blue.png?raw=true" alt="Berkeley Logo">
     <h3>University of California, Berkeley<br>B.S. Computer Science, minor in EE<br>The Leadership Scholar</h3>
   </section>
 
   <!-- Experience Section -->
-  <section class="section" id="experience">
+  <section id="experience">
     <h2>Experience</h2>
-
     <div class="experience-item">
       <h3>Computer Science Peer Advisor | UC Berkeley - College of Engineering <span class="date">Aug. 2024 - Present</span></h3>
       <ul>
         <li>First official hire as a peer advisor for the EECS department.</li>
       </ul>
     </div>
-
-    <div class="experience-item">
-      <h3>Data Science Researcher | Honda Research Institute <span class="date">Jan. 2024 - May 2024</span></h3>
-      <ul>
-        <li>Applied L2 Ridge Regression to address multicollinearity in telematics data.</li>
-        <li>Utilized K-Means clustering to analyze driving patterns and reduce congestion.</li>
-        <li>Conducted exploratory data analysis with NumPy and SciPy, identifying key energy inefficiencies.</li>
-      </ul>
-    </div>
-
-    <div class="experience-item">
-      <h3>Technology Intern | Accenture <span class="date">Jun. 2023 - Jul. 2023</span></h3>
-      <ul>
-        <li>Implemented cloud computing solutions on Microsoft Azure to efficiently scale machine learning models using Azure Kubernetes Service (AKS) and Azure Machine Learning</li>
-        <li>Developed and deployed automation scripts to streamline workflows.</li>
-      </ul>
-    </div>
-
-    <div class="experience-item">
-      <h3>Machine Learning Engineer | IEEE <span class="date">Aug. 2020 - Jun. 2022</span></h3>
-      <ul>
-        <li>Published research paper "Finger-Vein Recognition using NASNet with a Cutout" in 2021 ISPACS, IEEE.</li>
-        <li>Designed Python ML models using NAS framework (Gradient-based Optimization).</li>
-        <li>Utilized CUDA for parallelized training, implementing custom CUDA kernels to accelerate convolutional layers and matrix multiplications, reducing model training time by 36%</li>
-      </ul>
-    </div>
-
+    <!-- Additional Experience Entries Here -->
   </section>
 
   <!-- Skills Section -->
   <section class="skills-section" id="skills">
-    <h2>Skills (% of projects)</h2>
+    <h2>Skills</h2>
     <div class="skill">
       <div>Python (75%)</div>
       <div class="skill-bar">
@@ -269,49 +232,76 @@
         <div class="skill-bar-inner" style="width: 65%;"></div>
       </div>
     </div>
-    <div class="skill">
-      <div>C/C++ (60%)</div>
-      <div class="skill-bar">
-        <div class="skill-bar-inner" style="width: 60%;"></div>
-      </div>
-    </div>
-    <div class="skill">
-      <div>SQL (65%)</div>
-      <div class="skill-bar">
-        <div class="skill-bar-inner" style="width: 65%;"></div>
-      </div>
-    </div>
-    <div class="skill">
-      <div>Shell/Bash/Vim (55%)</div>
-      <div class="skill-bar">
-        <div class="skill-bar-inner" style="width: 55%;"></div>
-      </div>
-    </div>
+    <!-- Additional Skills Here -->
   </section>
 
   <!-- Projects Section -->
-  <section class="section" id="projects">
+  <section id="projects">
     <h2>Projects</h2>
     <div class="projects-grid">
       <div class="project">
         <h3>CPU Design & Implementation</h3>
-        <p>Developed a RISC-V CPU in Logisim, including ALU, register files, and instruction types. Tested with custom RISC-V assembly tests.</p>
+        <p>Developed a RISC-V CPU in Logisim...</p>
+        <button class="modal-btn">Read More</button>
       </div>
-      <div class="project">
-        <h3>MOSFET Amplifier Design</h3>
-        <p>Designed a common-source amplifier, simulating voltage gain and frequency response using LTSpice.</p>
-      </div>
-      <div class="project">
-        <h3>Berkeley Formula Racing</h3>
-        <p>Integrated MOSFETs into power management circuits, improving system reliability for multi-axis acceleration data measurement.</p>
-      </div>
-      <div class="project">
-        <h3>Merger Arbitrage Analysis</h3>
-        <p>Optimized Monte Carlo simulation to project M&A data, improving data retrieval time by 23% using NumPy and SciPy.</p>
-      </div>
+      <!-- Additional Project Cards Here -->
     </div>
   </section>
 </div>
 
+<!-- Modal for Project Details -->
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <h2>Project Title</h2>
+    <p>Full project details go here.</p>
+    <button class="close-btn">Close</button>
+  </div>
+</div>
+
 <footer>
-  <p>Feel free to reach out at <a href="mailto:pjwang2324@berkeley.edu">pjwang2324@berkeley.edu</a> or connect on <a href="https://www.linkedin.com/in/peterwang-eecs/" target="_blank">Linkedin
+  <p>Feel free to reach out at <a href="mailto:pjwang2324@berkeley.edu">pjwang2324@berkeley.edu</a> or connect on <a href="https://www.linkedin.com/in/peterwang-eecs/" target="_blank">LinkedIn</a>.</p>
+</footer>
+
+<script>
+  // Dark Mode Toggle
+  const toggleButton = document.querySelector('.dark-mode-toggle');
+  toggleButton.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+  });
+
+  // Modal Functionality
+  const modal = document.getElementById('modal');
+  const modalBtns = document.querySelectorAll('.modal-btn');
+  const closeBtn = document.querySelector('.close-btn');
+
+  modalBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      modal.style.display = 'flex';
+    });
+  });
+
+  closeBtn.addEventListener('click', () => {
+    modal.style.display = 'none';
+  });
+
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = 'none';
+    }
+  };
+
+  // Animate Skill Bars
+  document.addEventListener('DOMContentLoaded', () => {
+    const skillBars = document.querySelectorAll('.skill-bar-inner');
+    skillBars.forEach(bar => {
+      const width = bar.style.width;
+      bar.style.width = '0%';
+      setTimeout(() => {
+        bar.style.width = width;
+      }, 500);
+    });
+  });
+</script>
+
+</body>
+</html>
