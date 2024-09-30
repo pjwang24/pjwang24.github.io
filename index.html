@@ -9,54 +9,49 @@
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
-      background-image: url('https://github.com/pjwang24/pjwang24.github.io/blob/main/golden%20gate%20bridge.png?raw=true');
+      height: 100vh;
+      background-image: url('https://github.com/pjwang24/pjwang24.github.io/blob/main/golden%20gate%20bridge.png?raw=true'); /* Background Image */
       background-size: cover;
       background-position: center;
       background-attachment: fixed;
       position: relative;
       color: white;
     }
-
-    /* Navigation bar */
-    nav {
-      position: sticky;
-      top: 0;
-      background-color: #333;
-      padding: 10px 0;
-      z-index: 1000;
-      width: 100%;
-    }
-
-    nav ul {
+    /* Education Section */
+    .education-banner {
+      background-color: #D4AF37; /* Soft golden color */
+      padding: 20px;
+      border-radius: 15px;
+      color: black;
       display: flex;
+      align-items: center;
       justify-content: center;
-      list-style-type: none;
+      margin-bottom: 40px;
+    }
+    
+    .education-banner img {
+      width: 80px;
+      height: 80px;
+      margin-right: 20px;
+    }
+    
+    .education-banner h3 {
       margin: 0;
-      padding: 0;
+      font-size: 24px;
+      color: black;
     }
-
-    nav ul li {
-      margin: 0 20px;
-    }
-
-    nav ul li a {
-      color: white;
-      text-decoration: none;
-      font-size: 18px;
-    }
-
-    nav ul li a:hover {
-      color: #1e90ff;
+    .content {
+      position: relative;
+      z-index: 2; /* Ensures content appears above the overlay */
+      text-align: center;
+      padding-top: 50px;
     }
 
     header {
-      text-align: center;
-      padding: 50px 0;
-      background-color: rgba(51, 51, 51, 0.8);
-    }
-
-    header h1, header p, header a {
+      background-color: #333;
       color: white;
+      padding: 20px;
+      text-align: center;
     }
 
     .container {
@@ -65,62 +60,63 @@
       padding: 20px;
     }
 
-    h2 {
+    h1 {
+      color: #fff;
       text-align: center;
-      color: black;
+    }
+    h2 {
+      color: black; /* Set the color to black */
+      text-align: center;
+    }
+    p {
+      font-size: 18px;
+      text-align: center;
     }
 
-    .education-banner, .experience-item, .project {
-      border-radius: 15px;
-      margin-bottom: 30px;
+    a {
+      color: #ffffff;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+      color: #1e90ff;
+    }
+
+    .banner {
+      background-color: #1a6a88;
       padding: 20px;
-      background-color: rgba(0, 0, 0, 0.5);
-      color: white;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .education-banner:hover, .experience-item:hover, .project:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-    }
-
-    .education-banner {
-      background-color: #D4AF37;
+      border-radius: 15px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: black;
+      margin-bottom: 40px;
     }
 
-    .education-banner img {
+    .banner img {
       width: 80px;
       height: 80px;
       margin-right: 20px;
     }
 
-    .skills-section .skill-bar {
-      background-color: #333;
-      border-radius: 25px;
-      overflow: hidden;
-      margin: 15px auto;
-      width: 80%;
-    }
-
-    .skills-section .skill-bar-inner {
-      height: 30px;
-      border-radius: 25px;
-      background-color: #1e90ff;
-      width: 0;
+    .banner h3 {
+      margin: 0;
+      font-size: 24px;
       color: white;
-      line-height: 30px;
-      padding-left: 10px;
-      transition: width 1.5s ease-in-out;
     }
 
     .projects-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(2, 1fr);
       gap: 20px;
+    }
+
+    .project {
+      background-color: white;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      color: black;
     }
 
     footer {
@@ -131,50 +127,80 @@
       margin-top: 30px;
     }
 
-    /* Smooth scroll behavior */
-    html {
-      scroll-behavior: smooth;
-    }
-
-    /* Contact form */
-    .contact-form {
+    /* Experience Section */
+    .skills-section h2 {
+      color: black !important;
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 10px;
       text-align: center;
+    }
+
+    .experience-item {
+      background-color: rgba(26, 106, 136, 0.9); /* Dark blue block */
       padding: 20px;
-    }
-
-    .contact-form input, .contact-form textarea {
-      width: 80%;
-      padding: 10px;
-      margin: 10px 0;
-      border-radius: 5px;
-      border: none;
-    }
-
-    .contact-form button {
-      padding: 10px 20px;
-      background-color: #1e90ff;
+      border-radius: 10px;
+      margin-bottom: 20px;
       color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional shadow for better contrast */
     }
 
-    .contact-form button:hover {
+    .experience-item h3 {
+      font-weight: bold;
+      font-size: 18px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .experience-item ul {
+      list-style-type: disc;
+      padding-left: 20px;
+    }
+
+    .experience-item ul li {
+      margin-bottom: 5px;
+    }
+
+    .date {
+      font-weight: normal;
+      font-style: italic;
+      color: #f0f0f0;
+    }
+
+    /* Skills Section */
+    .skills-section {
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    .skill {
       background-color: #333;
+      border-radius: 25px;
+      padding: 10px;
+      margin-bottom: 15px;
+      width: 80%;
+      margin: 0 auto;
+    }
+
+    .skill-bar {
+      background-color: #000;
+      border-radius: 25px;
+      overflow: hidden;
+    }
+
+    .skill-bar-inner {
+      height: 30px;
+      border-radius: 25px;
+      background-color: #1e90ff;
+      width: 0%;
+      line-height: 30px;
+      color: white;
+      padding-left: 10px;
+      transition: width 1.5s ease-in-out;
     }
   </style>
 </head>
 <body>
-
-<nav>
-  <ul>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-</nav>
 
 <header>
   <h1>Peter Wang</h1>
@@ -192,6 +218,7 @@
   <!-- Experience Section -->
   <section class="section" id="experience">
     <h2>Experience</h2>
+
     <div class="experience-item">
       <h3>Computer Science Peer Advisor | UC Berkeley - College of Engineering <span class="date">Aug. 2024 - Present</span></h3>
       <ul>
@@ -207,22 +234,58 @@
         <li>Conducted exploratory data analysis with NumPy and SciPy, identifying key energy inefficiencies.</li>
       </ul>
     </div>
+
+    <div class="experience-item">
+      <h3>Technology Intern | Accenture <span class="date">Jun. 2023 - Jul. 2023</span></h3>
+      <ul>
+        <li>Implemented cloud computing solutions on Microsoft Azure to efficiently scale machine learning models using Azure Kubernetes Service (AKS) and Azure Machine Learning</li>
+        <li>Developed and deployed automation scripts to streamline workflows.</li>
+      </ul>
+    </div>
+
+    <div class="experience-item">
+      <h3>Machine Learning Engineer | IEEE <span class="date">Aug. 2020 - Jun. 2022</span></h3>
+      <ul>
+        <li>Published research paper "Finger-Vein Recognition using NASNet with a Cutout" in 2021 ISPACS, IEEE.</li>
+        <li>Designed Python ML models using NAS framework (Gradient-based Optimization).</li>
+        <li>Utilized CUDA for parallelized training, implementing custom CUDA kernels to accelerate convolutional layers and matrix multiplications, reducing model training time by 36%</li>
+      </ul>
+    </div>
+
   </section>
 
   <!-- Skills Section -->
   <section class="skills-section" id="skills">
-    <h2>Skills</h2>
-    <div class="skill-bar">
+    <h2>Skills (% of projects)</h2>
+    <div class="skill">
       <div>Python (75%)</div>
-      <div class="skill-bar-inner" data-percent="75%"></div>
+      <div class="skill-bar">
+        <div class="skill-bar-inner" style="width: 75%;"></div>
+      </div>
     </div>
-    <div class="skill-bar">
+    <div class="skill">
       <div>Java (65%)</div>
-      <div class="skill-bar-inner" data-percent="65%"></div>
+      <div class="skill-bar">
+        <div class="skill-bar-inner" style="width: 65%;"></div>
+      </div>
     </div>
-    <div class="skill-bar">
+    <div class="skill">
       <div>C/C++ (60%)</div>
-      <div class="skill-bar-inner" data-percent="60%"></div>
+      <div class="skill-bar">
+        <div class="skill-bar-inner" style="width: 60%;"></div>
+      </div>
+    </div>
+    <div class="skill">
+      <div>SQL (65%)</div>
+      <div class="skill-bar">
+        <div class="skill-bar-inner" style="width: 65%;"></div>
+      </div>
+    </div>
+    <div class="skill">
+      <div>Shell/Bash/Vim (55%)</div>
+      <div class="skill-bar">
+        <div class="skill-bar-inner" style="width: 55%;"></div>
+      </div>
     </div>
   </section>
 
@@ -232,26 +295,23 @@
     <div class="projects-grid">
       <div class="project">
         <h3>CPU Design & Implementation</h3>
-        <p>Developed a RISC-V CPU in Logisim, including ALU, register files, and instruction types.</p>
+        <p>Developed a RISC-V CPU in Logisim, including ALU, register files, and instruction types. Tested with custom RISC-V assembly tests.</p>
       </div>
       <div class="project">
         <h3>MOSFET Amplifier Design</h3>
         <p>Designed a common-source amplifier, simulating voltage gain and frequency response using LTSpice.</p>
       </div>
+      <div class="project">
+        <h3>Berkeley Formula Racing</h3>
+        <p>Integrated MOSFETs into power management circuits, improving system reliability for multi-axis acceleration data measurement.</p>
+      </div>
+      <div class="project">
+        <h3>Merger Arbitrage Analysis</h3>
+        <p>Optimized Monte Carlo simulation to project M&A data, improving data retrieval time by 23% using NumPy and SciPy.</p>
+      </div>
     </div>
   </section>
 </div>
 
-<!-- Contact Section -->
-<section class="contact-form" id="contact">
-  <h2>Contact Me</h2>
-  <form action="https://formspree.io/your-email" method="POST">
-    <input type="text" name="name" placeholder="Your Name" required>
-    <input type="email" name="email" placeholder="Your Email" required>
-    <textarea name="message" placeholder="Your Message" required></textarea>
-    <button type="submit">Send</button>
-  </form>
-</section>
-  
 <footer>
   <p>Feel free to reach out at <a href="mailto:pjwang2324@berkeley.edu">pjwang2324@berkeley.edu</a> or connect on <a href="https://www.linkedin.com/in/peterwang-eecs/" target="_blank">Linkedin
