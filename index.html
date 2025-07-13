@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Peter Wang - Portfolio</title>
+    <title>Peter Wang - Next-Gen Portfolio</title>
     <style>
         * {
             margin: 0;
@@ -11,48 +11,702 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --primary: #00ffcc;
+            --secondary: #ff006e;
+            --accent: #ffbe0b;
+            --dark: #0a0a0a;
+            --light: #ffffff;
+            --berkeley-gold: #FDB515;
+            --berkeley-blue: #003262;
+        }
+
         body {
-            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            line-height: 1.6;
-            color: #ffffff;
-            background: linear-gradient(135deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.2) 100%),
-                        url('https://github.com/pjwang24/pjwang24.github.io/blob/main/golden%20gate%20bridge.png?raw=true');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif;
+            background: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+            cursor: none;
         }
 
-        .container {
-            max-width: 1200px;
+        /* Custom Cursor */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            position: fixed;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            transition: all 0.1s ease;
+            z-index: 9999;
+            mix-blend-mode: difference;
+        }
+
+        .cursor-follower {
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 255, 204, 0.1);
+            border-radius: 50%;
+            position: fixed;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            transition: all 0.3s ease;
+            z-index: 9998;
+        }
+
+        /* Particle Background */
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* Loading Screen */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: var(--dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            transition: opacity 1s ease;
+        }
+
+        .loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .loader-text {
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 50px;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(20px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            padding: 15px 50px;
+            background: rgba(10, 10, 10, 0.95);
+        }
+
+        .nav-content {
+            max-width: 1400px;
             margin: 0 auto;
-            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        /* Header */
-        header {
-            padding: 60px 0 40px;
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            cursor: pointer;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            position: relative;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: radial-gradient(ellipse at center, rgba(0, 255, 204, 0.1) 0%, transparent 70%);
+        }
+
+        .hero-content {
             text-align: center;
-            background: rgba(0,0,0,0.3);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            z-index: 10;
+            animation: fadeInUp 1s ease;
         }
 
-        .hero-content h1 {
-            font-size: 3.5rem;
+        .glitch {
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            position: relative;
+            text-shadow: 
+                0.05em 0 0 rgba(255, 0, 110, 0.75),
+                -0.025em -0.05em 0 rgba(0, 255, 204, 0.75),
+                0.025em 0.05em 0 rgba(255, 190, 11, 0.75);
+            animation: glitch 1s linear infinite;
+        }
+
+        @keyframes glitch {
+            2%, 64% {
+                transform: translate(2px, 0) skew(0deg);
+            }
+            4%, 60% {
+                transform: translate(-2px, 0) skew(0deg);
+            }
+            62% {
+                transform: translate(0, 0) skew(5deg);
+            }
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin: 20px 0;
+            opacity: 0.8;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 40px;
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            border: none;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: var(--dark);
             font-weight: 700;
+            text-decoration: none;
+            border-radius: 50px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.3);
+            transition: left 0.5s ease;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        /* Floating Elements */
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .shape {
+            position: absolute;
+            opacity: 0.1;
+            animation: float 20s infinite ease-in-out;
+        }
+
+        .shape:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            background: var(--primary);
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+            border-radius: 50%;
+        }
+
+        .shape:nth-child(2) {
+            width: 120px;
+            height: 120px;
+            background: var(--secondary);
+            top: 60%;
+            right: 10%;
+            animation-delay: 2s;
+            transform: rotate(45deg);
+        }
+
+        .shape:nth-child(3) {
+            width: 60px;
+            height: 60px;
+            background: var(--accent);
+            bottom: 20%;
+            left: 30%;
+            animation-delay: 4s;
+            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-30px) rotate(180deg);
+            }
+        }
+
+        /* Berkeley Section */
+        .berkeley-section {
+            padding: 100px 50px;
+            background: linear-gradient(135deg, rgba(253, 181, 21, 0.1) 0%, rgba(0, 50, 98, 0.1) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .berkeley-card {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 30px;
+            padding: 60px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            position: relative;
+            transform: translateY(50px);
+            opacity: 0;
+            transition: all 0.8s ease;
+        }
+
+        .berkeley-card.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .berkeley-logo {
+            width: 150px;
+            height: 150px;
+            border-radius: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .berkeley-info h3 {
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, var(--berkeley-gold), var(--berkeley-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
             margin-bottom: 10px;
-            background: linear-gradient(135deg, #ff6b6b, #4ecdc4);
+        }
+
+        .berkeley-info p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin: 5px 0;
+        }
+
+        .award {
+            background: linear-gradient(45deg, var(--berkeley-gold), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+        }
+
+        /* Experience Timeline */
+        .experience-section {
+            padding: 100px 50px;
+            background: linear-gradient(180deg, transparent 0%, rgba(0, 255, 204, 0.05) 100%);
+        }
+
+        .section-title {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 80px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
-        .hero-content .subtitle {
-            font-size: 1.3rem;
-            color: #e0e0e0;
+        .timeline {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            padding: 40px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--primary) 0%, var(--secondary) 100%);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 80px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .timeline-item:nth-child(odd) {
+            padding-right: 50%;
+            text-align: right;
+            padding-left: 40px;
+        }
+
+        .timeline-item:nth-child(even) {
+            padding-left: 50%;
+            padding-right: 40px;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--primary);
+            border-radius: 50%;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 20px var(--primary);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 0 20px var(--primary);
+            }
+            50% {
+                box-shadow: 0 0 40px var(--primary), 0 0 60px var(--primary);
+            }
+        }
+
+        .timeline-content {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            padding: 30px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 20px 40px rgba(0, 255, 204, 0.2);
+        }
+
+        .timeline-content h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .timeline-date {
+            font-size: 0.9rem;
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+
+        .timeline-content ul {
+            list-style: none;
+        }
+
+        .timeline-content li {
+            margin: 10px 0;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .timeline-content li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+        }
+
+        /* Skills Matrix */
+        .skills-section {
+            padding: 100px 50px;
+            background: radial-gradient(ellipse at center, rgba(255, 0, 110, 0.1) 0%, transparent 70%);
+        }
+
+        .skills-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .skill-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            transform: translateY(50px);
+            opacity: 0;
+            transition: all 0.8s ease;
+        }
+
+        .skill-card.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, var(--primary), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
+            opacity: 0;
+        }
+
+        .skill-card:hover::before {
+            animation: shine 0.5s ease;
+        }
+
+        @keyframes shine {
+            0% {
+                top: -50%;
+                left: -50%;
+                opacity: 0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                top: 150%;
+                left: 150%;
+                opacity: 0;
+            }
+        }
+
+        .skill-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .skill-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .skill-level {
+            font-size: 2rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .skill-bar-container {
+            position: relative;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .skill-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+            border-radius: 10px;
+            transform-origin: left;
+            transform: scaleX(0);
+            transition: transform 1.5s ease;
+        }
+
+        .skill-card.visible .skill-bar {
+            transform: scaleX(var(--progress));
+        }
+
+        /* Projects Showcase */
+        .projects-section {
+            padding: 100px 50px;
+            background: linear-gradient(180deg, transparent 0%, rgba(255, 190, 11, 0.05) 100%);
+        }
+
+        .projects-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .project-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            transform: translateY(50px);
+            opacity: 0;
+        }
+
+        .project-card.visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 255, 204, 0.1) 0%, rgba(255, 0, 110, 0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .project-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .project-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .project-card p {
+            opacity: 0.8;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 100px 50px;
+            text-align: center;
+            background: radial-gradient(ellipse at center, rgba(0, 255, 204, 0.1) 0%, transparent 70%);
+        }
+
+        .contact-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-title {
+            font-size: 3rem;
             margin-bottom: 30px;
-            font-weight: 300;
+            background: linear-gradient(45deg, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .contact-subtitle {
+            font-size: 1.3rem;
+            opacity: 0.8;
+            margin-bottom: 50px;
         }
 
         .contact-links {
@@ -62,262 +716,85 @@
             flex-wrap: wrap;
         }
 
-        .contact-links a {
-            color: #ffffff;
-            text-decoration: none;
-            padding: 12px 24px;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-radius: 25px;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(5px);
-            background: rgba(255,255,255,0.1);
-        }
-
-        .contact-links a:hover {
-            background: rgba(255,255,255,0.2);
-            border-color: #4ecdc4;
-            transform: translateY(-2px);
-        }
-
-        /* Education Banner */
-        .education-section {
-            margin: 40px 0;
-        }
-
-        .education-card {
-            background: rgba(212, 175, 55, 0.95);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 30px;
+        .contact-link {
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 25px;
-            color: #000;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-        }
-
-        .education-card img {
-            width: 80px;
-            height: 80px;
-            border-radius: 10px;
-        }
-
-        .education-info h3 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-
-        .education-info p {
-            font-size: 1rem;
-            opacity: 0.8;
-        }
-
-        /* Section Styling */
-        .section {
-            margin: 60px 0;
-        }
-
-        .section h2 {
-            font-size: 2.5rem;
-            text-align: center;
-            margin-bottom: 40px;
-            color: #ffffff;
-            font-weight: 600;
-        }
-
-        /* Experience Cards */
-        .experience-grid {
-            display: grid;
-            gap: 25px;
-        }
-
-        .experience-card {
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(15px);
-            border-radius: 20px;
-            padding: 30px;
-            border: 1px solid rgba(255,255,255,0.2);
-            transition: all 0.3s ease;
-        }
-
-        .experience-card:hover {
-            transform: translateY(-5px);
-            background: rgba(255,255,255,0.15);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
-        }
-
-        .experience-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 15px;
-            flex-wrap: wrap;
             gap: 10px;
-        }
-
-        .experience-header h3 {
-            font-size: 1.3rem;
-            color: #4ecdc4;
-            font-weight: 600;
-        }
-
-        .experience-date {
-            font-size: 0.9rem;
-            color: #b0b0b0;
-            font-style: italic;
-        }
-
-        .experience-card ul {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .experience-card li {
-            margin-bottom: 10px;
-            padding-left: 20px;
+            padding: 15px 30px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            text-decoration: none;
+            color: var(--light);
+            transition: all 0.3s ease;
             position: relative;
-        }
-
-        .experience-card li:before {
-            content: "→";
-            position: absolute;
-            left: 0;
-            color: #4ecdc4;
-            font-weight: bold;
-        }
-
-        /* Skills Section */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        .skill-item {
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 20px;
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-
-        .skill-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
-
-        .skill-name {
-            font-weight: 600;
-            color: #ffffff;
-        }
-
-        .skill-percentage {
-            color: #4ecdc4;
-            font-weight: 600;
-        }
-
-        .skill-bar {
-            background: rgba(255,255,255,0.2);
-            border-radius: 10px;
-            height: 8px;
             overflow: hidden;
         }
 
-        .skill-progress {
-            height: 100%;
-            background: linear-gradient(90deg, #4ecdc4, #44a08d);
-            border-radius: 10px;
-            transition: width 2s ease-in-out;
+        .contact-link::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+            transition: all 0.5s ease;
+            transform: translate(-50%, -50%);
         }
 
-        /* Projects Grid */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
+        .contact-link:hover::before {
+            width: 300px;
+            height: 300px;
         }
 
-        .project-card {
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(15px);
-            border-radius: 20px;
-            padding: 25px;
-            border: 1px solid rgba(255,255,255,0.2);
-            transition: all 0.3s ease;
-        }
-
-        .project-card:hover {
+        .contact-link:hover {
             transform: translateY(-5px);
-            background: rgba(255,255,255,0.15);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+            box-shadow: 0 20px 40px rgba(0, 255, 204, 0.3);
         }
 
-        .project-card h3 {
-            color: #ff6b6b;
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-            font-weight: 600;
-        }
-
-        .project-card p {
-            color: #e0e0e0;
-            line-height: 1.6;
+        .contact-link span {
+            position: relative;
+            z-index: 1;
         }
 
         /* Footer */
         footer {
-            background: rgba(0,0,0,0.5);
-            backdrop-filter: blur(10px);
-            padding: 40px 0;
+            padding: 40px 50px;
+            background: rgba(10, 10, 10, 0.8);
             text-align: center;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            margin-top: 60px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        footer p {
-            color: #b0b0b0;
-            font-size: 1rem;
+        .footer-text {
+            opacity: 0.7;
+            margin-bottom: 20px;
         }
 
-        footer a {
-            color: #4ecdc4;
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-decoration: none;
-            transition: color 0.3s ease;
+            color: var(--light);
+            transition: all 0.3s ease;
         }
 
-        footer a:hover {
-            color: #ffffff;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .hero-content h1 {
-                font-size: 2.5rem;
-            }
-
-            .education-card {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .experience-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .contact-links {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .section h2 {
-                font-size: 2rem;
-            }
+        .social-link:hover {
+            background: var(--primary);
+            transform: translateY(-5px);
+            color: var(--dark);
         }
 
         /* Animations */
@@ -332,181 +809,532 @@
             }
         }
 
-        .section {
-            animation: fadeInUp 0.8s ease-out;
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .glitch {
+                font-size: 3rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .berkeley-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 40px 20px;
+            }
+
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-item {
+                padding-left: 60px !important;
+                padding-right: 20px !important;
+                text-align: left !important;
+            }
+
+            .timeline-dot {
+                left: 30px !important;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Easter Egg */
+        .konami {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 5rem;
+            z-index: 10000;
+            animation: rainbow 2s linear infinite;
+            display: none;
+        }
+
+        @keyframes rainbow {
+            0% { color: #ff0000; }
+            17% { color: #ff8800; }
+            33% { color: #ffff00; }
+            50% { color: #00ff00; }
+            67% { color: #0088ff; }
+            83% { color: #8800ff; }
+            100% { color: #ff0000; }
         }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <div class="hero-content">
-                <h1>Peter Wang</h1>
-                <p class="subtitle">Computer Science Student | SoC Architecture Intern | ML Engineer</p>
-                <div class="contact-links">
-                    <a href="mailto:pjwang2324@berkeley.edu">Email</a>
-                    <a href="https://www.linkedin.com/in/peterwang-eecs/" target="_blank">LinkedIn</a>
-                    <a href="https://github.com/pjwang24" target="_blank">GitHub</a>
-                    <a href="https://github.com/pjwang24/pjwang24.github.io/blob/main/Peter%20Wang%20Resume.pdf" target="_blank">Resume</a>
-                </div>
-            </div>
-        </div>
-    </header>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-follower"></div>
 
-    <div class="container">
-        <!-- Education Section -->
-        <section class="education-section">
-            <div class="education-card">
-                <img src="https://github.com/pjwang24/pjwang24.github.io/blob/main/logo-variations-thumbnail-gold-blue.png?raw=true" alt="UC Berkeley Logo">
-                <div class="education-info">
-                    <h3>University of California, Berkeley</h3>
-                    <p>B.S. Computer Science, Minor in Electrical Engineering</p>
-                    <p>2025 Jim & Donna Gray Endowment Award Recipient</p>
-                </div>
-            </div>
-        </section>
+    <!-- Particle Background -->
+    <canvas id="particles-canvas"></canvas>
 
-        <!-- Experience Section -->
-        <section class="section">
-            <h2>Experience</h2>
-            <div class="experience-grid">
-                <div class="experience-card">
-                    <div class="experience-header">
-                        <h3>SoC Architecture Intern | Arm</h3>
-                        <span class="experience-date">May 2025 - Aug 2025</span>
-                    </div>
-                    <ul>
-                        <li>Frontend, ASIC, RTL analysis</li>
-                    </ul>
-                </div>
-
-                <div class="experience-card">
-                    <div class="experience-header">
-                        <h3>Computer Science Peer Advisor | UC Berkeley</h3>
-                        <span class="experience-date">Aug 2024 - Present</span>
-                    </div>
-                    <ul>
-                        <li>First official hire as a peer advisor for the EECS department</li>
-                    </ul>
-                </div>
-
-                <div class="experience-card">
-                    <div class="experience-header">
-                        <h3>AI/ML Intern | Honda Research Institute</h3>
-                        <span class="experience-date">Jan 2024 - May 2024</span>
-                    </div>
-                    <ul>
-                        <li>Applied L2 Ridge Regression to address multicollinearity in telematics data</li>
-                        <li>Utilized K-Means clustering to analyze driving patterns and reduce congestion</li>
-                        <li>Conducted exploratory data analysis with NumPy and SciPy, identifying key energy inefficiencies</li>
-                    </ul>
-                </div>
-                <div class="experience-card">
-                    <div class="experience-header">
-                        <h3>Machine Learning Engineer | IEEE</h3>
-                        <span class="experience-date">Aug 2020 - Jun 2022</span>
-                    </div>
-                    <ul>
-                        <li>Published research paper "Finger-Vein Recognition using NASNet with a Cutout" in 2021 ISPACS, IEEE</li>
-                        <li>Designed Python ML models using NAS framework (Gradient-based Optimization)</li>
-                        <li>Utilized CUDA for parallelized training, reducing model training time by 36%</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- Skills Section -->
-        <section class="section">
-            <h2>Technical Skills</h2>
-            <div class="skills-grid">
-                <div class="skill-item">
-                    <div class="skill-header">
-                        <span class="skill-name">Python</span>
-                        <span class="skill-percentage">75%</span>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 75%;"></div>
-                    </div>
-                </div>
-
-                <div class="skill-item">
-                    <div class="skill-header">
-                        <span class="skill-name">Java</span>
-                        <span class="skill-percentage">65%</span>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 65%;"></div>
-                    </div>
-                </div>
-
-                <div class="skill-item">
-                    <div class="skill-header">
-                        <span class="skill-name">C/C++</span>
-                        <span class="skill-percentage">60%</span>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 60%;"></div>
-                    </div>
-                </div>
-
-                <div class="skill-item">
-                    <div class="skill-header">
-                        <span class="skill-name">SQL</span>
-                        <span class="skill-percentage">65%</span>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 65%;"></div>
-                    </div>
-                </div>
-
-                <div class="skill-item">
-                    <div class="skill-header">
-                        <span class="skill-name">Shell/Bash/Vim</span>
-                        <span class="skill-percentage">55%</span>
-                    </div>
-                    <div class="skill-bar">
-                        <div class="skill-progress" style="width: 55%;"></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Projects Section -->
-        <section class="section">
-            <h2>Featured Projects</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <h3>CPU Design & Implementation</h3>
-                    <p>Developed a RISC-V CPU in Logisim, including ALU, register files, and instruction types. Tested with custom RISC-V assembly tests for comprehensive functionality validation.</p>
-                </div>
-
-                <div class="project-card">
-                    <h3>MOSFET Amplifier Design</h3>
-                    <p>Designed a common-source amplifier, simulating voltage gain and frequency response using LTSpice for optimal performance characteristics.</p>
-                </div>
-
-                <div class="project-card">
-                    <h3>AWS Trainium Accelerator Kernel</h3>
-                    <p>Programmed feedforward neural network (FFNN) and 2D convolution (Conv2D) kernels on AWS Trainium hardware using the Neuron Kernel Interface (NKI) in Python.</p>
-                </div>
-                
-                <div class="project-card">
-                    <h3>Branch Predictor Design</h3>
-                    <p>Implemented a perceptron predictor using weighted history, reducing misprediction by ~13% (e.g., QSort: 0.176 to 0.153) in synthetic correlated-branch tests.</p>
-                </div>
-
-                <div class="project-card">
-                    <h3>Cache System Analysis</h3>
-                    <p>Tested prefetching strategies such as adaptive prefetching, optimizing spatial and temporal locality.</p>
-                </div>
-            </div>
-        </section>
+    <!-- Loading Screen -->
+    <div class="loader">
+        <div class="loader-text">PW</div>
     </div>
 
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-content">
+            <div class="logo">PW</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="floating-shapes">
+            <div class="shape"></div>
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+        <div class="hero-content">
+            <h1 class="glitch" data-text="PETER WANG">PETER WANG</h1>
+            <p class="hero-subtitle">Computer Science Visionary | Hardware Architect | ML Pioneer</p>
+            <div class="hero-buttons">
+                <a href="#contact" class="btn">Let's Connect</a>
+                <a href="https://github.com/pjwang24/pjwang24.github.io/blob/main/Peter%20Wang%20Resume.pdf" target="_blank" class="btn btn-outline">View Resume</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Berkeley Section -->
+    <section class="berkeley-section" id="education">
+        <div class="berkeley-card">
+            <img src="https://github.com/pjwang24/pjwang24.github.io/blob/main/logo-variations-thumbnail-gold-blue.png?raw=true" alt="UC Berkeley" class="berkeley-logo">
+            <div class="berkeley-info">
+                <h3>UC Berkeley</h3>
+                <p>B.S. Computer Science | Minor in Electrical Engineering</p>
+                <p class="award">2025 Jim & Donna Gray Endowment Award Recipient</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Timeline -->
+    <section class="experience-section" id="experience">
+        <h2 class="section-title">Experience Journey</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h3>SoC Architecture Intern</h3>
+                    <p class="timeline-date">Arm | May 2025 - Aug 2025</p>
+                    <ul>
+                        <li>Frontend, ASIC, RTL analysis</li>
+                        <li>Cutting-edge chip architecture development</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h3>CS Peer Advisor</h3>
+                    <p class="timeline-date">UC Berkeley | Aug 2024 - Present</p>
+                    <ul>
+                        <li>First official hire as peer advisor for EECS</li>
+                        <li>Mentoring next generation of engineers</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h3>AI/ML Intern</h3>
+                    <p class="timeline-date">Honda Research Institute | Jan 2024 - May 2024</p>
+                    <ul>
+                        <li>L2 Ridge Regression for telematics data</li>
+                        <li>K-Means clustering for traffic optimization</li>
+                        <li>Identified critical energy inefficiencies</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <h3>Machine Learning Engineer</h3>
+                    <p class="timeline-date">IEEE | Aug 2020 - Jun 2022</p>
+                    <ul>
+                        <li>Published research in 2021 ISPACS, IEEE</li>
+                        <li>NAS framework with gradient optimization</li>
+                        <li>36% training time reduction with CUDA</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="skills-section" id="skills">
+        <h2 class="section-title">Technical Arsenal</h2>
+        <div class="skills-container">
+            <div class="skill-card">
+                <div class="skill-header">
+                    <span class="skill-name">Python</span>
+                    <span class="skill-level">75%</span>
+                </div>
+                <div class="skill-bar-container">
+                    <div class="skill-bar" style="--progress: 0.75;"></div>
+                </div>
+            </div>
+            <div class="skill-card">
+                <div class="skill-header">
+                    <span class="skill-name">Java</span>
+                    <span class="skill-level">65%</span>
+                </div>
+                <div class="skill-bar-container">
+                    <div class="skill-bar" style="--progress: 0.65;"></div>
+                </div>
+            </div>
+            <div class="skill-card">
+                <div class="skill-header">
+                    <span class="skill-name">C/C++</span>
+                    <span class="skill-level">60%</span>
+                </div>
+                <div class="skill-bar-container">
+                    <div class="skill-bar" style="--progress: 0.60;"></div>
+                </div>
+            </div>
+            <div class="skill-card">
+                <div class="skill-header">
+                    <span class="skill-name">SQL</span>
+                    <span class="skill-level">65%</span>
+                </div>
+                <div class="skill-bar-container">
+                    <div class="skill-bar" style="--progress: 0.65;"></div>
+                </div>
+            </div>
+            <div class="skill-card">
+                <div class="skill-header">
+                    <span class="skill-name">Shell/Bash/Vim</span>
+                    <span class="skill-level">55%</span>
+                </div>
+                <div class="skill-bar-container">
+                    <div class="skill-bar" style="--progress: 0.55;"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects-section" id="projects">
+        <h2 class="section-title">Innovation Showcase</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-icon">🔧</div>
+                <h3>CPU Design & Implementation</h3>
+                <p>Architected a complete RISC-V CPU in Logisim with custom ALU, register files, and comprehensive instruction set validation.</p>
+            </div>
+            <div class="project-card">
+                <div class="project-icon">⚡</div>
+                <h3>MOSFET Amplifier Design</h3>
+                <p>Engineered high-performance common-source amplifier with optimized frequency response characteristics using LTSpice simulations.</p>
+            </div>
+            <div class="project-card">
+                <div class="project-icon">🧠</div>
+                <h3>AWS Trainium Accelerator</h3>
+                <p>Developed cutting-edge FFNN and Conv2D kernels on AWS Trainium using NKI, pushing boundaries of ML hardware acceleration.</p>
+            </div>
+            <div class="project-card">
+                <div class="project-icon">🎯</div>
+                <h3>Branch Predictor Design</h3>
+                <p>Revolutionary perceptron predictor achieving 13% misprediction reduction through advanced weighted history analysis.</p>
+            </div>
+            <div class="project-card">
+                <div class="project-icon">💾</div>
+                <h3>Cache System Analysis</h3>
+                <p>Optimized prefetching strategies with adaptive algorithms, maximizing spatial and temporal locality performance.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="contact-content">
+            <h2 class="contact-title">Let's Build Something Amazing</h2>
+            <p class="contact-subtitle">Ready to push the boundaries of technology together?</p>
+            <div class="contact-links">
+                <a href="mailto:pjwang2324@berkeley.edu" class="contact-link">
+                    <span>📧 Email Me</span>
+                </a>
+                <a href="https://www.linkedin.com/in/peterwang-eecs/" target="_blank" class="contact-link">
+                    <span>💼 LinkedIn</span>
+                </a>
+                <a href="https://github.com/pjwang24" target="_blank" class="contact-link">
+                    <span>💻 GitHub</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer>
-        <div class="container">
-            <p>Let's connect! Reach out at <a href="mailto:pjwang2324@berkeley.edu">pjwang2324@berkeley.edu</a> or connect on <a href="https://www.linkedin.com/in/peterwang-eecs/" target="_blank">LinkedIn</a></p>
+        <p class="footer-text">Crafted with passion by Peter Wang © 2025</p>
+        <div class="social-links">
+            <a href="https://www.linkedin.com/in/peterwang-eecs/" target="_blank" class="social-link">in</a>
+            <a href="https://github.com/pjwang24" target="_blank" class="social-link">gh</a>
+            <a href="mailto:pjwang2324@berkeley.edu" class="social-link">@</a>
         </div>
     </footer>
+
+    <!-- Konami Code Easter Egg -->
+    <div class="konami">🚀 ACHIEVEMENT UNLOCKED! 🚀</div>
+
+    <script>
+        // Particle Background
+        const canvas = document.getElementById('particles-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 0.5;
+                this.speedX = Math.random() * 2 - 1;
+                this.speedY = Math.random() * 2 - 1;
+                this.color = `hsl(${Math.random() * 60 + 160}, 100%, 50%)`;
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.y = canvas.height;
+            }
+
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function createParticles() {
+            for (let i = 0; i < 100; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+
+            // Connect particles
+            particles.forEach((a, i) => {
+                particles.slice(i + 1).forEach(b => {
+                    const dx = a.x - b.x;
+                    const dy = a.y - b.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+
+                    if (distance < 100) {
+                        ctx.strokeStyle = `rgba(0, 255, 204, ${1 - distance / 100})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.beginPath();
+                        ctx.moveTo(a.x, a.y);
+                        ctx.lineTo(b.x, b.y);
+                        ctx.stroke();
+                    }
+                });
+            });
+
+            requestAnimationFrame(animateParticles);
+        }
+
+        // Custom Cursor
+        const cursor = document.querySelector('.cursor');
+        const cursorFollower = document.querySelector('.cursor-follower');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            
+            setTimeout(() => {
+                cursorFollower.style.left = e.clientX + 'px';
+                cursorFollower.style.top = e.clientY + 'px';
+            }, 100);
+        });
+
+        // Loader
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.querySelector('.loader').classList.add('hidden');
+            }, 1500);
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.berkeley-card, .timeline-item, .skill-card, .project-card').forEach(el => {
+                observer.observe(el);
+            });
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Konami Code Easter Egg
+        let konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+        let konamiIndex = 0;
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === konamiCode[konamiIndex]) {
+                konamiIndex++;
+                if (konamiIndex === konamiCode.length) {
+                    document.querySelector('.konami').style.display = 'block';
+                    setTimeout(() => {
+                        document.querySelector('.konami').style.display = 'none';
+                    }, 3000);
+                    konamiIndex = 0;
+                }
+            } else {
+                konamiIndex = 0;
+            }
+        });
+
+        // Initialize
+        resizeCanvas();
+        createParticles();
+        animateParticles();
+
+        window.addEventListener('resize', resizeCanvas);
+
+        // Hover effects for skill cards
+        document.querySelectorAll('.skill-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.background = 'rgba(255, 255, 255, 0.08)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.background = 'rgba(255, 255, 255, 0.05)';
+            });
+        });
+
+        // Dynamic typing effect for hero subtitle
+        const subtitle = document.querySelector('.hero-subtitle');
+        const subtitleText = subtitle.textContent;
+        subtitle.textContent = '';
+        let charIndex = 0;
+
+        function typeWriter() {
+            if (charIndex < subtitleText.length) {
+                subtitle.textContent += subtitleText.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeWriter, 50);
+            }
+        }
+
+        setTimeout(typeWriter, 2000);
+
+        // Parallax effect for shapes
+        document.addEventListener('mousemove', (e) => {
+            const shapes = document.querySelectorAll('.shape');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+
+            shapes.forEach((shape, index) => {
+                const speed = (index + 1) * 20;
+                shape.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
+            });
+        });
+
+        // Add pulsing effect to contact links on scroll
+        const contactSection = document.querySelector('.contact-section');
+        const contactObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    document.querySelectorAll('.contact-link').forEach((link, index) => {
+                        setTimeout(() => {
+                            link.style.animation = 'pulse 2s ease-in-out infinite';
+                        }, index * 200);
+                    });
+                }
+            });
+        }, { threshold: 0.5 });
+
+        contactObserver.observe(contactSection);
+
+        // Performance optimization - throttle scroll events
+        let ticking = false;
+        function updateOnScroll() {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    // Update animations based on scroll
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }
+        window.addEventListener('scroll', updateOnScroll);
+    </script>
 </body>
 </html>
