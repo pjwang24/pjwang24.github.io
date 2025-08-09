@@ -2,15 +2,15 @@
 <html lang="en" class="scroll-smooth">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1"  />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Peter Wang — EECS @ UC Berkeley</title>
   <meta name="description" content="Peter Wang — UC Berkeley EECS. AI/ML × Computer Architecture. SoC architecture intern at Arm. Research on ML accelerators, ASIC design, and protocol intelligence." />
   <meta name="theme-color" content="#0ea5e9" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%230ea5e9' d='M32 6l12 21H20L32 6zm0 52L20 37h24L32 58z'/%3E%3C/svg%3E"/>
 
   <!-- Open Graph / Twitter -->
-  <meta property="og:title" content="Peter Wang — CS @ UC Berkeley"/>
-  <meta property="og:description" content="AI/ML × Computer Architecture. SoC Architecture @ Arm. Research on ML accelerators, ASIC design, and connectivity analysis." />
+  <meta property="og:title" content="Peter Wang — EECS @ UC Berkeley" />
+  <meta property="og:description" content="AI/ML × Computer Architecture. SoC Architecture @ Arm. Research on ML accelerators, ASIC design, and protocol intelligence." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://pjwang24.github.io/" />
   <meta name="twitter:card" content="summary_large_image" />
@@ -25,9 +25,19 @@
           boxShadow: { soft: "0 10px 25px -10px rgba(0,0,0,0.2)" },
           keyframes: {
             floaty: { '0%,100%': { transform:'translateY(0)' }, '50%': { transform:'translateY(-8px)' } },
-            shimmer: { '0%': { backgroundPosition:'0% 50%' }, '100%': { backgroundPosition:'200% 50%' } }
+            shimmer: { '0%': { backgroundPosition:'0% 50%' }, '100%': { backgroundPosition:'200% 50%' } },
+            bgpan: { '0%': { backgroundPosition:'0% 50%' }, '100%': { backgroundPosition:'200% 50%' } },
+            spark: {
+              '0%,100%': { opacity: .25, transform: 'translate(-50%, -50%) scale(0.95)' },
+              '50%': { opacity: 1, transform: 'translate(-50%, -50%) scale(1.1)' }
+            }
           },
-          animation: { floaty:'floaty 6s ease-in-out infinite', shimmer:'shimmer 8s linear infinite' },
+          animation: {
+            floaty:'floaty 6s ease-in-out infinite',
+            shimmer:'shimmer 8s linear infinite',
+            bgpan:'bgpan 6s linear infinite',
+            spark:'spark 1.8s ease-in-out infinite'
+          },
           backgroundImage: {
             mesh: 'radial-gradient(40% 60% at 20% 20%, rgba(14,165,233,.35), transparent 60%), radial-gradient(35% 55% at 80% 30%, rgba(99,102,241,.35), transparent 60%), radial-gradient(50% 50% at 50% 85%, rgba(16,185,129,.35), transparent 60%)'
           }
@@ -57,13 +67,25 @@
   </script>
 </head>
 <body class="bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100 selection:bg-sky-200/60 selection:text-slate-900">
+  <!-- Loader Overlay -->
+  <div id="loader" role="status" aria-live="polite" class="fixed inset-0 z-[100] grid place-items-center bg-white transition-opacity duration-700">
+    <div class="relative select-none">
+      <div class="text-5xl md:text-7xl font-extrabold tracking-tight text-black">Peter Wang</div>
+      <!-- central sparkle -->
+      <div aria-hidden="true" class="absolute left-1/2 top-1/2 h-28 w-28 -translate-x-1/2 -translate-y-1/2 rounded-full animate-spark"
+           style="background: radial-gradient(closest-side, rgba(255,255,255,0.95), rgba(255,255,255,0.6), rgba(255,255,255,0) 70%); filter: blur(6px);"></div>
+    </div>
+    <span class="sr-only">Loading</span>
+  </div>
+  <!-- App wrapper for smooth reveal -->
+  <div id="app" class="opacity-0 transition-opacity duration-700 will-change-[opacity]">
   <!-- Floating mesh background -->
   <div aria-hidden="true" class="pointer-events-none fixed inset-0 -z-10 bg-mesh blur-2xl opacity-70 dark:opacity-60"></div>
 
   <!-- Header -->
   <header class="sticky top-0 z-50 backdrop-blur border-b border-slate-200/50 dark:border-slate-800/50 bg-white/70 dark:bg-slate-950/60">
     <div class="max-w-6xl mx-auto px-4 py-3 flex items-center gap-4">
-      <a href="#top" class="font-semibold tracking-tight">Peter Wang</a>
+      <a href="#top" class="font-semibold tracking-tight text-sm md:text-base text-black dark:text-white">Peter Wang</a>
       <nav class="ml-auto hidden md:flex gap-6 text-sm">
         <a class="hover:text-sky-600" href="#thesis">Thesis</a>
         <a class="hover:text-sky-600" href="#experience">Experience</a>
@@ -102,7 +124,7 @@
         <ul class="space-y-2 text-sm leading-relaxed">
           <li>⚙️ SoC Architecture intern at <a class="text-sky-600 hover:underline" href="https://www.arm.com/products/neoverse-compute-subsystems/css-v3" target="_blank" rel="noopener">Arm (Neoverse CSS)</a>.</li>
           <li>🧠 Researching sparse tensor accelerators (Zebra) at Berkeley SLICE Lab.</li>
-          <li>🎓 B.S. Computer Science, Minor in EECS — May 2026.</li>
+          <li>🎓 B.S. Computer Science, Minor in EE — May 2026.</li>
         </ul>
       </aside>
     </div>
@@ -127,6 +149,43 @@
       <article class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 bg-white/70 dark:bg-slate-900/50 shadow-soft">
         <h3 class="font-semibold">RAG for EDA</h3>
         <p class="mt-2">Retrieval‑augmented tools over specs, netlists, and logs to slash bring‑up/debug time and capture tribal knowledge in repeatable workflows.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- Case Studies (visual storytelling) -->
+  <section id="cases" class="reveal max-w-6xl mx-auto px-4 py-12 border-t border-slate-200/60 dark:border-slate-800/60">
+    <h2 class="text-2xl md:text-3xl font-bold mb-6">Case studies</h2>
+    <div class="grid md:grid-cols-2 gap-6">
+      <!-- Arm Protocol Intelligence -->
+      <article class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 bg-white/70 dark:bg-slate-900/50 shadow-soft">
+        <header class="flex items-center justify-between gap-2">
+          <h3 class="font-semibold">Arm — Protocol intelligence for SoC timing</h3>
+          <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800">SoC · AXI/CHI/APB</span>
+        </header>
+        <figure class="mt-3 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900">
+          <img loading="lazy" alt="Protocol map diagram" class="w-full aspect-[16/9] object-cover cursor-zoom-in" data-modal-src src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' width='1200' height='675'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop stop-color='%230ea5e9' offset='0'/><stop stop-color='%236364f1' offset='1'/></linearGradient></defs><rect width='100%' height='100%' fill='%230b1220'/><g fill='none' stroke='url(%23g)' stroke-width='3' opacity='.9'><rect x='80' y='80' width='300' height='200' rx='18'/><rect x='820' y='120' width='300' height='160' rx='18'/><rect x='500' y='380' width='260' height='170' rx='18'/><path d='M380 180 C 480 200, 780 170, 820 200'/><path d='M380 220 C 480 260, 560 380, 500 430'/><path d='M1060 200 C 900 260, 720 420, 760 470'/></g><g fill='%23cbd5e1' font-size='28' font-family='Inter,Arial'><text x='110' y='190'>Compute Subsystem</text><text x='860' y='210'>CHI Fabric</text><text x='530' y='470'>AXI Cluster</text></g></svg>" />
+        </figure>
+        <ul class="mt-4 list-disc pl-5 text-sm space-y-2">
+          <li>Summarized IP‑level protocols and fabrics → guided pipeline insertion & partitioning.</li>
+          <li>Bridged logical names to die coordinates to reason about floorplan‑aware timing.</li>
+          <li>Delivered checks PD/CAD could run as part of STA iterations.</li>
+        </ul>
+      </article>
+      <!-- Zebra Accelerator -->
+      <article class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 bg-white/70 dark:bg-slate-900/50 shadow-soft">
+        <header class="flex items-center justify-between gap-2">
+          <h3 class="font-semibold">Zebra — Sparse tensor accelerator</h3>
+          <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800">RTL · Systolic</span>
+        </header>
+        <figure class="mt-3 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900">
+          <img loading="lazy" alt="Systolic array sketch" class="w-full aspect-[16/9] object-cover cursor-zoom-in" data-modal-src src="data:image/svg+xml;utf8,<?xml version='1.0' encoding='UTF-8'?><svg xmlns='http://www.w3.org/2000/svg' width='1200' height='675'><rect width='100%' height='100%' fill='%230b1220'/><g stroke='%2316a34a' stroke-width='2' fill='none'>%3C!-- grid --%3E<g opacity='.6'>${'<rect x="'+(100)+'" y="'+(100)+'" width="'+(40)+'" height="'+(40)+'" rx="6"/>'.repeat(1)}</g></g><g fill='%23cbd5e1' font-size='28' font-family='Inter,Arial'><text x='70' y='70'>PE mesh with flexible microcode & sparse loaders</text></g><g stroke='%23eab308' stroke-width='3'><path d='M120 140 h 960'/><path d='M120 200 h 960'/><path d='M120 260 h 960'/></g></svg>" />
+        </figure>
+        <ul class="mt-4 list-disc pl-5 text-sm space-y-2">
+          <li>PEs support sparse dataflows and non‑MAC ops with minimal control overhead.</li>
+          <li>Functional + RTL models; simple scheduling that stays robust under sparsity.</li>
+          <li>Designed for clean integration into existing SoC memory systems.</li>
+        </ul>
       </article>
     </div>
   </section>
@@ -191,11 +250,11 @@
       </article>
       <article class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 bg-white/70 dark:bg-slate-900/50 shadow-soft">
         <h3 class="font-semibold">RAG for EDA knowledge</h3>
-        <p class="mt-2">Search over specs, netlists, and logs with context, helping engineers answer “why does this block do that?” in minutes instead of hours.</p>
+        <p class="mt-2">Search over specs, netlists, and logs with context — helps new engineers answer “why does this block do that?” in minutes instead of hours.</p>
       </article>
       <article class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 bg-white/70 dark:bg-slate-900/50 shadow-soft">
         <h3 class="font-semibold">Clean RTL → easier STA</h3>
-        <p class="mt-2">3‑stage RISC‑V core with hazard handling and sane interfaces. The point isn’t novelty, it’s a codebase PD can actually close.</p>
+        <p class="mt-2">3‑stage RISC‑V core with hazard handling and sane interfaces. The point isn’t novelty — it’s a codebase PD can actually close.</p>
       </article>
     </div>
   </section>
@@ -291,7 +350,8 @@
       <a class="hover:text-sky-600" href="#top">Back to top ↑</a>
     </div>
   </footer>
-
+  </div>
+  <!-- /#app -->
   <!-- Command Palette -->
   <div id="palette" class="hidden fixed inset-0 z-[60] items-start justify-center p-4">
     <div class="absolute inset-0 bg-black/50" data-close></div>
@@ -305,6 +365,23 @@
 
   <!-- Utilities -->
   <script>
+    // Loader fade-out with safety timeout & reduced-motion awareness
+    const loader = document.getElementById('loader');
+    const app = document.getElementById('app');
+    const hideLoader = () => {
+      if (!loader) return;
+      loader.style.opacity = '0';
+      // reveal app smoothly just before removing loader
+      app && app.classList.remove('opacity-0');
+      setTimeout(()=> loader.remove(), 750);
+    };
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const logo = loader?.querySelector('[aria-hidden]');
+      logo && logo.classList.remove('animate-spark');
+    }
+    window.addEventListener('load', hideLoader);
+    setTimeout(hideLoader, 2500);
+
     // Year
     document.getElementById('y').textContent = new Date().getFullYear();
 
@@ -399,6 +476,15 @@
       })
     }, {rootMargin:'-40% 0px -59% 0px', threshold:0});
     sections.forEach(s => s && obs.observe(s));
+      
+    // Image modal logic
+    const modal = document.getElementById('imgModal');
+    const modalImg = document.getElementById('imgModalImg');
+    document.querySelectorAll('[data-modal-src]').forEach(img => {
+      img.addEventListener('click', ()=>{ modalImg.src = img.getAttribute('src'); modal.classList.remove('hidden'); });
+    });
+    modal?.addEventListener('click', (e)=>{ if(e.target.hasAttribute('data-close')) modal.classList.add('hidden'); });
+    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') modal.classList.add('hidden'); });
   </script>
 </body>
 </html>
