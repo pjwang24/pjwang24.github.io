@@ -7,13 +7,12 @@
   <meta name="description" content="Peter Wang — UC Berkeley EECS. AI/ML × Computer Architecture. SoC architecture intern at Arm. Research on ML accelerators, ASIC design, and protocol intelligence." />
   <meta name="theme-color" content="#0ea5e9" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%230ea5e9' d='M32 6l12 21H20L32 6zm0 52L20 37h24L32 58z'/%3E%3C/svg%3E"/>
-  
+
   <!-- Open Graph / Twitter -->
   <meta property="og:title" content="Peter Wang — EECS @ UC Berkeley" />
   <meta property="og:description" content="AI/ML × Computer Architecture. SoC Architecture @ Arm. Research on ML accelerators, ASIC design, and protocol intelligence." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://pjwang24.github.io/" />
-  <meta property="og:image" content="https://avatars.githubusercontent.com/u/000000?v=4" />
   <meta name="twitter:card" content="summary_large_image" />
 
   <!-- Tailwind via CDN -->
@@ -26,7 +25,7 @@
           boxShadow: { soft: "0 10px 25px -10px rgba(0,0,0,0.2)" },
           keyframes: {
             floaty: { '0%,100%': { transform:'translateY(0)' }, '50%': { transform:'translateY(-8px)' } },
-            shimmer: { '0%': { backgroundPosition:'0% 50%' }, '100%': { backgroundPosition:'200% 50%' } },
+            shimmer: { '0%': { backgroundPosition:'0% 50%' }, '100%': { backgroundPosition:'200% 50%' } }
           },
           animation: { floaty:'floaty 6s ease-in-out infinite', shimmer:'shimmer 8s linear infinite' },
           backgroundImage: {
@@ -66,6 +65,7 @@
     <div class="max-w-6xl mx-auto px-4 py-3 flex items-center gap-4">
       <a href="#top" class="font-semibold tracking-tight">Peter Wang</a>
       <nav class="ml-auto hidden md:flex gap-6 text-sm">
+        <a class="hover:text-sky-600" href="#thesis">Thesis</a>
         <a class="hover:text-sky-600" href="#experience">Experience</a>
         <a class="hover:text-sky-600" href="#projects">Projects</a>
         <a class="hover:text-sky-600" href="#impact">Impact</a>
@@ -89,36 +89,45 @@
         <h1 class="text-3xl md:text-5xl font-bold leading-tight">
           Building at the edge of <span class="bg-gradient-to-r from-sky-500 via-indigo-500 to-emerald-500 bg-[length:200%_100%] bg-clip-text text-transparent animate-shimmer">Hardware × Intelligence</span>
         </h1>
-        <p class="mt-4 text-lg text-slate-600 dark:text-slate-300 max-w-2xl">I design systems that turn chaotic SoC connectivity into signal — protocol intelligence, ML accelerators, and elegant RTL that hits timing.</p>
+        <p class="mt-4 text-lg text-slate-600 dark:text-slate-300 max-w-2xl">I design systems that make silicon smarter: protocol intelligence for SoCs, sparse tensor accelerators, and RTL that closes timing without drama.</p>
         <div class="mt-6 flex flex-wrap gap-3">
-          <a class="rounded-xl px-4 py-2 bg-slate-900 text-white dark:bg-white dark:text-slate-900 hover:opacity-90 shadow-soft" href="/Peter%20Wang%20Resume.pdf" target="_blank" rel="noopener" download>Download Résumé</a>
+          <a class="rounded-xl px-4 py-2 bg-slate-900 text-white dark:bg-white dark:text-slate-900 hover:opacity-90 shadow-soft" href="https://pjwang24.github.io/Peter%20Wang%20Resume.pdf" target="_blank" rel="noopener" download>Download Résumé</a>
           <a class="rounded-xl px-4 py-2 border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-900" href="https://github.com/pjwang24" target="_blank" rel="noopener">GitHub</a>
           <a class="rounded-xl px-4 py-2 border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-900" href="https://www.linkedin.com/in/peterwang-eecs/" target="_blank" rel="noopener">LinkedIn</a>
           <button id="copyEmail" class="rounded-xl px-4 py-2 border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-900">Copy Email</button>
-        </div>
-        <div class="mt-6 grid grid-cols-3 gap-3 text-center">
-          <div class="rounded-2xl border border-slate-200 dark:border-slate-800 p-4 bg-white/60 dark:bg-slate-900/40 shadow-soft animate-floaty">
-            <div class="text-2xl font-bold">20M+</div>
-            <div class="text-xs text-slate-500">Pins Classified</div>
-          </div>
-          <div class="rounded-2xl border border-slate-200 dark:border-slate-800 p-4 bg-white/60 dark:bg-slate-900/40 shadow-soft animate-floaty [animation-delay:1s]">
-            <div class="text-2xl font-bold">85%</div>
-            <div class="text-xs text-slate-500">Peak RAM ↓</div>
-          </div>
-          <div class="rounded-2xl border border-slate-200 dark:border-slate-800 p-4 bg-white/60 dark:bg-slate-900/40 shadow-soft animate-floaty [animation-delay:2s]">
-            <div class="text-2xl font-bold">~15 min</div>
-            <div class="text-xs text-slate-500">SoC‑scale Inference</div>
-          </div>
         </div>
       </div>
       <aside class="md:col-span-1 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 bg-white/60 dark:bg-slate-900/40 shadow-soft">
         <h2 class="font-semibold mb-3">Currently</h2>
         <ul class="space-y-2 text-sm leading-relaxed">
           <li>⚙️ SoC Architecture intern at <a class="text-sky-600 hover:underline" href="https://www.arm.com/products/neoverse-compute-subsystems/css-v3" target="_blank" rel="noopener">Arm (Neoverse CSS)</a>.</li>
-          <li>🧠 Researching ML accelerators (Zebra) at Berkeley SLICE Lab.</li>
+          <li>🧠 Researching sparse tensor accelerators (Zebra) at Berkeley SLICE Lab.</li>
           <li>🎓 B.S. Computer Science, Minor in EE — May 2026.</li>
         </ul>
       </aside>
+    </div>
+  </section>
+
+  <!-- Thesis / What I Build -->
+  <section id="thesis" class="reveal max-w-6xl mx-auto px-4 py-12 border-t border-slate-200/60 dark:border-slate-800/60">
+    <h2 class="text-2xl md:text-3xl font-bold mb-6">What I build</h2>
+    <div class="grid md:grid-cols-2 gap-6 text-sm">
+      <article class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 bg-white/70 dark:bg-slate-900/50 shadow-soft">
+        <h3 class="font-semibold">ASIC & SoC Design</h3>
+        <p class="mt-2">From microarchitecture to floorplan-aware RTL handoff. 3‑stage RISC‑V ASIC on Sky130; clean interfaces, robust verification, and timing‑first design.</p>
+      </article>
+      <article class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 bg-white/70 dark:bg-slate-900/50 shadow-soft">
+        <h3 class="font-semibold">Sparse Tensor Accelerators</h3>
+        <p class="mt-2">Flexible 2D systolic array supporting sparse dataflows and low-control-overhead scheduling for real workloads beyond dense GEMM.</p>
+      </article>
+      <article class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 bg-white/70 dark:bg-slate-900/50 shadow-soft">
+        <h3 class="font-semibold">Protocol Intelligence</h3>
+        <p class="mt-2">Automated classification + summarization of SoC connectivity (AXI/CHI/APB) to help PD & CAD teams reason about timing paths and partitions.</p>
+      </article>
+      <article class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 bg-white/70 dark:bg-slate-900/50 shadow-soft">
+        <h3 class="font-semibold">RAG for EDA</h3>
+        <p class="mt-2">Retrieval‑augmented tools over specs, netlists, and logs to slash bring‑up/debug time and capture tribal knowledge in repeatable workflows.</p>
+      </article>
     </div>
   </section>
 
@@ -132,9 +141,9 @@
           <time class="text-xs text-slate-500">May 2025 – Aug 2025</time>
         </header>
         <ul class="mt-3 list-disc pl-5 text-sm space-y-2">
-          <li>Analyzed pin counts & protocol mappings across IP for STA/timing closure on Neoverse CSS.</li>
-          <li>Polars batch‑inference for <strong>20M+ pins in ~15 min</strong> with <strong>85%</strong> lower peak RAM (CHI/AXI/APB).</li>
-          <li>Linked instance paths to die‑level centroid coordinates across pre/post‑restructuring formats.</li>
+          <li>Linked logical instance paths to die‑level centroids across pre/post‑restructuring data to enable partition‑aware analysis.</li>
+          <li>Polars batch‑inference for protocol types (AXI/CHI/APB) at SoC scale, enabling PD teams to prioritize timing‑critical fabrics.</li>
+          <li>Partnered with PD & CAD to validate protocol summaries against STA and floorplan intent.</li>
         </ul>
       </article>
       <article class="group rounded-2xl border border-slate-200 dark:border-slate-800 p-6 bg-white/70 dark:bg-slate-900/50 shadow-soft transition hover:translate-y-[-2px]">
@@ -143,8 +152,8 @@
           <time class="text-xs text-slate-500">Jun 2025 – May 2026</time>
         </header>
         <ul class="mt-3 list-disc pl-5 text-sm space-y-2">
-          <li>Flexible 2D systolic array (Zebra) beyond MAC‑only ops with minimal control overhead.</li>
-          <li>RTL & functional models; tightly coupled mesh for low‑latency on‑chip communication.</li>
+          <li>Systolic array ("Zebra") with flexible PE microcode to support sparse tensor ops and non‑MAC workloads.</li>
+          <li>RTL + functional models; mesh interconnect tuned for locality and low‑latency collective ops.</li>
         </ul>
       </article>
       <article class="group rounded-2xl border border-slate-200 dark:border-slate-800 p-6 bg-white/70 dark:bg-slate-900/50 shadow-soft transition hover:translate-y-[-2px]">
@@ -153,9 +162,7 @@
           <time class="text-xs text-slate-500">Jan 2024 – May 2024</time>
         </header>
         <ul class="mt-3 list-disc pl-5 text-sm space-y-2">
-          <li>L2 Ridge Regression for EV telematics; improved energy models under multicollinearity.</li>
-          <li>Clustered 100k+ driver sessions; proposed route adjustments to ease congestion.</li>
-          <li>Capstone: “Potential of Telematics Data in Data Science.”</li>
+          <li>Built ridge‑regression models on EV telematics; introduced clustering to surface routing insights for drivers.</li>
         </ul>
       </article>
       <article class="group rounded-2xl border border-slate-200 dark:border-slate-800 p-6 bg-white/70 dark:bg-slate-900/50 shadow-soft transition hover:translate-y-[-2px]">
@@ -170,26 +177,26 @@
     </div>
   </section>
 
-  <!-- Impact / Numbers -->
+  <!-- Impact: narrative, not vanity metrics -->
   <section id="impact" class="reveal max-w-6xl mx-auto px-4 py-12 border-t border-slate-200/60 dark:border-slate-800/60">
-    <h2 class="text-2xl md:text-3xl font-bold mb-6">Impact</h2>
-    <div class="grid md:grid-cols-4 gap-6">
-      <div class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 bg-white/70 dark:bg-slate-900/50 shadow-soft">
-        <div class="text-3xl font-bold">99.6%</div>
-        <div class="text-sm text-slate-500">Protocol classification accuracy</div>
-      </div>
-      <div class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 bg-white/70 dark:bg-slate-900/50 shadow-soft">
-        <div class="text-3xl font-bold">17.7M → 99k</div>
-        <div class="text-sm text-slate-500">Raw to actionable links</div>
-      </div>
-      <div class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 bg-white/70 dark:bg-slate-900/50 shadow-soft">
-        <div class="text-3xl font-bold">200k/min</div>
-        <div class="text-sm text-slate-500">Rows processed (batch engine)</div>
-      </div>
-      <div class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 bg-white/70 dark:bg-slate-900/50 shadow-soft">
-        <div class="text-3xl font-bold">2×</div>
-        <div class="text-sm text-slate-500">Faster STA iterations (in practice)</div>
-      </div>
+    <h2 class="text-2xl md:text-3xl font-bold mb-6">Real impact</h2>
+    <div class="grid md:grid-cols-2 gap-6 text-sm">
+      <article class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 bg-white/70 dark:bg-slate-900/50 shadow-soft">
+        <h3 class="font-semibold">Protocol intelligence → timing wins</h3>
+        <p class="mt-2">Turned raw pin‑level connectivity into instance‑level protocol maps so PD could focus pipeline insertion and floorplan cuts on the fabrics that actually matter.</p>
+      </article>
+      <article class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 bg-white/70 dark:bg-slate-900/50 shadow-soft">
+        <h3 class="font-semibold">Sparse compute that isn’t fragile</h3>
+        <p class="mt-2">Designed a systolic array that keeps utilization high under sparsity without a swarm of control logic — practical dataflows, simple scheduling, fewer corner cases.</p>
+      </article>
+      <article class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 bg-white/70 dark:bg-slate-900/50 shadow-soft">
+        <h3 class="font-semibold">RAG for EDA knowledge</h3>
+        <p class="mt-2">Search over specs, netlists, and logs with context — helps new engineers answer “why does this block do that?” in minutes instead of hours.</p>
+      </article>
+      <article class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 bg-white/70 dark:bg-slate-900/50 shadow-soft">
+        <h3 class="font-semibold">Clean RTL → easier STA</h3>
+        <p class="mt-2">3‑stage RISC‑V core with hazard handling and sane interfaces. The point isn’t novelty — it’s a codebase PD can actually close.</p>
+      </article>
     </div>
   </section>
 
@@ -202,7 +209,7 @@
           <h3 class="font-semibold">3‑Stage RISC‑V ASIC</h3>
           <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800">Sky130</span>
         </div>
-        <p class="mt-2 text-sm">Pipelined CPU in Verilog with hazard handling; synthesized on SKY130 (RTL→GDS) optimizing timing, area, and power.</p>
+        <p class="mt-2 text-sm">Pipelined CPU in Verilog with hazard handling; synthesized on Sky130 (RTL→GDS). Interfaces designed for PD sanity.</p>
         <button class="mt-3 text-xs text-sky-600 hover:underline" data-copy="riscv-asic">Copy blurb</button>
       </article>
       <article class="proj-card group rounded-2xl border border-slate-200 dark:border-slate-800 p-6 bg-white/80 dark:bg-slate-900/60 shadow-soft transition will-change-transform">
@@ -210,7 +217,7 @@
           <h3 class="font-semibold">AWS Trainium Kernels</h3>
           <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800">NKI</span>
         </div>
-        <p class="mt-2 text-sm">Optimized inference kernels via Neuron Kernel Interface with engine‑aware compute mapping & manual memory scheduling.</p>
+        <p class="mt-2 text-sm">Engine‑aware mapping and manual memory scheduling for inference kernels on Trainium via Neuron Kernel Interface.</p>
         <button class="mt-3 text-xs text-sky-600 hover:underline" data-copy="trainium">Copy blurb</button>
       </article>
       <article class="proj-card group rounded-2xl border border-slate-200 dark:border-slate-800 p-6 bg-white/80 dark:bg-slate-900/60 shadow-soft transition will-change-transform">
@@ -218,7 +225,7 @@
           <h3 class="font-semibold">Perceptron Branch Predictor</h3>
           <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800">µArch</span>
         </div>
-        <p class="mt-2 text-sm">Weighted history predictor; ~13% misprediction reduction on correlated‑branch tests (QSort 0.176→0.153).</p>
+        <p class="mt-2 text-sm">Weighted-history predictor; reduces mispredictions on correlated workloads. Good tradeoffs, simple to integrate.</p>
         <button class="mt-3 text-xs text-sky-600 hover:underline" data-copy="perceptron">Copy blurb</button>
       </article>
     </div>
@@ -292,9 +299,7 @@
       <div class="p-3 border-b border-slate-100 dark:border-slate-800">
         <input id="search" class="w-full bg-transparent outline-none text-sm" placeholder="Type to jump… (press Esc to close)" />
       </div>
-      <ul id="results" class="max-h-80 overflow-auto py-2">
-        <!-- populated by JS -->
-      </ul>
+      <ul id="results" class="max-h-80 overflow-auto py-2"></ul>
     </div>
   </div>
 
@@ -325,7 +330,7 @@
     const BLURBS = {
       'riscv-asic': '3‑Stage RISC‑V CPU in Verilog with hazard handling; synthesized on Sky130 (RTL→GDS) optimizing timing/area/power.',
       'trainium': 'AWS Trainium kernels via NKI with engine‑aware compute mapping and manual memory scheduling for performance gains.',
-      'perceptron': 'Perceptron branch predictor cutting mispredictions by ~13% on correlated‑branch workloads.'
+      'perceptron': 'Perceptron branch predictor reducing mispredictions on correlated workloads; straightforward to integrate.'
     };
     const toast = (msg) => {
       const t = document.createElement('div');
@@ -333,10 +338,11 @@
       t.className = 'fixed bottom-5 left-1/2 -translate-x-1/2 text-xs px-3 py-2 rounded-xl bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-soft';
       document.body.appendChild(t); setTimeout(()=>t.remove(),1700);
     };
-    document.getElementById('copyEmail').addEventListener('click', async ()=>{ await navigator.clipboard.writeText(EMAIL); toast('Email copied'); });
-    document.querySelectorAll('[data-copy]').forEach(btn => btn.addEventListener('click', async (e)=>{ const k=e.currentTarget.getAttribute('data-copy'); await navigator.clipboard.writeText(BLURBS[k]); toast('Copied'); }));
+    const copy = async (txt)=>{ try{ await navigator.clipboard.writeText(txt); toast('Copied'); }catch(_){} };
+    document.getElementById('copyEmail').addEventListener('click', ()=>copy(EMAIL));
+    document.querySelectorAll('[data-copy]').forEach(btn => btn.addEventListener('click', (e)=>copy(BLURBS[e.currentTarget.getAttribute('data-copy')])));
 
-    // Subtle tilt for project cards (no external lib)
+    // Subtle tilt for project cards
     document.querySelectorAll('.proj-card').forEach(card => {
       const bounds = () => card.getBoundingClientRect();
       card.addEventListener('mousemove', (e)=>{
@@ -352,14 +358,15 @@
     const results = document.getElementById('results');
     const search = document.getElementById('search');
     const items = [
+      {label:'Thesis',href:'#thesis'},
       {label:'Experience',href:'#experience'},
       {label:'Projects',href:'#projects'},
-      {label:'Impact',href:'#impact'},
+      {label:'Real impact',href:'#impact'},
       {label:'Skills',href:'#skills'},
       {label:'Education',href:'#education'},
       {label:'Publications',href:'#publications'},
       {label:'Contact',href:'#contact'},
-      {label:'Copy Email',action:()=>{navigator.clipboard.writeText(EMAIL); toast('Email copied')}}
+      {label:'Copy Email',action:()=>copy(EMAIL)}
     ];
     const openPalette = ()=>{ palette.classList.remove('hidden'); search.value=''; render(''); setTimeout(()=>search.focus(),0); };
     const closePalette = ()=>{ palette.classList.add('hidden'); };
