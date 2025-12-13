@@ -94,15 +94,26 @@
       justify-content: center;
       position: relative;
       box-shadow: 
-        0 0 0 1px rgba(255,255,255,0.1),
-        0 0 80px rgba(255,255,255,0.05),
-        inset 0 1px 0 rgba(255,255,255,0.1);
-      animation: chipGlow 2s ease-in-out infinite;
+        0 0 0 1px rgba(255,255,255,0.03),
+        0 0 10px rgba(255,255,255,0.01),
+        inset 0 1px 0 rgba(255,255,255,0.03);
+      animation: chipGlow 1s ease-in-out 3;
     }
     
     @keyframes chipGlow {
-      0%, 100% { box-shadow: 0 0 0 1px rgba(255,255,255,0.1), 0 0 60px rgba(255,255,255,0.03), inset 0 1px 0 rgba(255,255,255,0.1); }
-      50% { box-shadow: 0 0 0 1px rgba(255,255,255,0.15), 0 0 100px rgba(255,255,255,0.08), inset 0 1px 0 rgba(255,255,255,0.15); }
+      0%, 100% { 
+        box-shadow: 
+          0 0 0 1px rgba(255,255,255,0.03), 
+          0 0 10px rgba(255,255,255,0.01), 
+          inset 0 1px 0 rgba(255,255,255,0.03);
+      }
+      50% { 
+        box-shadow: 
+          0 0 0 1px rgba(255,255,255,0.25), 
+          0 0 60px rgba(255,255,255,0.2),
+          0 0 100px rgba(255,255,255,0.1),
+          inset 0 1px 0 rgba(255,255,255,0.25);
+      }
     }
     
     .chip-die {
@@ -131,11 +142,12 @@
       font-weight: 600;
       color: #f5f5f7;
       letter-spacing: 0.05em;
-      animation: textPulse 2s ease-in-out infinite;
+      opacity: 0.4;
+      animation: textPulse 1s ease-in-out 3;
     }
     
     @keyframes textPulse {
-      0%, 100% { opacity: 0.8; }
+      0%, 100% { opacity: 0.4; }
       50% { opacity: 1; }
     }
     
@@ -756,7 +768,7 @@
     <header class="hero">
       <p class="hero-label">UC Berkeley EECS · May 2026</p>
       <h1>SoC Architecture.<br>ML Accelerators.</h1>
-      <p class="hero-subtitle">I build systems that make silicon smarter – protocol intelligence for SoCs, sparse tensor accelerators, and RTL that closes timing.</p>
+      <p class="hero-subtitle">I build systems that make silicon smarter—protocol intelligence for SoCs, sparse tensor accelerators, and RTL that closes timing.</p>
       <div class="hero-links">
         <a href="https://pjwang24.github.io/Peter%20Wang%20Resume.pdf" target="_blank">Resume</a>
         <a href="https://github.com/pjwang24" target="_blank">GitHub</a>
@@ -779,7 +791,7 @@
             </div>
             <span class="date">May – Aug 2025</span>
           </div>
-          <p>Neoverse CSS Team. Bridged RTL intent and physical design through scalable protocol classification and analysis.</p>
+          <p>Neoverse CSS team. Building protocol intelligence infrastructure for physical design.</p>
           <ul>
             <li>Polars pipeline classifying 20M+ pins to identify AMBA protocols in 15 min, 85% RAM reduction</li>
             <li>Instance path mapping to die-level centroids across restructuring formats</li>
