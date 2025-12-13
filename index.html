@@ -1,653 +1,1041 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Peter Wang — EECS @ UC Berkeley</title>
-  <meta name="description" content="Peter Wang — UC Berkeley EECS. AI/ML × Computer Architecture. SoC architecture intern at Arm. Research on ML accelerators, ASIC design, and protocol intelligence." />
-  <meta name="theme-color" content="#0ea5e9" />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%230ea5e9' d='M32 6l12 21H20L32 6zm0 52L20 37h24L32 58z'/%3E%3C/svg%3E"/>
-
-  <!-- Open Graph / Twitter -->
-  <meta property="og:title" content="Peter Wang — EECS @ UC Berkeley" />
-  <meta property="og:description" content="AI/ML × Computer Architecture. SoC Architecture @ Arm. Research on ML accelerators, ASIC design, and protocol intelligence." />
+  <title>Peter Wang — SoC Architecture & ML Accelerators</title>
+  <meta name="description" content="Peter Wang — UC Berkeley EECS. SoC Architecture at Arm. ML Accelerator Research at Berkeley SLICE Lab. ASIC design, protocol intelligence, and sparse tensor computing." />
+  <meta name="theme-color" content="#000000" />
+  
+  <meta property="og:title" content="Peter Wang — SoC Architecture & ML Accelerators" />
+  <meta property="og:description" content="SoC Architecture at Arm. ML Accelerator Research at Berkeley SLICE Lab." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://pjwang24.github.io/" />
-  <meta name="twitter:card" content="summary_large_image" />
-
-  <!-- Tailwind via CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: { sans: ["Inter", "system-ui", "-apple-system", "Segoe UI", "Roboto", "Helvetica", "Arial", "sans-serif"] },
-          boxShadow: { soft: "0 10px 25px -10px rgba(0,0,0,0.2)" },
-          keyframes: {
-            floaty: { '0%,100%': { transform:'translateY(0)' }, '50%': { transform:'translateY(-8px)' } },
-            shimmer: { '0%': { backgroundPosition:'0% 50%' }, '100%': { backgroundPosition:'200% 50%' } },
-            fadeIn: { '0%': { opacity:'0' }, '100%': { opacity:'1' } },
-            slideUp: { '0%': { transform:'translateY(20px)', opacity:'0' }, '100%': { transform:'translateY(0)', opacity:'1' } },
-            pulse2: { '0%,100%': { opacity:'0.3' }, '50%': { opacity:'0.8' } },
-            drawPath: { '0%': { strokeDashoffset:'300' }, '100%': { strokeDashoffset:'0' } },
-            circuitGlow: { '0%,100%': { opacity:'0.4' }, '50%': { opacity:'1' } }
-          },
-          animation: { 
-            floaty:'floaty 6s ease-in-out infinite', 
-            shimmer:'shimmer 8s linear infinite',
-            fadeIn:'fadeIn 0.5s ease-out',
-            slideUp:'slideUp 0.6s ease-out',
-            pulse2:'pulse2 2s ease-in-out infinite',
-            drawPath:'drawPath 1.5s ease-out forwards',
-            circuitGlow:'circuitGlow 3s ease-in-out infinite'
-          },
-          backgroundImage: {
-            mesh: 'radial-gradient(40% 60% at 20% 20%, rgba(14,165,233,.35), transparent 60%), radial-gradient(35% 55% at 80% 30%, rgba(99,102,241,.35), transparent 60%), radial-gradient(50% 50% at 50% 85%, rgba(16,185,129,.35), transparent 60%)'
-          }
-        }
-      },
-      darkMode: 'class'
-    }
-  </script>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  
   <style>
-    .reveal{opacity:0;transform:translateY(12px);transition:all .6s ease}
-    .reveal.show{opacity:1;transform:translateY(0)}
-    @media (prefers-reduced-motion: reduce){.reveal{transition:none}}
+    :root {
+      --text-primary: #1d1d1f;
+      --text-secondary: #86868b;
+      --text-tertiary: #6e6e73;
+      --bg-primary: #ffffff;
+      --bg-secondary: #fbfbfd;
+      --bg-tertiary: #f5f5f7;
+      --border: rgba(0,0,0,0.08);
+      --accent: #0071e3;
+      --accent-hover: #0077ed;
+    }
     
-    /* Loading screen styles */
-    #loader {
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --text-primary: #f5f5f7;
+        --text-secondary: #86868b;
+        --text-tertiary: #a1a1a6;
+        --bg-primary: #000000;
+        --bg-secondary: #0d0d0d;
+        --bg-tertiary: #1d1d1f;
+        --border: rgba(255,255,255,0.08);
+      }
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', 'Segoe UI', sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.5;
+      font-size: 17px;
+    }
+    
+    /* Landing Screen */
+    #landing {
       position: fixed;
       inset: 0;
-      z-index: 9999;
+      z-index: 1000;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
-      transition: opacity 0.6s ease, visibility 0.6s ease;
+      background: #000;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
     }
     
-    #loader.fade-out {
+    #landing.fade-out {
       opacity: 0;
       visibility: hidden;
     }
     
-    #main-content {
-      opacity: 0;
-      transition: opacity 0.8s ease;
+    .chip-container {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
     
-    #main-content.loaded {
+    .chip {
+      width: 200px;
+      height: 200px;
+      background: linear-gradient(145deg, #1a1a1a 0%, #0a0a0a 100%);
+      border-radius: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      box-shadow: 
+        0 0 0 1px rgba(255,255,255,0.1),
+        0 0 80px rgba(255,255,255,0.05),
+        inset 0 1px 0 rgba(255,255,255,0.1);
+      animation: chipGlow 2s ease-in-out infinite;
+    }
+    
+    @keyframes chipGlow {
+      0%, 100% { box-shadow: 0 0 0 1px rgba(255,255,255,0.1), 0 0 60px rgba(255,255,255,0.03), inset 0 1px 0 rgba(255,255,255,0.1); }
+      50% { box-shadow: 0 0 0 1px rgba(255,255,255,0.15), 0 0 100px rgba(255,255,255,0.08), inset 0 1px 0 rgba(255,255,255,0.15); }
+    }
+    
+    .chip-die {
+      width: 100px;
+      height: 100px;
+      background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(255,255,255,0.1);
+      position: relative;
+    }
+    
+    .chip-die::before {
+      content: '';
+      position: absolute;
+      inset: 8px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.02) 0%, transparent 100%);
+      border-radius: 8px;
+    }
+    
+    .chip-initials {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+      font-size: 28px;
+      font-weight: 600;
+      color: #f5f5f7;
+      letter-spacing: 0.05em;
+      animation: textPulse 2s ease-in-out infinite;
+    }
+    
+    @keyframes textPulse {
+      0%, 100% { opacity: 0.8; }
+      50% { opacity: 1; }
+    }
+    
+    .chip-pins {
+      position: absolute;
+      display: flex;
+      gap: 6px;
+    }
+    
+    .chip-pins.top { top: -8px; left: 50%; transform: translateX(-50%); }
+    .chip-pins.bottom { bottom: -8px; left: 50%; transform: translateX(-50%); }
+    .chip-pins.left { left: -8px; top: 50%; transform: translateY(-50%); flex-direction: column; }
+    .chip-pins.right { right: -8px; top: 50%; transform: translateY(-50%); flex-direction: column; }
+    
+    .pin {
+      width: 3px;
+      height: 10px;
+      background: linear-gradient(180deg, #4a4a4a 0%, #2a2a2a 100%);
+      border-radius: 1px;
+    }
+    
+    .chip-pins.left .pin, .chip-pins.right .pin {
+      width: 10px;
+      height: 3px;
+    }
+    
+    #main {
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+    
+    #main.visible {
       opacity: 1;
     }
     
-    .circuit-line {
-      stroke-dasharray: 300;
-      stroke-dashoffset: 300;
-      animation: drawPath 1.5s ease-out forwards;
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(255,255,255,0.8);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid var(--border);
     }
     
-    .circuit-dot {
-      animation: circuitGlow 2s ease-in-out infinite;
+    @media (prefers-color-scheme: dark) {
+      nav {
+        background: rgba(0,0,0,0.8);
+      }
     }
     
-    .loading-text {
-      animation: pulse2 1.5s ease-in-out infinite;
+    .nav-inner {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 0 22px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .nav-logo {
+      font-weight: 600;
+      font-size: 18px;
+      color: var(--text-primary);
+      text-decoration: none;
+    }
+    
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+    
+    .nav-links a {
+      font-size: 14px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    
+    .nav-links a:hover {
+      color: var(--text-primary);
+    }
+    
+    .nav-cta {
+      font-size: 14px;
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    
+    .nav-cta:hover {
+      text-decoration: underline;
+    }
+    
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+    }
+    
+    /* Hero */
+    .hero {
+      padding: 140px 22px 100px;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+    
+    .hero-label {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+      letter-spacing: 0.02em;
+    }
+    
+    .hero h1 {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+      font-size: clamp(40px, 7vw, 64px);
+      font-weight: 600;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+    }
+    
+    .hero-subtitle {
+      font-size: 21px;
+      color: var(--text-secondary);
+      max-width: 600px;
+      line-height: 1.4;
+      margin-bottom: 32px;
+    }
+    
+    .hero-links {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    
+    .hero-links a {
+      font-size: 17px;
+      color: var(--accent);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    
+    .hero-links a:hover {
+      text-decoration: underline;
+    }
+    
+    .hero-links a::after {
+      content: '→';
+      font-size: 14px;
+    }
+    
+    /* Sections */
+    section {
+      padding: 80px 22px;
+      max-width: 980px;
+      margin: 0 auto;
+    }
+    
+    .section-header {
+      margin-bottom: 48px;
+    }
+    
+    .section-label {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--accent);
+      margin-bottom: 8px;
+      letter-spacing: 0.02em;
+    }
+    
+    .section-title {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+      font-size: 32px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+    }
+    
+    /* Current Work */
+    .current-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    
+    @media (max-width: 768px) {
+      .current-grid { grid-template-columns: 1fr; }
+    }
+    
+    .current-card {
+      background: var(--bg-tertiary);
+      border-radius: 18px;
+      padding: 32px;
+      transition: transform 0.3s ease;
+    }
+    
+    .current-card:hover {
+      transform: scale(1.01);
+    }
+    
+    .current-card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    
+    .current-card h3 {
+      font-size: 21px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+    
+    .current-card .role {
+      font-size: 15px;
+      color: var(--text-secondary);
+    }
+    
+    .current-card .date {
+      font-size: 13px;
+      color: var(--text-tertiary);
+    }
+    
+    .current-card p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+    
+    .current-card ul {
+      list-style: none;
+      margin-top: 16px;
+    }
+    
+    .current-card li {
+      font-size: 15px;
+      color: var(--text-secondary);
+      padding-left: 16px;
+      position: relative;
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+    
+    .current-card li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 9px;
+      width: 4px;
+      height: 4px;
+      background: var(--text-tertiary);
+      border-radius: 50%;
+    }
+    
+    /* Experience */
+    .exp-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      background: var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    
+    .exp-item {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 40px;
+      padding: 32px;
+      background: var(--bg-secondary);
+    }
+    
+    @media (max-width: 768px) {
+      .exp-item {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+    }
+    
+    .exp-meta {
+      font-size: 15px;
+    }
+    
+    .exp-company {
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    
+    .exp-date {
+      color: var(--text-tertiary);
+      margin-top: 4px;
+    }
+    
+    .exp-content h4 {
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    
+    .exp-content p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    
+    /* Projects */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    
+    @media (max-width: 768px) {
+      .projects-grid { grid-template-columns: 1fr; }
+    }
+    
+    .project-card {
+      background: var(--bg-tertiary);
+      border-radius: 18px;
+      padding: 32px;
+    }
+    
+    .project-card .tag {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-tertiary);
+      background: var(--bg-secondary);
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+    }
+    
+    .project-card h3 {
+      font-size: 19px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    
+    .project-card p {
+      font-size: 15px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+    
+    .project-card .metrics {
+      margin-top: 16px;
+      display: flex;
+      gap: 24px;
+    }
+    
+    .project-card .metric {
+      font-size: 14px;
+    }
+    
+    .project-card .metric-value {
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    
+    .project-card .metric-label {
+      color: var(--text-tertiary);
+    }
+    
+    /* Skills */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+    
+    @media (max-width: 768px) {
+      .skills-grid { grid-template-columns: 1fr; }
+    }
+    
+    .skills-category h3 {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 16px;
+    }
+    
+    .skills-category ul {
+      list-style: none;
+    }
+    
+    .skills-category li {
+      font-size: 15px;
+      color: var(--text-secondary);
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .skills-category li:last-child {
+      border-bottom: none;
+    }
+    
+    /* Education */
+    .edu-card {
+      background: var(--bg-tertiary);
+      border-radius: 18px;
+      padding: 32px;
+    }
+    
+    .edu-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+    
+    @media (max-width: 768px) {
+      .edu-header { flex-direction: column; gap: 8px; }
+    }
+    
+    .edu-header h3 {
+      font-size: 21px;
+      font-weight: 600;
+    }
+    
+    .edu-header .gpa {
+      font-size: 15px;
+      color: var(--text-secondary);
+    }
+    
+    .edu-degree {
+      font-size: 17px;
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+    }
+    
+    .edu-honors {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+    
+    .edu-honors span {
+      font-size: 13px;
+      color: var(--text-tertiary);
+      background: var(--bg-secondary);
+      padding: 6px 12px;
+      border-radius: 6px;
+    }
+    
+    .edu-courses {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+    
+    @media (max-width: 768px) {
+      .edu-courses { grid-template-columns: 1fr; }
+    }
+    
+    .edu-courses h4 {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-tertiary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+    }
+    
+    .edu-courses ul {
+      list-style: none;
+    }
+    
+    .edu-courses li {
+      font-size: 14px;
+      color: var(--text-secondary);
+      padding: 6px 0;
+    }
+    
+    /* Publication */
+    .pub-card {
+      background: var(--bg-tertiary);
+      border-radius: 18px;
+      padding: 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+    }
+    
+    @media (max-width: 768px) {
+      .pub-card { flex-direction: column; align-items: flex-start; }
+    }
+    
+    .pub-card h3 {
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    
+    .pub-card .venue {
+      font-size: 15px;
+      color: var(--text-secondary);
+    }
+    
+    .pub-card a {
+      font-size: 15px;
+      color: var(--accent);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    
+    .pub-card a:hover {
+      text-decoration: underline;
+    }
+    
+    /* Footer */
+    footer {
+      padding: 60px 22px;
+      max-width: 980px;
+      margin: 0 auto;
+      border-top: 1px solid var(--border);
+    }
+    
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    
+    @media (max-width: 768px) {
+      .footer-content { flex-direction: column; gap: 24px; }
+    }
+    
+    .footer-contact h3 {
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    
+    .footer-contact a {
+      display: block;
+      font-size: 15px;
+      color: var(--accent);
+      text-decoration: none;
+      margin-bottom: 8px;
+    }
+    
+    .footer-contact a:hover {
+      text-decoration: underline;
+    }
+    
+    .footer-copyright {
+      font-size: 13px;
+      color: var(--text-tertiary);
+    }
+    
+    /* Reveal animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
   </style>
-
-  <!-- Schema.org Person -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Peter Wang",
-    "email": "mailto:pjwang2324@berkeley.edu",
-    "url": "https://pjwang24.github.io",
-    "jobTitle": "Student, EECS @ UC Berkeley",
-    "alumniOf": {"@type": "CollegeOrUniversity", "name": "University of California, Berkeley"},
-    "sameAs": ["https://github.com/pjwang24","https://www.linkedin.com/in/peterwang-eecs/"]
-  }
-  </script>
 </head>
-<body class="bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100 selection:bg-sky-200/60 selection:text-slate-900">
+<body>
   
-  <!-- Loading Screen -->
-  <div id="loader">
-    <div class="flex flex-col items-center">
-      <!-- Circuit Board SVG Animation -->
-      <svg width="200" height="200" viewBox="0 0 200 200" class="mb-8">
-        <!-- Circuit paths -->
-        <g stroke="#0ea5e9" stroke-width="2" fill="none">
-          <!-- Main paths -->
-          <path class="circuit-line" d="M50 100 L100 100 L100 50 L150 50" style="animation-delay: 0s"/>
-          <path class="circuit-line" d="M100 100 L100 150 L150 150" style="animation-delay: 0.2s"/>
-          <path class="circuit-line" d="M50 50 L70 50 L70 100" style="animation-delay: 0.4s"/>
-          <path class="circuit-line" d="M130 100 L150 100" style="animation-delay: 0.6s"/>
-          <path class="circuit-line" d="M100 70 L130 70 L130 100" style="animation-delay: 0.8s"/>
-        </g>
-        
-        <!-- Circuit nodes/dots -->
-        <g fill="#0ea5e9">
-          <circle cx="50" cy="100" r="4" class="circuit-dot" style="animation-delay: 0s"/>
-          <circle cx="100" cy="100" r="6" class="circuit-dot" style="animation-delay: 0.3s"/>
-          <circle cx="150" cy="50" r="4" class="circuit-dot" style="animation-delay: 0.6s"/>
-          <circle cx="150" cy="150" r="4" class="circuit-dot" style="animation-delay: 0.9s"/>
-          <circle cx="50" cy="50" r="4" class="circuit-dot" style="animation-delay: 1.2s"/>
-          <circle cx="150" cy="100" r="4" class="circuit-dot" style="animation-delay: 1.5s"/>
-        </g>
-        
-        <!-- Central processor icon -->
-        <rect x="85" y="85" width="30" height="30" fill="#0ea5e9" opacity="0.2" rx="4"/>
-        <rect x="90" y="90" width="20" height="20" fill="#0ea5e9" opacity="0.6" rx="2" class="circuit-dot"/>
-      </svg>
-      
-      <!-- Loading text with typewriter effect -->
-      <div class="text-center">
-        <h2 class="text-2xl font-bold text-white mb-2">
-          <span class="bg-gradient-to-r from-sky-400 via-indigo-400 to-emerald-400 bg-clip-text text-transparent">
-            Hardware × Intelligence
-          </span>
-        </h2>
-        <p class="text-slate-400 text-sm loading-text">Initializing systems...</p>
-      </div>
-      
-      <!-- Progress indicator -->
-      <div class="mt-8 w-48 h-1 bg-slate-800 rounded-full overflow-hidden">
-        <div class="h-full bg-gradient-to-r from-sky-500 to-emerald-500 rounded-full" 
-             style="width: 0%; animation: loadProgress 2s ease-out forwards">
+  <!-- Landing -->
+  <div id="landing">
+    <div class="chip-container">
+      <div class="chip">
+        <div class="chip-pins top">
+          <div class="pin"></div><div class="pin"></div><div class="pin"></div><div class="pin"></div><div class="pin"></div><div class="pin"></div><div class="pin"></div><div class="pin"></div>
+        </div>
+        <div class="chip-pins bottom">
+          <div class="pin"></div><div class="pin"></div><div class="pin"></div><div class="pin"></div><div class="pin"></div><div class="pin"></div><div class="pin"></div><div class="pin"></div>
+        </div>
+        <div class="chip-pins left">
+          <div class="pin"></div><div class="pin"></div><div class="pin"></div><div class="pin"></div><div class="pin"></div><div class="pin"></div><div class="pin"></div><div class="pin"></div>
+        </div>
+        <div class="chip-pins right">
+          <div class="pin"></div><div class="pin"></div><div class="pin"></div><div class="pin"></div><div class="pin"></div><div class="pin"></div><div class="pin"></div><div class="pin"></div>
+        </div>
+        <div class="chip-die">
+          <span class="chip-initials">P.W.</span>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Main Content (Hidden initially) -->
-  <div id="main-content">
-    <!-- Floating mesh background -->
-    <div aria-hidden="true" class="pointer-events-none fixed inset-0 -z-10 bg-mesh blur-2xl opacity-70 dark:opacity-60"></div>
+  <!-- Main Content -->
+  <div id="main">
+    <nav>
+      <div class="nav-inner">
+        <a href="#" class="nav-logo">Peter Wang</a>
+        <ul class="nav-links">
+          <li><a href="#current">Current</a></li>
+          <li><a href="#experience">Experience</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#education">Education</a></li>
+        </ul>
+        <a href="mailto:pjwang2324@berkeley.edu" class="nav-cta">Contact</a>
+      </div>
+    </nav>
 
-    <!-- Header -->
-    <header class="sticky top-0 z-50 backdrop-blur border-b border-slate-200/50 dark:border-slate-800/50 bg-white/70 dark:bg-slate-950/60">
-      <div class="max-w-6xl mx-auto px-4 py-3 flex items-center gap-4">
-        <a href="#top" class="font-semibold tracking-tight">Peter Wang</a>
-        <nav class="ml-auto hidden md:flex gap-6 text-sm">
-          <a class="hover:text-sky-600" href="#thesis">Thesis</a>
-          <a class="hover:text-sky-600" href="#experience">Experience</a>
-          <a class="hover:text-sky-600" href="#projects">Projects</a>
-          <a class="hover:text-sky-600" href="#impact">Impact</a>
-          <a class="hover:text-sky-600" href="#skills">Skills</a>
-          <a class="hover:text-sky-600" href="#education">Education</a>
-          <a class="hover:text-sky-600" href="#publications">Publications</a>
-          <a class="hover:text-sky-600" href="#contact">Contact</a>
-        </nav>
-        <div class="flex items-center gap-2 ml-2">
-          <button id="cmdk" class="rounded-xl px-3 py-1.5 text-xs border border-slate-300/60 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-900" aria-label="Open command palette">⌘K</button>
-          <button id="themeToggle" class="rounded-xl px-3 py-1.5 text-xs border border-slate-300/60 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-900" aria-label="Toggle theme">☀️/🌙</button>
-          <a href="mailto:pjwang2324@berkeley.edu" class="rounded-xl px-3 py-1.5 text-xs bg-sky-600 text-white hover:bg-sky-700 shadow-soft">Email</a>
-        </div>
+    <!-- Hero -->
+    <header class="hero">
+      <p class="hero-label">UC Berkeley EECS · May 2026</p>
+      <h1>SoC Architecture.<br>ML Accelerators.</h1>
+      <p class="hero-subtitle">I build systems that make silicon smarter—protocol intelligence for SoCs, sparse tensor accelerators, and RTL that closes timing.</p>
+      <div class="hero-links">
+        <a href="https://pjwang24.github.io/Peter%20Wang%20Resume.pdf" target="_blank">Resume</a>
+        <a href="https://github.com/pjwang24" target="_blank">GitHub</a>
+        <a href="https://www.linkedin.com/in/peterwang-eecs/" target="_blank">LinkedIn</a>
       </div>
     </header>
 
-    <!-- Hero -->
-    <section id="top" class="max-w-6xl mx-auto px-4 pt-12 pb-10 md:pt-16 md:pb-14">
-      <div class="grid md:grid-cols-3 gap-8 items-start">
-        <div class="md:col-span-2">
-          <h1 class="text-3xl md:text-5xl font-bold leading-tight">
-            Building at the edge of <span class="bg-gradient-to-r from-sky-500 via-indigo-500 to-emerald-500 bg-[length:200%_100%] bg-clip-text text-transparent animate-shimmer">Hardware × Intelligence</span>
-          </h1>
-          <p class="mt-4 text-lg text-slate-600 dark:text-slate-300 max-w-2xl">I design systems that make silicon smarter: protocol intelligence for SoCs, sparse tensor accelerators, and RTL that closes timing without drama.</p>
-          <div class="mt-6 flex flex-wrap gap-3">
-            <a class="rounded-xl px-4 py-2 bg-slate-900 text-white dark:bg-white dark:text-slate-900 hover:opacity-90 shadow-soft" href="https://pjwang24.github.io/Peter%20Wang%20Resume.pdf" target="_blank" rel="noopener" download>Download Résumé</a>
-            <a class="rounded-xl px-4 py-2 border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-900" href="https://github.com/pjwang24" target="_blank" rel="noopener">GitHub</a>
-            <a class="rounded-xl px-4 py-2 border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-900" href="https://www.linkedin.com/in/peterwang-eecs/" target="_blank" rel="noopener">LinkedIn</a>
-            <button id="copyEmail" class="rounded-xl px-4 py-2 border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-900">Copy Email</button>
-          </div>
-        </div>
-        <aside class="md:col-span-1 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 bg-white/60 dark:bg-slate-900/40 shadow-soft">
-          <h2 class="font-semibold mb-3">Currently</h2>
-          <ul class="space-y-2 text-sm leading-relaxed">
-            <li>⚙️ SoC Architecture intern at <a class="text-sky-600 hover:underline" href="https://www.arm.com/products/neoverse-compute-subsystems/css-v3" target="_blank" rel="noopener">Arm (Neoverse CSS)</a>.</li>
-            <li>🧠 Researching sparse tensor accelerators (Zebra) at Berkeley SLICE Lab.</li>
-            <li>🎓 B.S. Computer Science, Minor in EE — May 2026.</li>
-          </ul>
-        </aside>
+    <!-- Current -->
+    <section id="current" class="reveal">
+      <div class="section-header">
+        <p class="section-label">Now</p>
+        <h2 class="section-title">What I'm working on</h2>
       </div>
-    </section>
-
-    <!-- Thesis / What I Build -->
-    <section id="thesis" class="reveal max-w-6xl mx-auto px-4 py-12 border-t border-slate-200/60 dark:border-slate-800/60">
-      <h2 class="text-2xl md:text-3xl font-bold mb-6">What I build</h2>
-      <div class="grid md:grid-cols-2 gap-6 text-sm">
-        <article class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 bg-white/70 dark:bg-slate-900/50 shadow-soft">
-          <h3 class="font-semibold">ASIC & SoC Design</h3>
-          <p class="mt-2">From microarchitecture to floorplan-aware RTL handoff. 3‑stage RISC‑V ASIC on Sky130; clean interfaces, robust verification, and timing‑first design.</p>
-        </article>
-        <article class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 bg-white/70 dark:bg-slate-900/50 shadow-soft">
-          <h3 class="font-semibold">Mapping & Binding for ML Accelerators</h3>
-          <p class="mt-2">Automating how tensor operations are mapped onto hardware using profiler-guided cost models for efficient scheduling beyond hand-tuned designs.</p>
-        </article>
-        <article class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 bg-white/70 dark:bg-slate-900/50 shadow-soft">
-          <h3 class="font-semibold">Protocol Intelligence</h3>
-          <p class="mt-2">Automated classification + summarization of SoC connectivity (AXI/CHI/APB) to help PD & CAD teams reason about timing paths and partitions.</p>
-        </article>
-        <article class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 bg-white/70 dark:bg-slate-900/50 shadow-soft">
-          <h3 class="font-semibold">RAG for EDA</h3>
-          <p class="mt-2">Retrieval‑augmented tools over specs, netlists, and logs to slash bring‑up/debug time and capture tribal knowledge in repeatable workflows.</p>
-        </article>
+      <div class="current-grid">
+        <div class="current-card">
+          <div class="current-card-header">
+            <div>
+              <h3>Arm</h3>
+              <p class="role">SoC Architecture Intern</p>
+            </div>
+            <span class="date">May – Aug 2025</span>
+          </div>
+          <p>Neoverse CSS team. Building protocol intelligence infrastructure for physical design.</p>
+          <ul>
+            <li>Polars pipeline classifying 20M+ pins to identify AMBA protocols in 15 min, 85% RAM reduction</li>
+            <li>Instance path mapping to die-level centroids across restructuring formats</li>
+            <li>Protocol summaries validated against STA and floorplan intent</li>
+          </ul>
+        </div>
+        <div class="current-card">
+          <div class="current-card-header">
+            <div>
+              <h3>Berkeley SLICE Lab</h3>
+              <p class="role">ML Accelerator Researcher</p>
+            </div>
+            <span class="date">Aug 2025 – May 2026</span>
+          </div>
+          <p>AWS-funded research on hardware-software co-design for AI workloads.</p>
+          <ul>
+            <li>Designing Zebra: flexible 2D systolic array adapting to dense and sparse workloads</li>
+            <li>Extending TeAAL for inference kernels via Neuron Kernel Interface</li>
+            <li>Engine-aware compute mapping and manual memory scheduling</li>
+          </ul>
+        </div>
       </div>
     </section>
 
     <!-- Experience -->
-    <section id="experience" class="reveal max-w-6xl mx-auto px-4 py-12 border-t border-slate-200/60 dark:border-slate-800/60">
-      <h2 class="text-2xl md:text-3xl font-bold mb-6 flex items-center gap-3"><span>Experience</span><span class="text-xs px-2 py-1 rounded-full bg-slate-100 dark:bg-slate-800">selected</span></h2>
-      <div class="grid md:grid-cols-2 gap-6">
-        <article class="group rounded-2xl border border-slate-200 dark:border-slate-800 p-6 bg-white/70 dark:bg-slate-900/50 shadow-soft transition hover:translate-y-[-2px]">
-          <header class="flex items-center justify-between gap-2">
-            <h3 class="font-semibold">Arm — SoC Architecture Intern</h3>
-            <time class="text-xs text-slate-500">May 2025 – Aug 2025</time>
-          </header>
-          <ul class="mt-3 list-disc pl-5 text-sm space-y-2">
-            <li>Linked logical instance paths to die‑level centroids across pre/post‑restructuring data to enable partition‑aware analysis.</li>
-            <li>Polars batch‑inference for protocol types (AXI/CHI/APB) at SoC scale, enabling PD teams to prioritize timing‑critical fabrics.</li>
-            <li>Partnered with PD & CAD to validate protocol summaries against STA and floorplan intent.</li>
-          </ul>
-        </article>
-        <article class="group rounded-2xl border border-slate-200 dark:border-slate-800 p-6 bg-white/70 dark:bg-slate-900/50 shadow-soft transition hover:translate-y-[-2px]">
-          <header class="flex items-center justify-between gap-2">
-            <h3 class="font-semibold">Berkeley SLICE Lab — ML Accelerator Researcher</h3>
-            <time class="text-xs text-slate-500">Jun 2025 – May 2026</time>
-          </header>
-          <ul class="mt-3 list-disc pl-5 text-sm space-y-2">
-            <li>Systolic array ("Zebra") with flexible PE microcode to support sparse tensor ops and non‑MAC workloads.</li>
-            <li>Developing automated mapping and binding strategies for tensor programs on Trainium by building a binder, cost model, and search loop</li>
-          </ul>
-        </article>
-        <article class="group rounded-2xl border border-slate-200 dark:border-slate-800 p-6 bg-white/70 dark:bg-slate-900/50 shadow-soft transition hover:translate-y-[-2px]">
-          <header class="flex items-center justify-between gap-2">
-            <h3 class="font-semibold">Honda Research Institute — AI/ML Intern</h3>
-            <time class="text-xs text-slate-500">Jan 2024 – May 2024</time>
-          </header>
-          <ul class="mt-3 list-disc pl-5 text-sm space-y-2">
-            <li>Built ridge‑regression models on EV telematics; introduced clustering to surface routing insights for drivers.</li>
-          </ul>
-        </article>
-        <article class="group rounded-2xl border border-slate-200 dark:border-slate-800 p-6 bg-white/70 dark:bg-slate-900/50 shadow-soft transition hover:translate-y-[-2px]">
-          <header class="flex items-center justify-between gap-2">
-            <h3 class="font-semibold">UC Berkeley — EECS Peer Advisor</h3>
-            <time class="text-xs text-slate-500">Sep 2024 – May 2025</time>
-          </header>
-          <ul class="mt-3 list-disc pl-5 text-sm space-y-2">
-            <li>Supported 1,000+ students with academic planning and resources.</li>
-          </ul>
-        </article>
+    <section id="experience" class="reveal">
+      <div class="section-header">
+        <p class="section-label">Background</p>
+        <h2 class="section-title">Experience</h2>
       </div>
-    </section>
-
-    <!-- Impact: narrative, not vanity metrics -->
-    <section id="impact" class="reveal max-w-6xl mx-auto px-4 py-12 border-t border-slate-200/60 dark:border-slate-800/60">
-      <h2 class="text-2xl md:text-3xl font-bold mb-6">Real impact</h2>
-      <div class="grid md:grid-cols-2 gap-6 text-sm">
-        <article class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 bg-white/70 dark:bg-slate-900/50 shadow-soft">
-          <h3 class="font-semibold">Protocol intelligence → timing wins</h3>
-          <p class="mt-2">Turned raw pin‑level connectivity into instance‑level protocol maps so PD could focus pipeline insertion and floorplan cuts on the fabrics that actually matter.</p>
-        </article>
-        <article class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 bg-white/70 dark:bg-slate-900/50 shadow-soft">
-          <h3 class="font-semibold">Sparse compute that isn't fragile</h3>
-          <p class="mt-2">Designing a systolic array that keeps utilization high under sparsity without a swarm of control logic — practical dataflows, simple scheduling, fewer corner cases.</p>
-        </article>
-        <article class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 bg-white/70 dark:bg-slate-900/50 shadow-soft">
-          <h3 class="font-semibold">RAG for EDA knowledge</h3>
-          <p class="mt-2">Search over specs, netlists, and logs with context — helps new engineers answer "why does this block do that?" in minutes instead of hours.</p>
-        </article>
-        <article class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 bg-white/70 dark:bg-slate-900/50 shadow-soft">
-          <h3 class="font-semibold">Clean RTL → easier STA</h3>
-          <p class="mt-2">3‑stage RISC‑V core with hazard handling and sane interfaces. The point isn't novelty — it's a codebase PD can actually close.</p>
-        </article>
+      <div class="exp-list">
+        <div class="exp-item">
+          <div class="exp-meta">
+            <p class="exp-company">IEEE</p>
+            <p class="exp-date">Aug 2021 – Jun 2024</p>
+          </div>
+          <div class="exp-content">
+            <h4>Lead Author & ML Engineer</h4>
+            <p>Published "Finger-Vein Recognition using a NASNet with a Cutout" at ISPACS 2021. Implemented custom CUDA kernels for convolutional layers and matrix multiplications, reducing model training time by 36%.</p>
+          </div>
+        </div>
+        <div class="exp-item">
+          <div class="exp-meta">
+            <p class="exp-company">Honda Research Institute</p>
+            <p class="exp-date">Jan – May 2024</p>
+          </div>
+          <div class="exp-content">
+            <h4>AI/ML Intern</h4>
+            <p>Analyzed 100K+ telematics sessions using L2 Ridge Regression and K-means clustering. Modeled EV energy usage and proposed route adjustments for congestion relief.</p>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- Projects -->
-    <section id="projects" class="reveal max-w-6xl mx-auto px-4 py-12 border-t border-slate-200/60 dark:border-slate-800/60">
-      <h2 class="text-2xl md:text-3xl font-bold mb-6">Selected Projects</h2>
-      <div class="grid md:grid-cols-3 gap-6">
-        <article class="proj-card group rounded-2xl border border-slate-200 dark:border-slate-800 p-6 bg-white/80 dark:bg-slate-900/60 shadow-soft transition will-change-transform">
-          <div class="flex items-center justify-between">
-            <h3 class="font-semibold">3‑Stage RISC‑V ASIC</h3>
-            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800">Sky130</span>
+    <section id="projects" class="reveal">
+      <div class="section-header">
+        <p class="section-label">Work</p>
+        <h2 class="section-title">Projects</h2>
+      </div>
+      <div class="projects-grid">
+        <div class="project-card">
+          <span class="tag">SKY130 PDK</span>
+          <h3>3-Stage Pipelined RISC-V CPU</h3>
+          <p>Complete data forwarding, GShare branch prediction with 2-bit PHT and tag-indexed BTB. 2-way set-associative write-back cache with LFSR replacement. Verified via SystemVerilog assertions, synthesized RTL→GDS.</p>
+          <div class="metrics">
+            <div class="metric">
+              <span class="metric-value">1.05</span>
+              <span class="metric-label"> CPI</span>
+            </div>
+            <div class="metric">
+              <span class="metric-value">40%+</span>
+              <span class="metric-label"> cache speedup</span>
+            </div>
           </div>
-          <p class="mt-2 text-sm">Pipelined CPU in Verilog with hazard handling; synthesized on Sky130 (RTL→GDS). Interfaces designed for PD sanity.</p>
-          <button class="mt-3 text-xs text-sky-600 hover:underline" data-copy="riscv-asic">Copy blurb</button>
-        </article>
-        <article class="proj-card group rounded-2xl border border-slate-200 dark:border-slate-800 p-6 bg-white/80 dark:bg-slate-900/60 shadow-soft transition will-change-transform">
-          <div class="flex items-center justify-between">
-            <h3 class="font-semibold">AWS Trainium Kernels</h3>
-            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800">NKI</span>
-          </div>
-          <p class="mt-2 text-sm">Engine‑aware mapping and manual memory scheduling for inference kernels on Trainium via Neuron Kernel Interface.</p>
-          <button class="mt-3 text-xs text-sky-600 hover:underline" data-copy="trainium">Copy blurb</button>
-        </article>
-        <article class="proj-card group rounded-2xl border border-slate-200 dark:border-slate-800 p-6 bg-white/80 dark:bg-slate-900/60 shadow-soft transition will-change-transform">
-          <div class="flex items-center justify-between">
-            <h3 class="font-semibold">Perceptron Branch Predictor</h3>
-            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800">µArch</span>
-          </div>
-          <p class="mt-2 text-sm">Weighted-history predictor; reduces mispredictions on correlated workloads. Good tradeoffs, simple to integrate.</p>
-          <button class="mt-3 text-xs text-sky-600 hover:underline" data-copy="perceptron">Copy blurb</button>
-        </article>
+        </div>
+        <div class="project-card">
+          <span class="tag">TeAAL · Python</span>
+          <h3>Sparse Tensor Accelerator (Trapezoid)</h3>
+          <p>Modeled 2D spatial array with multi-fiber intersection units for varying sparsity levels. Evaluated Gustavson vs. inner-product dataflows, optimizing fiber-tree mappings for PE utilization.</p>
+        </div>
+        <div class="project-card">
+          <span class="tag">Neuron Kernel Interface</span>
+          <h3>AWS Trainium Kernels</h3>
+          <p>Engine-aware compute mapping and manual memory scheduling for inference kernels on Trainium hardware.</p>
+        </div>
+        <div class="project-card">
+          <span class="tag">TSMC 16nm</span>
+          <h3>Tapeout</h3>
+          <p>Expected Spring 2026. Full RTL-to-GDS flow on TSMC 16nm process through Intel-sponsored EE 194.</p>
+        </div>
       </div>
     </section>
 
     <!-- Skills -->
-    <section id="skills" class="reveal max-w-6xl mx-auto px-4 py-12 border-t border-slate-200/60 dark:border-slate-800/60">
-      <h2 class="text-2xl md:text-3xl font-bold mb-6">Skills</h2>
-      <div class="grid md:grid-cols-3 gap-6 text-sm">
-        <div class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 bg-white/70 dark:bg-slate-900/50 shadow-soft">
-          <h3 class="font-semibold mb-3">Languages & Frameworks</h3>
-          <div class="flex flex-wrap gap-2">
-            <span class="tag">Verilog</span><span class="tag">Java</span><span class="tag">Python</span><span class="tag">C/C++</span><span class="tag">CUDA</span><span class="tag">Go</span><span class="tag">SQL</span><span class="tag">Matlab</span><span class="tag">JavaScript</span><span class="tag">Node.js</span><span class="tag">JUnit</span>
-          </div>
+    <section id="skills" class="reveal">
+      <div class="section-header">
+        <p class="section-label">Toolkit</p>
+        <h2 class="section-title">Skills</h2>
+      </div>
+      <div class="skills-grid">
+        <div class="skills-category">
+          <h3>EDA & Hardware</h3>
+          <ul>
+            <li>Synopsys DC</li>
+            <li>Cadence Genus / Innovus</li>
+            <li>VCS / ModelSim</li>
+            <li>Vivado</li>
+            <li>OpenROAD / Yosys</li>
+            <li>gem5</li>
+            <li>GTKWave</li>
+            <li>SKY130 PDK</li>
+          </ul>
         </div>
-        <div class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 bg-white/70 dark:bg-slate-900/50 shadow-soft">
-          <h3 class="font-semibold mb-3">Libraries</h3>
-          <div class="flex flex-wrap gap-2">
-            <span class="tag">PyTorch</span><span class="tag">Polars</span><span class="tag">NumPy</span><span class="tag">Pandas</span><span class="tag">SciPy</span><span class="tag">Matplotlib</span><span class="tag">Scikit‑learn</span><span class="tag">Pydantic</span><span class="tag">SQLAlchemy</span>
-          </div>
+        <div class="skills-category">
+          <h3>Languages</h3>
+          <ul>
+            <li>Verilog / SystemVerilog</li>
+            <li>Python</li>
+            <li>C / C++</li>
+            <li>CUDA</li>
+            <li>Java</li>
+            <li>SQL</li>
+            <li>MATLAB</li>
+            <li>JavaScript</li>
+          </ul>
         </div>
-        <div class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 bg-white/70 dark:bg-slate-900/50 shadow-soft">
-          <h3 class="font-semibold mb-3">Tools</h3>
-          <div class="flex flex-wrap gap-2">
-            <span class="tag">Synopsys DC</span><span class="tag">Cadence Genus</span><span class="tag">VCS</span><span class="tag">Innovus</span><span class="tag">ModelSim</span><span class="tag">Vivado</span><span class="tag">OpenROAD</span><span class="tag">Yosys</span><span class="tag">GTKWAVE</span><span class="tag">SKY130 PDK</span>
-          </div>
+        <div class="skills-category">
+          <h3>Libraries & Frameworks</h3>
+          <ul>
+            <li>PyTorch</li>
+            <li>ONNX Runtime</li>
+            <li>Polars</li>
+            <li>NumPy / Pandas</li>
+            <li>SciPy</li>
+            <li>Matplotlib / Seaborn</li>
+            <li>scikit-learn</li>
+          </ul>
         </div>
       </div>
     </section>
 
     <!-- Education -->
-    <section id="education" class="reveal max-w-6xl mx-auto px-4 py-12 border-t border-slate-200/60 dark:border-slate-800/60">
-  <h2 class="text-2xl md:text-3xl font-bold mb-6">Education</h2>
-  <div class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 bg-white/70 dark:bg-slate-900/50 shadow-soft">
-    <div class="flex flex-wrap items-center gap-3">
-      <h3 class="font-semibold">University of California, Berkeley</h3>
-      <span class="text-xs text-slate-500">B.S. Computer Science, Minor in Electrical Engineering · GPA 3.57 · May 2026</span>
-    </div>
-    <details class="mt-3">
-      <summary class="text-sm cursor-pointer hover:text-sky-600 transition-colors">View relevant coursework →</summary>
-      <div class="mt-3 grid md:grid-cols-2 gap-4 text-xs">
-        <div>
-          <h4 class="font-semibold mb-2 text-sm">Computer Science & Machine Learning</h4>
-          <ul class="space-y-1 text-slate-600 dark:text-slate-400">
-            <li>CS 61A - Structure and Interpretation of Computer Programs</li>
-            <li>CS 61B - Data Structures</li>
-            <li>CS 61C - Computer Architecture</li>
-            <li>CS 70 - Discrete Mathematics and Probability Theory</li>
-            <li>CS 152 - Computer Architecture and Engineering</li>
-            <li>CS 161 - Computer Security</li>
-            <li>CS 162 - Operating Systems</li>
-            <li>CS 170 - Efficient Algorithms and Intractable Problems</li>
-            <li>CS 294 - Performance Analysis and Optimization of Computer Systems</li>
-            <li>Data 8 - Foundations of Data Science</li>
-            <li>Data 100 - Principles and Techniques of Data Science</li>
-            <li>NLP 159 - Natural Language Processing</li>
-          </ul>
-        </div>
-        <div>
-          <h4 class="font-semibold mb-2 text-sm">EE</h4>
-          <ul class="space-y-1 text-slate-600 dark:text-slate-400">
-            <li>EE 16A - Foundations of Signals, Dynamical Systems, and Information Processing</li>
-            <li>EE 16B - Introduction to Circuits & Devices</li>
-            <li>EE 105 - Microelectronic Devices and Circuits</li>
-            <li>EE 126 - Probability and Random Processes</li>
-            <li>EE 151 - Digital Design and Integrated Circuits</li>
-            <li>EE 151 LA - ASIC Design Lab</li>
-            <li>EE 194 - Test Integrated Circuit Chips (Intel's 16nm process)</li>
-          </ul>
-        </div>
+    <section id="education" class="reveal">
+      <div class="section-header">
+        <p class="section-label">Academic</p>
+        <h2 class="section-title">Education</h2>
       </div>
-    </details>
-  </div>
-</section>
-
-    <!-- Publications -->
-    <section id="publications" class="reveal max-w-6xl mx-auto px-4 py-12 border-t border-slate-200/60 dark:border-slate-800/60">
-      <h2 class="text-2xl md:text-3xl font-bold mb-6">Publications</h2>
-      <article class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 bg-white/70 dark:bg-slate-900/50 shadow-soft">
-        <h3 class="font-semibold">Finger‑Vein Recognition using a NASNet with a Cutout</h3>
-        <p class="mt-2 text-sm">ISPACS 2021 (IEEE). <a class="text-sky-600 hover:underline" href="https://ieeexplore.ieee.org/abstract/document/9650980" target="_blank" rel="noopener">Paper</a></p>
-      </article>
-    </section>
-
-    <!-- Contact -->
-    <section id="contact" class="reveal max-w-6xl mx-auto px-4 py-12 border-t border-slate-200/60 dark:border-slate-800/60">
-      <h2 class="text-2xl md:text-3xl font-bold mb-6">Get in touch</h2>
-      <div class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 bg-white/70 dark:bg-slate-900/50 shadow-soft">
-        <p class="text-sm">Email: <a class="text-sky-600 hover:underline" href="mailto:pjwang2324@berkeley.edu">pjwang2324@berkeley.edu</a> · GitHub: <a class="text-sky-600 hover:underline" href="https://github.com/pjwang24" target="_blank" rel="noopener">@pjwang24</a> · LinkedIn: <a class="text-sky-600 hover:underline" href="https://www.linkedin.com/in/peterwang-eecs/" target="_blank" rel="noopener">peterwang-eecs</a></p>
+      <div class="edu-card">
+        <div class="edu-header">
+          <div>
+            <h3>University of California, Berkeley</h3>
+            <p class="edu-degree">B.S. Computer Science · Minor in Electrical Engineering</p>
+          </div>
+          <div style="text-align: right;">
+            <p class="gpa">GPA: 3.60</p>
+            <p class="gpa">May 2026</p>
+          </div>
+        </div>
+        <div class="edu-honors">
+          <span>Jim & Donna Gray Endowment Award ($10,000)</span>
+          <span>Leadership Scholar ($2,000)</span>
+          <span>IEEE Member</span>
+        </div>
+        <div class="edu-courses">
+          <div>
+            <h4>Computer Science</h4>
+            <ul>
+              <li>CS 152 — Computer Architecture</li>
+              <li>CS 162 — Operating Systems</li>
+              <li>CS 170 — Efficient Algorithms</li>
+              <li>CS 161 — Computer Security</li>
+              <li>CS 294 — Performance Analysis</li>
+              <li>NLP 159 — Natural Language Processing</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Electrical Engineering</h4>
+            <ul>
+              <li>EE 151 — Digital Design & ICs</li>
+              <li>EE 151 LA — ASIC Design Lab</li>
+              <li>EE 105 — Microelectronic Devices</li>
+              <li>EE 126 — Probability & Random Processes</li>
+              <li>EE 194 — Test IC Chips (Intel 16nm)</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </section>
 
-    <footer class="max-w-6xl mx-auto px-4 py-10 text-xs text-slate-500">
-      <div class="flex flex-wrap items-center gap-2 justify-between">
-        <p>© <span id="y"></span> Peter Wang. Built with Tailwind.</p>
-        <a class="hover:text-sky-600" href="#top">Back to top ↑</a>
+    <!-- Publication -->
+    <section id="publication" class="reveal">
+      <div class="section-header">
+        <p class="section-label">Research</p>
+        <h2 class="section-title">Publication</h2>
+      </div>
+      <div class="pub-card">
+        <div>
+          <h3>Finger-Vein Recognition using a NASNet with a Cutout</h3>
+          <p class="venue">ISPACS 2021 · IEEE</p>
+        </div>
+        <a href="https://ieeexplore.ieee.org/abstract/document/9650980" target="_blank">Read paper →</a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-content">
+        <div class="footer-contact">
+          <h3>Get in touch</h3>
+          <a href="mailto:pjwang2324@berkeley.edu">pjwang2324@berkeley.edu</a>
+          <a href="https://github.com/pjwang24" target="_blank">github.com/pjwang24</a>
+          <a href="https://www.linkedin.com/in/peterwang-eecs/" target="_blank">linkedin.com/in/peterwang-eecs</a>
+        </div>
+        <p class="footer-copyright">© 2025 Peter Wang</p>
       </div>
     </footer>
-
-    <!-- Command Palette -->
-    <div id="palette" class="hidden fixed inset-0 z-[60] items-start justify-center p-4">
-      <div class="absolute inset-0 bg-black/50" data-close></div>
-      <div class="relative w-full max-w-xl rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-soft">
-        <div class="p-3 border-b border-slate-100 dark:border-slate-800">
-          <input id="search" class="w-full bg-transparent outline-none text-sm" placeholder="Type to jump… (press Esc to close)" />
-        </div>
-        <ul id="results" class="max-h-80 overflow-auto py-2"></ul>
-      </div>
-    </div>
   </div>
 
-  <!-- Add loading progress animation -->
-  <style>
-    @keyframes loadProgress {
-      0% { width: 0%; }
-      20% { width: 20%; }
-      40% { width: 45%; }
-      60% { width: 65%; }
-      80% { width: 85%; }
-      100% { width: 100%; }
-    }
-  </style>
-
-  <!-- Scripts -->
   <script>
-    // Loading screen management
-    const loader = document.getElementById('loader');
-    const mainContent = document.getElementById('main-content');
-    const loadingMessages = [
-      'Initializing systems...',
-      'Compiling circuits...',
-      'Loading accelerators...',
-      'Optimizing dataflows...',
-      'Ready.'
-    ];
+    // Landing animation
+    const landing = document.getElementById('landing');
+    const main = document.getElementById('main');
     
-    let messageIndex = 0;
-    const loadingText = loader.querySelector('.loading-text');
-    
-    // Cycle through loading messages
-    const messageInterval = setInterval(() => {
-      if (messageIndex < loadingMessages.length - 1) {
-        messageIndex++;
-        loadingText.textContent = loadingMessages[messageIndex];
-      }
-    }, 400);
-    
-    // Remove loader after content loads
-    window.addEventListener('load', () => {
+    setTimeout(() => {
+      landing.classList.add('fade-out');
+      main.classList.add('visible');
+      
       setTimeout(() => {
-        clearInterval(messageInterval);
-        loadingText.textContent = loadingMessages[loadingMessages.length - 1];
-        
-        setTimeout(() => {
-          loader.classList.add('fade-out');
-          mainContent.classList.add('loaded');
-          
-          // Remove loader from DOM after animation
-          setTimeout(() => {
-            loader.remove();
-          }, 600);
-        }, 300);
-      }, 800); // Minimum loading time for better UX
-    });
-
-    // Year
-    document.getElementById('y').textContent = new Date().getFullYear();
-
+        landing.remove();
+      }, 800);
+    }, 3000);
+    
     // Reveal on scroll
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(e => e.isIntersecting && e.target.classList.add('show'))
-    }, { threshold: 0.08 });
-    
-    // Wait for content to be visible before observing
-    setTimeout(() => {
-      document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-    }, 2500);
-
-    // Theme toggle
-    const root = document.documentElement; 
-    const key = 'prefers-dark';
-    const apply = v => root.classList.toggle('dark', v);
-    apply(localStorage.getItem(key) === '1' || (localStorage.getItem(key) === null && window.matchMedia('(prefers-color-scheme: dark)').matches));
-    document.getElementById('themeToggle').addEventListener('click', () => {
-      const v = !root.classList.contains('dark'); 
-      apply(v); 
-      localStorage.setItem(key, v ? '1' : '0');
-    });
-
-    // Tag style utility
-    document.querySelectorAll('.tag').forEach(el => { 
-      el.className = 'tag px-2.5 py-1 rounded-full border border-slate-200 dark:border-slate-800 bg-white/60 dark:bg-slate-900/40'; 
-    });
-
-    // Copy email & project blurbs
-    const EMAIL = 'pjwang2324@berkeley.edu';
-    const BLURBS = {
-      'riscv-asic': '3‑Stage RISC‑V CPU in Verilog with hazard handling; synthesized on Sky130 (RTL→GDS) optimizing timing/area/power.',
-      'trainium': 'AWS Trainium kernels via NKI with engine‑aware compute mapping and manual memory scheduling for performance gains.',
-      'perceptron': 'Perceptron branch predictor reducing mispredictions on correlated workloads; straightforward to integrate.'
-    };
-    
-    const toast = (msg) => {
-      const t = document.createElement('div');
-      t.textContent = msg;
-      t.className = 'fixed bottom-5 left-1/2 -translate-x-1/2 text-xs px-3 py-2 rounded-xl bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-soft z-50';
-      document.body.appendChild(t); 
-      setTimeout(()=>t.remove(),1700);
-    };
-    
-    const copy = async (txt) => { 
-      try { 
-        await navigator.clipboard.writeText(txt); 
-        toast('Copied'); 
-      } catch(_) {} 
-    };
-    
-    document.getElementById('copyEmail').addEventListener('click', () => copy(EMAIL));
-    document.querySelectorAll('[data-copy]').forEach(btn => btn.addEventListener('click', (e) => copy(BLURBS[e.currentTarget.getAttribute('data-copy')])));
-
-    // Subtle tilt for project cards
-    document.querySelectorAll('.proj-card').forEach(card => {
-      const bounds = () => card.getBoundingClientRect();
-      card.addEventListener('mousemove', (e) => {
-        const b = bounds(); 
-        const cx = b.left + b.width/2; 
-        const cy = b.top + b.height/2;
-        const dx = (e.clientX - cx)/b.width; 
-        const dy = (e.clientY - cy)/b.height;
-        card.style.transform = `rotateX(${(-dy*4).toFixed(2)}deg) rotateY(${(dx*6).toFixed(2)}deg) translateY(-2px)`;
-      });
-      card.addEventListener('mouseleave', () => { 
-        card.style.transform = ''; 
-      });
-    });
-
-    // Command palette (⌘K / Ctrl+K)
-    const palette = document.getElementById('palette');
-    const results = document.getElementById('results');
-    const search = document.getElementById('search');
-    const items = [
-      {label:'Thesis',href:'#thesis'},
-      {label:'Experience',href:'#experience'},
-      {label:'Projects',href:'#projects'},
-      {label:'Real impact',href:'#impact'},
-      {label:'Skills',href:'#skills'},
-      {label:'Education',href:'#education'},
-      {label:'Publications',href:'#publications'},
-      {label:'Contact',href:'#contact'},
-      {label:'Copy Email',action:()=>copy(EMAIL)}
-    ];
-    
-    const openPalette = () => { 
-      palette.classList.remove('hidden'); 
-      palette.classList.add('flex');
-      search.value=''; 
-      render(''); 
-      setTimeout(()=>search.focus(),0); 
-    };
-    
-    const closePalette = () => { 
-      palette.classList.add('hidden'); 
-      palette.classList.remove('flex');
-    };
-    
-    const render = (q) => {
-      const ql = q.toLowerCase();
-      const data = items.filter(i => i.label.toLowerCase().includes(ql));
-      results.innerHTML = data.map((i,idx) => `<li class='px-3 py-2 hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer text-sm' data-idx='${idx}'>${i.label}</li>`).join('') || `<li class='px-3 py-2 text-sm text-slate-500'>No results</li>`;
-    };
-    
-    document.getElementById('cmdk').addEventListener('click', openPalette);
-    document.addEventListener('keydown', (e) => {
-      if((e.metaKey||e.ctrlKey) && e.key.toLowerCase()==='k') { 
-        e.preventDefault(); 
-        openPalette(); 
-      }
-      if(e.key==='Escape') { 
-        closePalette(); 
-      }
-    });
-    
-    palette.addEventListener('click', (e) => { 
-      if(e.target.hasAttribute('data-close')) closePalette(); 
-    });
-    
-    search.addEventListener('input', (e) => render(e.target.value));
-    
-    results.addEventListener('click', (e) => {
-      const li = e.target.closest('li'); 
-      if(!li) return; 
-      const idx = +li.getAttribute('data-idx');
-      const item = items.filter(i => i.label.toLowerCase().includes(search.value.toLowerCase()))[idx];
-      if(!item) return; 
-      closePalette(); 
-      if(item.href) { 
-        location.hash = item.href; 
-      } else if(item.action) { 
-        item.action(); 
-      }
-    });
-
-    // Active section link highlight
-    const navLinks = [...document.querySelectorAll('header nav a')];
-    const sections = navLinks.map(a => document.querySelector(a.getAttribute('href')));
-    const obs = new IntersectionObserver(entries => {
+    const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if(entry.isIntersecting) {
-          const id = '#' + entry.target.id; 
-          navLinks.forEach(a => a.classList.toggle('text-sky-600', a.getAttribute('href') === id));
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
         }
-      })
-    }, {rootMargin:'-40% 0px -59% 0px', threshold:0});
+      });
+    }, { threshold: 0.1 });
     
     setTimeout(() => {
-      sections.forEach(s => s && obs.observe(s));
-    }, 2500);
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    }, 3200);
+    
+    // Smooth scroll for nav links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
   </script>
 </body>
 </html>
