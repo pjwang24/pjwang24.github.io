@@ -1140,7 +1140,7 @@
     /* Project Preview Image */
     .project-preview {
       width: 100%;
-      height: 280px;
+      height: 380px;
       background: rgba(0,0,0,0.6);
       border: 1px solid var(--border);
       border-radius: 12px;
@@ -1150,14 +1150,16 @@
     }
     
     .project-card.featured .project-preview {
-      height: 320px;
+      height: 520px;
     }
     
     .project-preview img {
       width: 100%;
       height: 100%;
       object-fit: contain;
-      padding: 16px;
+      padding: 0;
+      max-width: 100%;
+      max-height: 100%;
       transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
