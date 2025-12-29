@@ -7,8 +7,19 @@
   <meta name="description" content="Peter Wang — UC Berkeley EECS. SoC Architecture at Arm. ML Accelerator Research at Berkeley SLICE Lab." />
   <meta name="theme-color" content="#000000" />
   
+  <!-- Open Graph -->
+  <meta property="og:title" content="Peter Wang — SoC Architecture & ML Accelerators" />
+  <meta property="og:description" content="Building systems that make silicon smarter. Berkeley EECS • Arm • SLICE Lab" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://pjwang24.github.io/og-image.png" />
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Peter Wang — SoC Architecture & ML Accelerators" />
+  <meta name="twitter:description" content="Building systems that make silicon smarter" />
+  
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
     
     :root {
       --text-primary: #ffffff;
@@ -22,6 +33,7 @@
       --accent: #00d9ff;
       --accent-secondary: #7b2ff7;
       --accent-glow: rgba(0,217,255,0.4);
+      --success: #22c55e;
     }
     
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -47,7 +59,7 @@
       color: #000;
     }
     
-    /* ========== ADVANCED BACKGROUND ========== */
+    /* ========== BACKGROUND ========== */
     .bg-gradient {
       position: fixed;
       inset: 0;
@@ -111,7 +123,20 @@
     
     #content { position: relative; z-index: 10; }
     
-    /* ========== EPIC LANDING ========== */
+    /* ========== PROGRESS BAR ========== */
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
+      z-index: 10001;
+      transform-origin: left;
+      transform: scaleX(0);
+      transition: transform 0.1s ease-out;
+    }
+    
+    /* ========== LANDING ========== */
     #landing {
       position: fixed;
       inset: 0;
@@ -365,7 +390,7 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      font-family: ui-monospace, 'Courier New', monospace;
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
       font-size: 10px;
       font-weight: 500;
       letter-spacing: 0.25em;
@@ -390,7 +415,7 @@
     #main { opacity: 0; transition: opacity 1s ease; }
     #main.visible { opacity: 1; }
     
-    /* ========== SLEEK NAV ========== */
+    /* ========== NAV WITH ACTIVE INDICATOR ========== */
     nav {
       position: fixed;
       top: 24px;
@@ -445,6 +470,7 @@
       display: flex;
       gap: 4px;
       list-style: none;
+      position: relative;
     }
     
     .nav-links a {
@@ -455,24 +481,25 @@
       border-radius: 10px;
       transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
       position: relative;
+      z-index: 2;
     }
     
-    .nav-links a::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: rgba(255,255,255,0.05);
-      border-radius: 10px;
-      opacity: 0;
-      transition: opacity 0.2s;
+    .nav-links a.active {
+      color: var(--text-primary);
     }
     
     .nav-links a:hover {
       color: var(--text-primary);
     }
     
-    .nav-links a:hover::before {
-      opacity: 1;
+    .nav-indicator {
+      position: absolute;
+      height: 36px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 10px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 1;
+      pointer-events: none;
     }
     
     .nav-cta {
@@ -495,13 +522,119 @@
       box-shadow: 0 4px 12px rgba(0,217,255,0.15);
     }
     
+    /* Mobile Menu */
+    .mobile-menu-toggle {
+      display: none;
+      width: 36px;
+      height: 36px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+    
+    .mobile-menu-toggle:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: var(--border-hover);
+    }
+    
+    .hamburger {
+      width: 18px;
+      height: 2px;
+      background: var(--text-primary);
+      position: relative;
+      transition: all 0.3s;
+    }
+    
+    .hamburger::before,
+    .hamburger::after {
+      content: '';
+      position: absolute;
+      width: 18px;
+      height: 2px;
+      background: var(--text-primary);
+      transition: all 0.3s;
+    }
+    
+    .hamburger::before { top: -6px; }
+    .hamburger::after { bottom: -6px; }
+    
+    .mobile-menu-toggle.active .hamburger {
+      background: transparent;
+    }
+    
+    .mobile-menu-toggle.active .hamburger::before {
+      top: 0;
+      transform: rotate(45deg);
+    }
+    
+    .mobile-menu-toggle.active .hamburger::after {
+      bottom: 0;
+      transform: rotate(-45deg);
+    }
+    
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 100%;
+      height: 100vh;
+      background: rgba(0,0,0,0.98);
+      backdrop-filter: blur(20px);
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .mobile-menu.active {
+      right: 0;
+    }
+    
+    .mobile-menu a {
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: all 0.3s;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    
+    .mobile-menu.active a {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .mobile-menu a:nth-child(1) { transition-delay: 0.1s; }
+    .mobile-menu a:nth-child(2) { transition-delay: 0.15s; }
+    .mobile-menu a:nth-child(3) { transition-delay: 0.2s; }
+    .mobile-menu a:nth-child(4) { transition-delay: 0.25s; }
+    .mobile-menu a:nth-child(5) { transition-delay: 0.3s; }
+    .mobile-menu a:nth-child(6) { transition-delay: 0.35s; }
+    
+    .mobile-menu a:hover,
+    .mobile-menu a.active {
+      color: var(--text-primary);
+      transform: translateX(10px);
+    }
+    
     @media (max-width: 968px) {
       nav {
         top: 16px;
         padding: 10px 16px;
+        width: calc(100% - 32px);
+        max-width: none;
       }
       .nav-links { display: none; }
       .nav-divider { display: none; }
+      .mobile-menu-toggle { display: flex; }
     }
     
     /* ========== HERO ========== */
@@ -545,6 +678,11 @@
       animation: pulse 2s ease-in-out infinite;
     }
     
+    @keyframes pulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+    
     .hero h1 {
       font-size: clamp(52px, 10vw, 96px);
       font-weight: 700;
@@ -585,6 +723,7 @@
       gap: 10px;
       position: relative;
       overflow: hidden;
+      cursor: pointer;
     }
     
     .btn::before {
@@ -741,7 +880,7 @@
       background: rgba(0,217,255,0.1);
       padding: 6px 12px;
       border-radius: 8px;
-      font-family: ui-monospace, monospace;
+      font-family: 'JetBrains Mono', monospace;
       letter-spacing: 0.05em;
     }
     
@@ -846,7 +985,7 @@
       font-size: 13px;
       font-weight: 600;
       color: var(--text-tertiary);
-      font-family: ui-monospace, monospace;
+      font-family: 'JetBrains Mono', monospace;
       letter-spacing: 0.05em;
     }
     
@@ -870,27 +1009,44 @@
       line-height: 1.7;
     }
     
-    /* ========== PROJECTS ========== */
-    .projects-grid {
+    /* ========== PROJECTS - BENTO GRID ========== */
+    .projects-bento {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    
+    .project-row {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 24px;
     }
     
-    @media (max-width: 868px) {
-      .projects-grid { grid-template-columns: 1fr; }
+    .project-row.single {
+      grid-template-columns: 1fr;
+    }
+    
+    @media (max-width: 968px) {
+      .project-row {
+        grid-template-columns: 1fr;
+      }
     }
     
     .project-card {
       background: var(--bg-card);
       border: 1px solid var(--border);
       border-radius: 20px;
-      padding: 32px;
+      padding: 36px;
       transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
       display: flex;
       flex-direction: column;
       position: relative;
       overflow: hidden;
+      cursor: pointer;
+    }
+    
+    .project-card.featured {
+      min-height: 520px;
     }
     
     .project-card::before {
@@ -908,7 +1064,7 @@
     .project-card:hover {
       background: var(--bg-card-hover);
       border-color: var(--border-hover);
-      transform: translateY(-6px);
+      transform: translateY(-6px) rotateX(2deg);
       box-shadow: 0 24px 64px rgba(0,0,0,0.4);
     }
     
@@ -936,6 +1092,10 @@
       font-weight: 700;
       letter-spacing: -0.02em;
       margin-bottom: 12px;
+    }
+    
+    .project-card.featured .project-name {
+      font-size: 28px;
     }
     
     .project-desc {
@@ -975,6 +1135,34 @@
       color: var(--text-tertiary);
       text-transform: uppercase;
       letter-spacing: 0.08em;
+    }
+    
+    /* Project Preview Image */
+    .project-preview {
+      width: 100%;
+      height: 280px;
+      background: rgba(0,0,0,0.6);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 24px;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .project-card.featured .project-preview {
+      height: 320px;
+    }
+    
+    .project-preview img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 16px;
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    .project-card:hover .project-preview img {
+      transform: scale(1.02);
     }
     
     /* ========== SKILLS ========== */
@@ -1361,6 +1549,7 @@
   </style>
 </head>
 <body>
+  <div class="scroll-progress" id="scrollProgress"></div>
   <div class="cursor-glow" id="cursorGlow"></div>
   
   <div class="bg-gradient"></div>
@@ -1413,20 +1602,34 @@
     </div>
   </div>
 
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#current" class="mobile-menu-link">Current</a>
+    <a href="#experience" class="mobile-menu-link">Experience</a>
+    <a href="#projects" class="mobile-menu-link">Projects</a>
+    <a href="#skills" class="mobile-menu-link">Skills</a>
+    <a href="#education" class="mobile-menu-link">Education</a>
+    <a href="/cdn-cgi/l/email-protection#98e8f2eff9f6ffaaabaaacd8fafdeaf3fdf4fde1b6fdfced" class="mobile-menu-link">Contact</a>
+  </div>
+
   <div id="content">
     <div id="main">
       <nav>
         <div class="nav-inner">
           <a href="#" class="nav-logo">Peter Wang</a>
           <div class="nav-divider"></div>
-          <ul class="nav-links">
-            <li><a href="#current">Current</a></li>
-            <li><a href="#experience">Experience</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#education">Education</a></li>
+          <ul class="nav-links" id="navLinks">
+            <div class="nav-indicator" id="navIndicator"></div>
+            <li><a href="#current" class="nav-link">Current</a></li>
+            <li><a href="#experience" class="nav-link">Experience</a></li>
+            <li><a href="#projects" class="nav-link">Projects</a></li>
+            <li><a href="#skills" class="nav-link">Skills</a></li>
+            <li><a href="#education" class="nav-link">Education</a></li>
           </ul>
-          <a href="mailto:pjwang2324@berkeley.edu" class="nav-cta">Contact</a>
+          <a href="/cdn-cgi/l/email-protection#7909130e18171e4b4a4b4d391b1c0b121c151c00571c1d0c" class="nav-cta">Contact</a>
+          <div class="mobile-menu-toggle" id="mobileMenuToggle">
+            <div class="hamburger"></div>
+          </div>
         </div>
       </nav>
 
@@ -1444,6 +1647,8 @@
           <a href="https://github.com/pjwang24" target="_blank" class="btn btn-secondary">GitHub</a>
           <a href="https://www.linkedin.com/in/peterwang-eecs/" target="_blank" class="btn btn-secondary">LinkedIn</a>
         </div>
+
+
       </header>
 
       <section id="current" class="reveal">
@@ -1515,36 +1720,54 @@
           <div class="section-label">Projects</div>
           <h2 class="section-title">Featured Work</h2>
         </div>
-        <div class="projects-grid">
-          <div class="project-card">
-            <span class="project-tag">SKY130 PDK</span>
-            <div class="project-name">3-Stage Pipelined RISC-V CPU</div>
-            <p class="project-desc">Complete data forwarding, GShare branch prediction with 2-bit PHT and tag-indexed BTB. 2-way set-associative write-back cache with LFSR replacement. RTL→GDS synthesis.</p>
-            <div class="project-metrics">
-              <div class="project-metric">
-                <span class="metric-value">1.05</span>
-                <span class="metric-label">CPI</span>
+        <div class="projects-bento">
+          <!-- Row 1: CPU Project (Full Width) -->
+          <div class="project-row single">
+            <div class="project-card featured">
+              <span class="project-tag">SKY130 PDK · Verilog</span>
+              <div class="project-name">3-Stage Pipelined RISC-V CPU & Cache</div>
+              <div class="project-preview">
+                <img src="https://raw.githubusercontent.com/pjwang24/pjwang24.github.io/main/cpu-diagram.png" alt="RISC-V CPU Block Diagram" style="background: #000;">
               </div>
-              <div class="project-metric">
-                <span class="metric-value">40%+</span>
-                <span class="metric-label">Cache Speedup</span>
+              <p class="project-desc">Designed a 3-stage pipelined RISC-V CPU in Verilog with complete data forwarding, achieving 1.05 CPI. Integrated GShare branch prediction unit with 2-bit PHT and tag-indexed BTB. Built a 2-way set-associative write-back cache with valid/dirty bits and LFSR-based pseudo-random replacement policy, yielding 40%+ speedup over direct-mapped. Verified via SystemVerilog assertions and synthesized RTL using SKY130 PDK for timing closure in RTL-to-GDS workflow.</p>
+              <div class="project-metrics">
+                <div class="project-metric">
+                  <span class="metric-value">1.05</span>
+                  <span class="metric-label">CPI</span>
+                </div>
+                <div class="project-metric">
+                  <span class="metric-value">40%+</span>
+                  <span class="metric-label">Cache Speedup</span>
+                </div>
+                <div class="project-metric">
+                  <span class="metric-value">3</span>
+                  <span class="metric-label">Pipeline Stages</span>
+                </div>
               </div>
             </div>
           </div>
-          <div class="project-card">
-            <span class="project-tag">TeAAL · Python</span>
-            <div class="project-name">Sparse Tensor Accelerator</div>
-            <p class="project-desc">Modeled Trapezoid accelerator with 2D spatial array and multi-fiber intersection units. Evaluated Gustavson vs. inner-product dataflows for PE utilization.</p>
+
+          <!-- Row 2: Tapeout (Full Width) -->
+          <div class="project-row single">
+            <div class="project-card">
+              <span class="project-tag">TSMC 16nm · Chisel</span>
+              <div class="project-name">PackBits RLE Decompression Accelerator Tapeout</div>
+              <p class="project-desc">Expected Spring 2026. Building a hardware accelerator for lossless PackBits run-length encoding decompression to speed up TIFF/Adobe PSD file processing. Custom RISC-V instruction interface triggers accelerator from a general-purpose core, streaming compressed data through decompression logic and writing results to memory. Designed for datacenter-scale photo editing applications. Full RTL-to-GDS flow on TSMC 16nm process through TSMC-sponsored EE 194.</p>
+            </div>
           </div>
-          <div class="project-card">
-            <span class="project-tag">Neuron Kernel Interface</span>
-            <div class="project-name">AWS Trainium Kernels</div>
-            <p class="project-desc">Engine-aware compute mapping and manual memory scheduling for inference kernels on Trainium hardware.</p>
-          </div>
-          <div class="project-card">
-            <span class="project-tag">TSMC 16nm</span>
-            <div class="project-name">Tapeout</div>
-            <p class="project-desc">Expected Spring 2026. Full RTL-to-GDS flow on TSMC 16nm process through TSMC-sponsored EE 194.</p>
+
+          <!-- Row 3: Sparse Tensor + AWS Trainium -->
+          <div class="project-row">
+            <div class="project-card">
+              <span class="project-tag">TeAAL · Python</span>
+              <div class="project-name">Sparse Tensor Accelerator Modeling</div>
+              <p class="project-desc">Modeled the Trapezoid accelerator in TeAAL, simulating a 2D spatial array with multi-fiber intersection units to efficiently handle varying sparsity levels. Evaluated Gustavson-based versus inner-product dataflows, optimizing fiber-tree mappings to maximize PE utilization and minimize off-chip memory traffic.</p>
+            </div>
+            <div class="project-card">
+              <span class="project-tag">Neuron Kernel Interface</span>
+              <div class="project-name">AWS Trainium Kernels</div>
+              <p class="project-desc">Extending TeAAL modular architecture specifications to optimize inference kernels using Neuron Kernel Interface (NKI) with engine-aware compute mapping and manual memory scheduling for AWS Trainium hardware.</p>
+            </div>
           </div>
         </div>
       </section>
@@ -1663,7 +1886,7 @@
           <div class="footer-cta">
             <h3>Let's build something extraordinary</h3>
             <p>Looking for SoC architecture, ML accelerator, or ASIC design roles starting May 2026.</p>
-            <a href="mailto:pjwang2324@berkeley.edu" class="btn btn-primary">
+            <a href="/cdn-cgi/l/email-protection#89f9e3fee8e7eebbbabbbdc9ebecfbe2ece5ecf0a7ecedfc" class="btn btn-primary">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
@@ -1671,15 +1894,9 @@
             </a>
           </div>
           <div class="footer-links">
-            <a href="https://github.com/pjwang24" target="_blank">
-              GitHub →
-            </a>
-            <a href="https://www.linkedin.com/in/peterwang-eecs/" target="_blank">
-              LinkedIn →
-            </a>
-            <a href="https://pjwang24.github.io/Peter%20Wang%20Resume.pdf" target="_blank">
-              Resume →
-            </a>
+            <a href="https://github.com/pjwang24" target="_blank">GitHub →</a>
+            <a href="https://www.linkedin.com/in/peterwang-eecs/" target="_blank">LinkedIn →</a>
+            <a href="https://pjwang24.github.io/Peter%20Wang%20Resume.pdf" target="_blank">Resume →</a>
           </div>
         </div>
         <div class="footer-bottom">
@@ -1695,7 +1912,7 @@
                 <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
               </svg>
             </a>
-            <a href="mailto:pjwang2324@berkeley.edu" aria-label="Email">
+            <a href="/cdn-cgi/l/email-protection#ed9d879a8c838adfdedfd9ad8f889f8688818894c3888998" aria-label="Email">
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
@@ -1706,8 +1923,8 @@
     </div>
   </div>
 
-  <script>
-    // Landing particles
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    // ========== LANDING ==========
     const landingParticles = document.getElementById('landingParticles');
     for (let i = 0; i < 60; i++) {
       const p = document.createElement('div');
@@ -1719,7 +1936,6 @@
       landingParticles.appendChild(p);
     }
     
-    // Status text
     const statusText = document.getElementById('statusText');
     const messages = ['initializing', 'loading cores', 'mapping memory', 'system ready'];
     let msgIndex = 0;
@@ -1730,7 +1946,6 @@
       }
     }, 800);
     
-    // Landing transition
     setTimeout(() => {
       clearInterval(statusInterval);
       statusText.textContent = 'system ready';
@@ -1743,7 +1958,83 @@
       }, 500);
     }, 3400);
     
-    // Scroll reveal
+    // ========== SCROLL PROGRESS ==========
+    const scrollProgress = document.getElementById('scrollProgress');
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrollPercent = scrollTop / scrollHeight;
+      scrollProgress.style.transform = `scaleX(${scrollPercent})`;
+    });
+    
+    // ========== ACTIVE NAV INDICATOR ==========
+    const navLinks = document.querySelectorAll('.nav-link');
+    const navIndicator = document.getElementById('navIndicator');
+    const sections = document.querySelectorAll('section[id]');
+    
+    function setActiveLink(link) {
+      navLinks.forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+      
+      const linkRect = link.getBoundingClientRect();
+      const navRect = link.closest('.nav-links').getBoundingClientRect();
+      navIndicator.style.width = linkRect.width + 'px';
+      navIndicator.style.left = (linkRect.left - navRect.left) + 'px';
+      navIndicator.style.opacity = '1';
+    }
+    
+    // Set initial active link
+    setTimeout(() => {
+      if (navLinks.length > 0) {
+        setActiveLink(navLinks[0]);
+      }
+    }, 4000);
+    
+    // Update on scroll
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (window.pageYOffset >= sectionTop - 200) {
+          current = section.getAttribute('id');
+        }
+      });
+      
+      navLinks.forEach(link => {
+        if (link.getAttribute('href') === `#${current}`) {
+          setActiveLink(link);
+        }
+      });
+    });
+    
+    // Click handler
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        setActiveLink(link);
+      });
+    });
+    
+    // ========== MOBILE MENU ==========
+    const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+    
+    mobileMenuToggle.addEventListener('click', () => {
+      mobileMenuToggle.classList.toggle('active');
+      mobileMenu.classList.toggle('active');
+      document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+    });
+    
+    mobileMenuLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenuToggle.classList.remove('active');
+        mobileMenu.classList.remove('active');
+        document.body.style.overflow = '';
+      });
+    });
+    
+    // ========== SCROLL REVEAL ==========
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -1756,7 +2047,7 @@
       document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     }, 4000);
     
-    // Smooth scroll
+    // ========== SMOOTH SCROLL ==========
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function(e) {
         e.preventDefault();
@@ -1767,7 +2058,7 @@
       });
     });
     
-    // Cursor glow effect
+    // ========== CURSOR GLOW ==========
     const cursorGlow = document.getElementById('cursorGlow');
     let mouseX = 0, mouseY = 0;
     let glowX = 0, glowY = 0;
@@ -1776,16 +2067,3 @@
       mouseX = e.clientX;
       mouseY = e.clientY;
     });
-    
-    function animateGlow() {
-      glowX += (mouseX - glowX) * 0.1;
-      glowY += (mouseY - glowY) * 0.1;
-      cursorGlow.style.left = glowX + 'px';
-      cursorGlow.style.top = glowY + 'px';
-      requestAnimationFrame(animateGlow);
-    }
-    
-    animateGlow();
-  </script>
-</body>
-</html>
