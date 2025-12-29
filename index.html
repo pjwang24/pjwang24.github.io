@@ -2067,3 +2067,14 @@
       mouseX = e.clientX;
       mouseY = e.clientY;
     });
+    function animateGlow() {
+      glowX += (mouseX - glowX) * 0.1;
+      glowY += (mouseY - glowY) * 0.1;
+      cursorGlow.style.left = glowX + 'px';
+      cursorGlow.style.top = glowY + 'px';
+      requestAnimationFrame(animateGlow);
+    }
+    animateGlow();
+  </script>
+</body>
+</html>
