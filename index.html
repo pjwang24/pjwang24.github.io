@@ -415,7 +415,7 @@
     #main { opacity: 0; transition: opacity 1s ease; }
     #main.visible { opacity: 1; }
     
-    /* ========== NAV WITH ACTIVE INDICATOR ========== */
+    /* ========== NAV ========== */
     nav {
       position: fixed;
       top: 24px;
@@ -484,13 +484,8 @@
       z-index: 2;
     }
     
-    .nav-links a.active {
-      color: var(--text-primary);
-    }
-    
-    .nav-links a:hover {
-      color: var(--text-primary);
-    }
+    .nav-links a.active { color: var(--text-primary); }
+    .nav-links a:hover { color: var(--text-primary); }
     
     .nav-indicator {
       position: absolute;
@@ -562,19 +557,9 @@
     .hamburger::before { top: -6px; }
     .hamburger::after { bottom: -6px; }
     
-    .mobile-menu-toggle.active .hamburger {
-      background: transparent;
-    }
-    
-    .mobile-menu-toggle.active .hamburger::before {
-      top: 0;
-      transform: rotate(45deg);
-    }
-    
-    .mobile-menu-toggle.active .hamburger::after {
-      bottom: 0;
-      transform: rotate(-45deg);
-    }
+    .mobile-menu-toggle.active .hamburger { background: transparent; }
+    .mobile-menu-toggle.active .hamburger::before { top: 0; transform: rotate(45deg); }
+    .mobile-menu-toggle.active .hamburger::after { bottom: 0; transform: rotate(-45deg); }
     
     .mobile-menu {
       position: fixed;
@@ -593,9 +578,7 @@
       transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
-    .mobile-menu.active {
-      right: 0;
-    }
+    .mobile-menu.active { right: 0; }
     
     .mobile-menu a {
       font-size: 28px;
@@ -607,31 +590,17 @@
       transform: translateY(20px);
     }
     
-    .mobile-menu.active a {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    
+    .mobile-menu.active a { opacity: 1; transform: translateY(0); }
     .mobile-menu a:nth-child(1) { transition-delay: 0.1s; }
     .mobile-menu a:nth-child(2) { transition-delay: 0.15s; }
     .mobile-menu a:nth-child(3) { transition-delay: 0.2s; }
     .mobile-menu a:nth-child(4) { transition-delay: 0.25s; }
     .mobile-menu a:nth-child(5) { transition-delay: 0.3s; }
     .mobile-menu a:nth-child(6) { transition-delay: 0.35s; }
-    
-    .mobile-menu a:hover,
-    .mobile-menu a.active {
-      color: var(--text-primary);
-      transform: translateX(10px);
-    }
+    .mobile-menu a:hover, .mobile-menu a.active { color: var(--text-primary); transform: translateX(10px); }
     
     @media (max-width: 968px) {
-      nav {
-        top: 16px;
-        padding: 10px 16px;
-        width: calc(100% - 32px);
-        max-width: none;
-      }
+      nav { top: 16px; padding: 10px 16px; width: calc(100% - 32px); max-width: none; }
       .nav-links { display: none; }
       .nav-divider { display: none; }
       .mobile-menu-toggle { display: flex; }
@@ -693,7 +662,6 @@
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
-      position: relative;
     }
     
     .hero-subtitle {
@@ -735,9 +703,7 @@
       transition: opacity 0.3s;
     }
     
-    .btn:hover::before {
-      opacity: 1;
-    }
+    .btn:hover::before { opacity: 1; }
     
     .btn-primary {
       background: linear-gradient(135deg, var(--accent) 0%, #00a8cc 100%);
@@ -762,10 +728,7 @@
       transform: translateY(-2px);
     }
     
-    .btn svg {
-      width: 18px;
-      height: 18px;
-    }
+    .btn svg { width: 18px; height: 18px; }
     
     /* ========== SECTIONS ========== */
     section {
@@ -775,9 +738,7 @@
       position: relative;
     }
     
-    .section-header {
-      margin-bottom: 64px;
-    }
+    .section-header { margin-bottom: 64px; }
     
     .section-label {
       font-size: 11px;
@@ -815,9 +776,7 @@
       gap: 24px;
     }
     
-    @media (max-width: 868px) {
-      .roles-grid { grid-template-columns: 1fr; }
-    }
+    @media (max-width: 868px) { .roles-grid { grid-template-columns: 1fr; } }
     
     .role-card {
       background: var(--bg-card);
@@ -833,9 +792,7 @@
     .role-card::before {
       content: '';
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
+      top: 0; left: 0; right: 0;
       height: 2px;
       background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
       opacity: 0;
@@ -849,8 +806,12 @@
       box-shadow: 0 24px 64px rgba(0,0,0,0.4);
     }
     
-    .role-card:hover::before {
-      opacity: 1;
+    .role-card:hover::before { opacity: 1; }
+
+    /* Incoming role card gets a subtle accent treatment */
+    .role-card.incoming {
+      border-color: rgba(0,217,255,0.15);
+      background: rgba(0,217,255,0.03);
     }
     
     .role-header {
@@ -860,18 +821,8 @@
       margin-bottom: 24px;
     }
     
-    .role-company {
-      font-size: 24px;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 6px;
-    }
-    
-    .role-title {
-      font-size: 15px;
-      color: var(--text-secondary);
-      font-weight: 500;
-    }
+    .role-company { font-size: 24px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 6px; }
+    .role-title { font-size: 15px; color: var(--text-secondary); font-weight: 500; }
     
     .role-date {
       font-size: 11px;
@@ -882,21 +833,17 @@
       border-radius: 8px;
       font-family: 'JetBrains Mono', monospace;
       letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+
+    .role-date.incoming-date {
+      color: var(--success);
+      background: rgba(34,197,94,0.1);
     }
     
-    .role-desc {
-      font-size: 15px;
-      color: var(--text-secondary);
-      line-height: 1.7;
-      margin-bottom: 24px;
-    }
+    .role-desc { font-size: 15px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 24px; }
     
-    .role-highlights {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
+    .role-highlights { list-style: none; display: flex; flex-direction: column; gap: 12px; }
     
     .role-highlights li {
       font-size: 14px;
@@ -909,10 +856,8 @@
     .role-highlights li::before {
       content: '';
       position: absolute;
-      left: 0;
-      top: 8px;
-      width: 8px;
-      height: 8px;
+      left: 0; top: 8px;
+      width: 8px; height: 8px;
       background: linear-gradient(135deg, var(--accent), var(--accent-secondary));
       border-radius: 2px;
       box-shadow: 0 0 8px rgba(0,217,255,0.4);
@@ -929,16 +874,12 @@
     .exp-timeline::before {
       content: '';
       position: absolute;
-      left: 200px;
-      top: 0;
-      bottom: 0;
+      left: 200px; top: 0; bottom: 0;
       width: 1px;
       background: linear-gradient(180deg, transparent, var(--border) 10%, var(--border) 90%, transparent);
     }
     
-    @media (max-width: 868px) {
-      .exp-timeline::before { display: none; }
-    }
+    @media (max-width: 868px) { .exp-timeline::before { display: none; } }
     
     .exp-item {
       display: grid;
@@ -952,10 +893,8 @@
     .exp-item::after {
       content: '';
       position: absolute;
-      left: 200px;
-      top: 50%;
-      width: 12px;
-      height: 12px;
+      left: 200px; top: 50%;
+      width: 12px; height: 12px;
       background: var(--bg-primary);
       border: 2px solid var(--border);
       border-radius: 50%;
@@ -963,9 +902,7 @@
       transition: all 0.3s;
     }
     
-    .exp-item:hover {
-      padding-left: 12px;
-    }
+    .exp-item:hover { padding-left: 12px; }
     
     .exp-item:hover::after {
       background: var(--accent);
@@ -974,63 +911,22 @@
     }
     
     @media (max-width: 868px) {
-      .exp-item {
-        grid-template-columns: 1fr;
-        gap: 16px;
-      }
+      .exp-item { grid-template-columns: 1fr; gap: 16px; }
       .exp-item::after { display: none; }
     }
     
-    .exp-date {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--text-tertiary);
-      font-family: 'JetBrains Mono', monospace;
-      letter-spacing: 0.05em;
-    }
+    .exp-date { font-size: 13px; font-weight: 600; color: var(--text-tertiary); font-family: 'JetBrains Mono', monospace; letter-spacing: 0.05em; }
+    .exp-company { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 8px; }
+    .exp-role { font-size: 15px; color: var(--accent); margin-bottom: 16px; font-weight: 500; }
+    .exp-desc { font-size: 15px; color: var(--text-secondary); line-height: 1.7; }
     
-    .exp-company {
-      font-size: 22px;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 8px;
-    }
+    /* ========== PROJECTS ========== */
+    .projects-bento { display: flex; flex-direction: column; gap: 24px; }
     
-    .exp-role {
-      font-size: 15px;
-      color: var(--accent);
-      margin-bottom: 16px;
-      font-weight: 500;
-    }
+    .project-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+    .project-row.single { grid-template-columns: 1fr; }
     
-    .exp-desc {
-      font-size: 15px;
-      color: var(--text-secondary);
-      line-height: 1.7;
-    }
-    
-    /* ========== PROJECTS - BENTO GRID ========== */
-    .projects-bento {
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    }
-    
-    .project-row {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 24px;
-    }
-    
-    .project-row.single {
-      grid-template-columns: 1fr;
-    }
-    
-    @media (max-width: 968px) {
-      .project-row {
-        grid-template-columns: 1fr;
-      }
-    }
+    @media (max-width: 968px) { .project-row { grid-template-columns: 1fr; } }
     
     .project-card {
       background: var(--bg-card);
@@ -1045,16 +941,12 @@
       cursor: pointer;
     }
     
-    .project-card.featured {
-      min-height: 520px;
-    }
+    .project-card.featured { min-height: 520px; }
     
     .project-card::before {
       content: '';
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
+      top: 0; left: 0; right: 0;
       height: 1px;
       background: linear-gradient(90deg, transparent, var(--accent), transparent);
       opacity: 0;
@@ -1068,9 +960,7 @@
       box-shadow: 0 24px 64px rgba(0,0,0,0.4);
     }
     
-    .project-card:hover::before {
-      opacity: 1;
-    }
+    .project-card:hover::before { opacity: 1; }
     
     .project-tag {
       display: inline-flex;
@@ -1087,37 +977,20 @@
       text-transform: uppercase;
     }
     
-    .project-name {
-      font-size: 20px;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 12px;
-    }
+    .project-name { font-size: 20px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 12px; }
+    .project-card.featured .project-name { font-size: 28px; }
     
-    .project-card.featured .project-name {
-      font-size: 28px;
-    }
-    
-    .project-desc {
-      font-size: 14px;
-      color: var(--text-secondary);
-      line-height: 1.7;
-      flex: 1;
-      margin-bottom: 24px;
-    }
+    .project-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.7; flex: 1; margin-bottom: 24px; }
     
     .project-metrics {
       display: flex;
       gap: 24px;
       padding-top: 20px;
       border-top: 1px solid var(--border);
+      flex-wrap: wrap;
     }
     
-    .project-metric {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
+    .project-metric { display: flex; flex-direction: column; gap: 4px; }
     
     .metric-value {
       font-size: 24px;
@@ -1129,15 +1002,8 @@
       background-clip: text;
     }
     
-    .metric-label {
-      font-size: 10px;
-      font-weight: 600;
-      color: var(--text-tertiary);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
+    .metric-label { font-size: 10px; font-weight: 600; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.08em; }
     
-    /* Project Preview Image */
     .project-preview {
       width: 100%;
       height: 380px;
@@ -1149,28 +1015,19 @@
       position: relative;
     }
     
-    .project-card.featured .project-preview {
-      height: 520px;
-    }
+    .project-card.featured .project-preview { height: 520px; }
     
     .project-preview img {
       width: 100%;
       height: 100%;
       object-fit: contain;
       padding: 0;
-      max-width: 100%;
-      max-height: 100%;
       transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
-    .project-card:hover .project-preview img {
-      transform: scale(1.02);
-    }
+    .project-card:hover .project-preview img { transform: scale(1.02); }
     
-    /* Project Sections (Fundamentals / Challenges) */
-    .project-section {
-      margin-bottom: 24px;
-    }
+    .project-section { margin-bottom: 24px; }
     
     .project-section-title {
       font-size: 11px;
@@ -1181,12 +1038,7 @@
       margin-bottom: 12px;
     }
     
-    .project-bullets {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
+    .project-bullets { list-style: none; display: flex; flex-direction: column; gap: 10px; }
     
     .project-bullets li {
       font-size: 14px;
@@ -1203,17 +1055,53 @@
       color: var(--accent);
       font-size: 12px;
     }
+
+    /* Performance table inside project card */
+    .perf-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      margin-top: 8px;
+    }
+
+    .perf-table th {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 8px 12px 8px 0;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+    }
+
+    .perf-table th:last-child { text-align: right; }
+
+    .perf-table td {
+      color: var(--text-secondary);
+      padding: 10px 12px 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      vertical-align: middle;
+    }
+
+    .perf-table td:last-child {
+      text-align: right;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--text-primary);
+    }
+
+    .perf-table tr.current-row td {
+      color: var(--text-primary);
+    }
+
+    .perf-table tr.current-row td:last-child {
+      color: var(--accent);
+    }
     
     /* ========== SKILLS ========== */
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 32px;
-    }
-    
-    @media (max-width: 868px) {
-      .skills-grid { grid-template-columns: 1fr; }
-    }
+    .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+    @media (max-width: 868px) { .skills-grid { grid-template-columns: 1fr; } }
     
     .skill-category {
       background: var(--bg-card);
@@ -1229,21 +1117,9 @@
       transform: translateY(-4px);
     }
     
-    .skill-category h3 {
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      margin-bottom: 24px;
-    }
+    .skill-category h3 { font-size: 12px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 24px; }
     
-    .skill-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
+    .skill-list { list-style: none; display: flex; flex-direction: column; gap: 2px; }
     
     .skill-list li {
       font-size: 14px;
@@ -1254,15 +1130,8 @@
       cursor: default;
     }
     
-    .skill-list li:hover {
-      color: var(--text-primary);
-      padding-left: 12px;
-      border-bottom-color: var(--accent);
-    }
-    
-    .skill-list li:last-child {
-      border-bottom: none;
-    }
+    .skill-list li:hover { color: var(--text-primary); padding-left: 12px; border-bottom-color: var(--accent); }
+    .skill-list li:last-child { border-bottom: none; }
     
     /* ========== EDUCATION ========== */
     .edu-card {
@@ -1279,36 +1148,12 @@
       box-shadow: 0 24px 64px rgba(0,0,0,0.3);
     }
     
-    .edu-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 32px;
-    }
+    .edu-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 32px; }
+    @media (max-width: 868px) { .edu-top { flex-direction: column; gap: 20px; } }
     
-    @media (max-width: 868px) {
-      .edu-top {
-        flex-direction: column;
-        gap: 20px;
-      }
-    }
-    
-    .edu-school {
-      font-size: 32px;
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      margin-bottom: 8px;
-    }
-    
-    .edu-degree {
-      font-size: 16px;
-      color: var(--text-secondary);
-      font-weight: 500;
-    }
-    
-    .edu-meta {
-      text-align: right;
-    }
+    .edu-school { font-size: 32px; font-weight: 700; letter-spacing: -0.03em; margin-bottom: 8px; }
+    .edu-degree { font-size: 16px; color: var(--text-secondary); font-weight: 500; }
+    .edu-meta { text-align: right; }
     
     .edu-gpa {
       font-size: 32px;
@@ -1320,17 +1165,9 @@
       margin-bottom: 4px;
     }
     
-    .edu-date {
-      font-size: 14px;
-      color: var(--text-secondary);
-    }
+    .edu-date { font-size: 14px; color: var(--text-secondary); }
     
-    .edu-honors {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-bottom: 40px;
-    }
+    .edu-honors { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 40px; }
     
     .edu-honors span {
       font-size: 12px;
@@ -1343,35 +1180,13 @@
       transition: all 0.2s;
     }
     
-    .edu-honors span:hover {
-      background: rgba(255,255,255,0.06);
-      border-color: var(--border-hover);
-    }
+    .edu-honors span:hover { background: rgba(255,255,255,0.06); border-color: var(--border-hover); }
     
-    .edu-courses {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 40px;
-      padding-top: 32px;
-      border-top: 1px solid var(--border);
-    }
+    .edu-courses { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; padding-top: 32px; border-top: 1px solid var(--border); }
+    @media (max-width: 868px) { .edu-courses { grid-template-columns: 1fr; } }
     
-    @media (max-width: 868px) {
-      .edu-courses { grid-template-columns: 1fr; }
-    }
-    
-    .edu-courses h4 {
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 0.12em;
-      margin-bottom: 20px;
-    }
-    
-    .edu-courses ul {
-      list-style: none;
-    }
+    .edu-courses h4 { font-size: 12px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 20px; }
+    .edu-courses ul { list-style: none; }
     
     .edu-courses li {
       font-size: 14px;
@@ -1381,14 +1196,8 @@
       transition: all 0.2s;
     }
     
-    .edu-courses li:hover {
-      color: var(--text-primary);
-      padding-left: 8px;
-    }
-    
-    .edu-courses li:last-child {
-      border-bottom: none;
-    }
+    .edu-courses li:hover { color: var(--text-primary); padding-left: 8px; }
+    .edu-courses li:last-child { border-bottom: none; }
     
     /* ========== PUBLICATION ========== */
     .pub-card {
@@ -1410,24 +1219,10 @@
       box-shadow: 0 24px 64px rgba(0,0,0,0.3);
     }
     
-    @media (max-width: 868px) {
-      .pub-card {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-    }
+    @media (max-width: 868px) { .pub-card { flex-direction: column; align-items: flex-start; } }
     
-    .pub-title {
-      font-size: 20px;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 8px;
-    }
-    
-    .pub-venue {
-      font-size: 14px;
-      color: var(--text-secondary);
-    }
+    .pub-title { font-size: 20px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 8px; }
+    .pub-venue { font-size: 14px; color: var(--text-secondary); }
     
     .pub-link {
       font-size: 14px;
@@ -1445,31 +1240,13 @@
       gap: 8px;
     }
     
-    .pub-link:hover {
-      background: rgba(255,255,255,0.08);
-      border-color: var(--border-hover);
-      transform: translateX(4px);
-    }
+    .pub-link:hover { background: rgba(255,255,255,0.08); border-color: var(--border-hover); transform: translateX(4px); }
     
     /* ========== FOOTER ========== */
-    footer {
-      padding: 100px 32px 60px;
-      max-width: 1200px;
-      margin: 0 auto;
-      border-top: 1px solid var(--border);
-    }
+    footer { padding: 100px 32px 60px; max-width: 1200px; margin: 0 auto; border-top: 1px solid var(--border); }
     
-    .footer-grid {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 64px;
-      align-items: start;
-      margin-bottom: 64px;
-    }
-    
-    @media (max-width: 868px) {
-      .footer-grid { grid-template-columns: 1fr; }
-    }
+    .footer-grid { display: grid; grid-template-columns: 1fr auto; gap: 64px; align-items: start; margin-bottom: 64px; }
+    @media (max-width: 868px) { .footer-grid { grid-template-columns: 1fr; } }
     
     .footer-cta h3 {
       font-size: 40px;
@@ -1482,18 +1259,9 @@
       background-clip: text;
     }
     
-    .footer-cta p {
-      font-size: 16px;
-      color: var(--text-secondary);
-      margin-bottom: 32px;
-      line-height: 1.7;
-    }
+    .footer-cta p { font-size: 16px; color: var(--text-secondary); margin-bottom: 32px; line-height: 1.7; }
     
-    .footer-links {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
+    .footer-links { display: flex; flex-direction: column; gap: 16px; }
     
     .footer-links a {
       font-size: 15px;
@@ -1505,43 +1273,17 @@
       gap: 8px;
     }
     
-    .footer-links a:hover {
-      color: var(--text-primary);
-      transform: translateX(4px);
-    }
+    .footer-links a:hover { color: var(--text-primary); transform: translateX(4px); }
     
-    .footer-bottom {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-top: 32px;
-      border-top: 1px solid var(--border);
-    }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 32px; border-top: 1px solid var(--border); }
+    @media (max-width: 868px) { .footer-bottom { flex-direction: column; gap: 16px; text-align: center; } }
     
-    @media (max-width: 868px) {
-      .footer-bottom {
-        flex-direction: column;
-        gap: 16px;
-        text-align: center;
-      }
-    }
-    
-    .footer-copy {
-      font-size: 13px;
-      color: var(--text-tertiary);
-    }
-    
-    .footer-social {
-      display: flex;
-      gap: 16px;
-    }
+    .footer-copy { font-size: 13px; color: var(--text-tertiary); }
+    .footer-social { display: flex; gap: 16px; }
     
     .footer-social a {
-      width: 40px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      width: 40px; height: 40px;
+      display: flex; align-items: center; justify-content: center;
       background: rgba(255,255,255,0.04);
       border: 1px solid var(--border);
       border-radius: 10px;
@@ -1558,22 +1300,13 @@
     }
     
     /* ========== SCROLL REVEAL ========== */
-    .reveal {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    .reveal { opacity: 0; transform: translateY(40px); transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
     
     /* ========== CURSOR GLOW ========== */
     .cursor-glow {
       position: fixed;
-      width: 600px;
-      height: 600px;
+      width: 600px; height: 600px;
       border-radius: 50%;
       background: radial-gradient(circle, rgba(0,217,255,0.06) 0%, transparent 70%);
       pointer-events: none;
@@ -1582,9 +1315,7 @@
       transform: translate(-50%, -50%);
     }
     
-    @media (max-width: 868px) {
-      .cursor-glow { display: none; }
-    }
+    @media (max-width: 868px) { .cursor-glow { display: none; } }
   </style>
 </head>
 <body>
@@ -1672,10 +1403,11 @@
         </div>
       </nav>
 
+      <!-- ========== HERO ========== -->
       <header class="hero">
-        <div class="hero-badge">Available May 2026</div>
+        <div class="hero-badge">Joining Arm Full-Time · June 2026</div>
         <h1>SoC Architecture &<br>ML Accelerators</h1>
-        <p class="hero-subtitle">Building systems that make silicon smarter – protocol intelligence for SoCs, sparse tensor accelerators, and RTL that closes timing. Currently at Arm and Berkeley SLICE Lab.</p>
+        <p class="hero-subtitle">Building systems that make silicon smarter – protocol intelligence for SoCs, sparse tensor accelerators, and RTL that closes timing. Currently at Berkeley SLICE Lab, incoming Frontend CAD Engineer at Arm.</p>
         <div class="hero-actions">
           <a href="https://pjwang24.github.io/Peter%20Wang%20Resume.pdf" target="_blank" class="btn btn-primary">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -1688,27 +1420,30 @@
         </div>
       </header>
 
+      <!-- ========== CURRENT ========== -->
       <section id="current" class="reveal">
         <div class="section-header">
           <div class="section-label">Current Roles</div>
           <h2 class="section-title">What I'm Building</h2>
         </div>
         <div class="roles-grid">
-          <div class="role-card">
+          <!-- Incoming Arm role -->
+          <div class="role-card incoming">
             <div class="role-header">
               <div>
                 <div class="role-company">Arm</div>
-                <div class="role-title">SoC Architecture Intern</div>
+                <div class="role-title">Frontend CAD Engineer</div>
               </div>
-              <span class="role-date">May – Aug '25</span>
+              <span class="role-date incoming-date">Jun '26 →</span>
             </div>
-            <p class="role-desc">Neoverse CSS team. Building protocol intelligence infrastructure for physical design.</p>
+            <p class="role-desc">Joining Arm's CAD engineering team full-time after graduating from Berkeley. Building on internship experience with physical design tooling and SoC infrastructure for Neoverse platforms.</p>
             <ul class="role-highlights">
-              <li>Polars pipeline classifying 20M+ pins to identify AMBA protocols in 15 min, 85% RAM reduction</li>
-              <li>Instance path mapping to die-level centroids across restructuring formats</li>
-              <li>Protocol summaries validated against STA and floorplan intent</li>
+              <li>Returning full-time following SoC Architecture internship on the Neoverse CSS team</li>
+              <li>Frontend CAD engineering for next-generation Arm server SoCs</li>
+              <li>Continuing work on physical design automation and protocol-aware tooling</li>
             </ul>
           </div>
+          <!-- SLICE Lab -->
           <div class="role-card">
             <div class="role-header">
               <div>
@@ -1727,12 +1462,22 @@
         </div>
       </section>
 
+      <!-- ========== EXPERIENCE ========== -->
       <section id="experience" class="reveal">
         <div class="section-header">
           <div class="section-label">Experience</div>
           <h2 class="section-title">Past Work</h2>
         </div>
         <div class="exp-timeline">
+          <!-- Arm internship (now past) -->
+          <div class="exp-item">
+            <div class="exp-date">May – Aug 2025</div>
+            <div>
+              <div class="exp-company">Arm</div>
+              <div class="exp-role">SoC Architecture Intern · Neoverse CSS</div>
+              <p class="exp-desc">Built protocol intelligence infrastructure for physical design. Developed a Polars pipeline classifying 20M+ pins to identify AMBA protocols in 15 minutes with an 85% RAM reduction. Implemented instance path mapping to die-level centroids across restructuring formats, and generated protocol summaries validated against STA and floorplan intent.</p>
+            </div>
+          </div>
           <div class="exp-item">
             <div class="exp-date">Aug 2021 – Jun 2024</div>
             <div>
@@ -1752,13 +1497,15 @@
         </div>
       </section>
 
+      <!-- ========== PROJECTS ========== -->
       <section id="projects" class="reveal">
         <div class="section-header">
           <div class="section-label">Projects</div>
           <h2 class="section-title">Featured Work</h2>
         </div>
         <div class="projects-bento">
-          <!-- Row 1: CPU Project (Full Width) -->
+
+          <!-- Row 1: RISC-V CPU (Full Width) -->
           <div class="project-row single">
             <div class="project-card featured">
               <span class="project-tag">SKY130 PDK · Verilog</span>
@@ -1766,7 +1513,6 @@
               <div class="project-preview">
                 <img src="https://raw.githubusercontent.com/pjwang24/pjwang24.github.io/main/cpu-diagram.png" alt="RISC-V CPU Block Diagram" style="background: #000;">
               </div>
-              
               <div class="project-section">
                 <h4 class="project-section-title">Fundamentals</h4>
                 <ul class="project-bullets">
@@ -1776,7 +1522,6 @@
                   <li>2-way set-associative write-back cache with LFSR replacement</li>
                 </ul>
               </div>
-              
               <div class="project-section">
                 <h4 class="project-section-title">Design Challenges</h4>
                 <ul class="project-bullets">
@@ -1786,7 +1531,6 @@
                   <li>Optimized cache hit path by overlapping tag comparison with data read</li>
                 </ul>
               </div>
-              
               <div class="project-metrics">
                 <div class="project-metric">
                   <span class="metric-value">1.05</span>
@@ -1804,7 +1548,75 @@
             </div>
           </div>
 
-          <!-- Row 2: Tapeout (Full Width) -->
+          <!-- Row 2: NN Inference Accelerator (Full Width) -->
+          <div class="project-row single">
+            <div class="project-card">
+              <span class="project-tag">RV32IM · SystemVerilog · Sky130</span>
+              <div class="project-name">Bare-Metal MNIST Inference on a Custom RISC-V + INT8 Matmul Accelerator</div>
+              <p class="project-desc">End-to-end neural network inference on a custom RV32IM core with a decoupled hardware matmul accelerator, verified in cycle-accurate Verilator simulation and pushed through a Sky130 OpenLane flow. A 2-layer MLP (784→128→10) runs 100 MNIST images in bare-metal C with no OS or libc, achieving 100/100 classification accuracy.</p>
+
+              <div class="project-section">
+                <h4 class="project-section-title">Architecture</h4>
+                <ul class="project-bullets">
+                  <li>4-stage RV32IM pipeline (IF/ID/EX/WB) with RAW forwarding, load-use bubbles, and mispredict flush</li>
+                  <li>Decoupled 4×4 INT8 outer-product matmul engine (MMIO at 0x80000000) with DMA-fed 128-bit read path and command FIFO</li>
+                  <li>Each compute step performs 16 INT8 multiplies accumulating into 16 INT32 cells; strided input traversal via X_STRIDE / K_ROW_LEN registers</li>
+                  <li>Bare-metal runtime with packed INT8 weight layout, batch-4 inference loop, and pass/fail signaling via CSR 0x51e</li>
+                </ul>
+              </div>
+
+              <div class="project-section">
+                <h4 class="project-section-title">Performance Progression</h4>
+                <table class="perf-table">
+                  <thead>
+                    <tr>
+                      <th>Stage</th>
+                      <th>Speedup</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td>Baseline (unoptimized SW)</td><td>1.00×</td></tr>
+                    <tr><td>-O3, fused ops, reciprocal scaling</td><td>1.09×</td></tr>
+                    <tr><td>V1 accelerator (shared dcache path)</td><td>7.30×</td></tr>
+                    <tr><td>128-bit DMA + batched inference</td><td>16.77×</td></tr>
+                    <tr><td>4-stage pipeline refactor</td><td>16.26×</td></tr>
+                    <tr class="current-row"><td>Phase-2 MMIO/driver fixes (current)</td><td>24.45×</td></tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="project-section">
+                <h4 class="project-section-title">Sky130 Physical Implementation</h4>
+                <ul class="project-bullets">
+                  <li>OpenLane RTL-to-GDS flow; 1.44 mm² die (1200 µm × 1200 µm), 22.9% utilization</li>
+                  <li>21,507 synthesized cells; WNS 0.00 ns / TNS 0.00 ns at 20 ns clock (~50 MHz)</li>
+                  <li>Completed routing and signoff report generation; late Magic gds_ptrs step remains the final blocker</li>
+                  <li>Open-source toolchain throughout: Verilator, OpenROAD, Yosys, Magic, riscv-gnu-toolchain</li>
+                </ul>
+              </div>
+
+              <div class="project-metrics">
+                <div class="project-metric">
+                  <span class="metric-value">24.45×</span>
+                  <span class="metric-label">Speedup</span>
+                </div>
+                <div class="project-metric">
+                  <span class="metric-value">100/100</span>
+                  <span class="metric-label">MNIST Accuracy</span>
+                </div>
+                <div class="project-metric">
+                  <span class="metric-value">0.197</span>
+                  <span class="metric-label">Cycles / MAC</span>
+                </div>
+                <div class="project-metric">
+                  <span class="metric-value">1.44 mm²</span>
+                  <span class="metric-label">Die Area</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Row 3: Tapeout (Full Width) -->
           <div class="project-row single">
             <div class="project-card">
               <span class="project-tag">TSMC 16nm · Chisel</span>
@@ -1813,7 +1625,7 @@
             </div>
           </div>
 
-          <!-- Row 3: Sparse Tensor + AWS Trainium -->
+          <!-- Row 4: Sparse Tensor + AWS Trainium -->
           <div class="project-row">
             <div class="project-card">
               <span class="project-tag">TeAAL · Python</span>
@@ -1826,9 +1638,11 @@
               <p class="project-desc">Extending TeAAL modular architecture specifications to optimize inference kernels using Neuron Kernel Interface (NKI) with engine-aware compute mapping and manual memory scheduling for AWS Trainium hardware.</p>
             </div>
           </div>
+
         </div>
       </section>
 
+      <!-- ========== SKILLS ========== -->
       <section id="skills" class="reveal">
         <div class="section-header">
           <div class="section-label">Skills</div>
@@ -1843,6 +1657,7 @@
               <li>VCS / ModelSim</li>
               <li>Vivado</li>
               <li>OpenROAD / Yosys</li>
+              <li>Verilator</li>
               <li>gem5</li>
               <li>SKY130 PDK</li>
             </ul>
@@ -1873,6 +1688,7 @@
         </div>
       </section>
 
+      <!-- ========== EDUCATION ========== -->
       <section id="education" class="reveal">
         <div class="section-header">
           <div class="section-label">Education</div>
@@ -1913,13 +1729,14 @@
                 <li>EE 105 — Microelectronic Devices</li>
                 <li>EE 126 — Probability & Random Processes</li>
                 <li>EE 194 — Test IC Chips (Intel 16nm)</li>
-                <li>EE 194 - Design IC Chips (TSMC 16nm)</li>
+                <li>EE 194 — Design IC Chips (TSMC 16nm)</li>
               </ul>
             </div>
           </div>
         </div>
       </section>
 
+      <!-- ========== PUBLICATION ========== -->
       <section id="publication" class="reveal">
         <div class="section-header">
           <div class="section-label">Publication</div>
@@ -1943,7 +1760,7 @@
         <div class="footer-grid">
           <div class="footer-cta">
             <h3>Let's build something extraordinary</h3>
-            <p>Looking for SoC architecture, ML accelerator, or ASIC design roles starting May 2026.</p>
+            <p>Joining Arm as a Frontend CAD Engineer in June 2026 after graduating from Berkeley. Always happy to connect about SoC architecture, ML accelerators, or ASIC design.</p>
             <a href="mailto:peterwang@berkeley.edu" class="btn btn-primary">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -1958,7 +1775,7 @@
           </div>
         </div>
         <div class="footer-bottom">
-          <div class="footer-copy">© 2025 Peter Wang · Berkeley, California</div>
+          <div class="footer-copy">© 2026 Peter Wang · Berkeley, California</div>
           <div class="footer-social">
             <a href="https://github.com/pjwang24" target="_blank" aria-label="GitHub">
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
@@ -1998,10 +1815,7 @@
     const messages = ['initializing', 'loading cores', 'mapping memory', 'system ready'];
     let msgIndex = 0;
     const statusInterval = setInterval(() => {
-      if (msgIndex < 3) {
-        msgIndex++;
-        statusText.textContent = messages[msgIndex];
-      }
+      if (msgIndex < 3) { msgIndex++; statusText.textContent = messages[msgIndex]; }
     }, 800);
     
     setTimeout(() => {
@@ -2010,9 +1824,7 @@
       setTimeout(() => {
         document.getElementById('landing').classList.add('fade-out');
         document.getElementById('main').classList.add('visible');
-        setTimeout(() => {
-          document.getElementById('landing').remove();
-        }, 1200);
+        setTimeout(() => { document.getElementById('landing').remove(); }, 1200);
       }, 500);
     }, 3400);
     
@@ -2021,8 +1833,7 @@
     window.addEventListener('scroll', () => {
       const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
       const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scrollPercent = scrollTop / scrollHeight;
-      scrollProgress.style.transform = `scaleX(${scrollPercent})`;
+      scrollProgress.style.transform = `scaleX(${scrollTop / scrollHeight})`;
     });
     
     // ========== ACTIVE NAV INDICATOR ==========
@@ -2033,7 +1844,6 @@
     function setActiveLink(link) {
       navLinks.forEach(l => l.classList.remove('active'));
       link.classList.add('active');
-      
       const linkRect = link.getBoundingClientRect();
       const navRect = link.closest('.nav-links').getBoundingClientRect();
       navIndicator.style.width = linkRect.width + 'px';
@@ -2041,37 +1851,19 @@
       navIndicator.style.opacity = '1';
     }
     
-    // Set initial active link
-    setTimeout(() => {
-      if (navLinks.length > 0) {
-        setActiveLink(navLinks[0]);
-      }
-    }, 4000);
+    setTimeout(() => { if (navLinks.length > 0) setActiveLink(navLinks[0]); }, 4000);
     
-    // Update on scroll
     window.addEventListener('scroll', () => {
       let current = '';
       sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
-        if (window.pageYOffset >= sectionTop - 200) {
-          current = section.getAttribute('id');
-        }
+        if (window.pageYOffset >= section.offsetTop - 200) current = section.getAttribute('id');
       });
-      
       navLinks.forEach(link => {
-        if (link.getAttribute('href') === `#${current}`) {
-          setActiveLink(link);
-        }
+        if (link.getAttribute('href') === `#${current}`) setActiveLink(link);
       });
     });
     
-    // Click handler
-    navLinks.forEach(link => {
-      link.addEventListener('click', (e) => {
-        setActiveLink(link);
-      });
-    });
+    navLinks.forEach(link => { link.addEventListener('click', () => setActiveLink(link)); });
     
     // ========== MOBILE MENU ==========
     const mobileMenuToggle = document.getElementById('mobileMenuToggle');
@@ -2094,37 +1886,24 @@
     
     // ========== SCROLL REVEAL ==========
     const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
     }, { threshold: 0.1 });
     
-    setTimeout(() => {
-      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-    }, 4000);
+    setTimeout(() => { document.querySelectorAll('.reveal').forEach(el => observer.observe(el)); }, 4000);
     
     // ========== SMOOTH SCROLL ==========
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function(e) {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     });
     
     // ========== CURSOR GLOW ==========
     const cursorGlow = document.getElementById('cursorGlow');
-    let mouseX = 0, mouseY = 0;
-    let glowX = 0, glowY = 0;
-    
-    document.addEventListener('mousemove', (e) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-    });
+    let mouseX = 0, mouseY = 0, glowX = 0, glowY = 0;
+    document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
     function animateGlow() {
       glowX += (mouseX - glowX) * 0.1;
       glowY += (mouseY - glowY) * 0.1;
