@@ -922,10 +922,11 @@
     /* ---- RL autotuner dashboard ---- */
     .rl-wrap {
       display: grid;
-      grid-template-columns: 2fr 1fr;
-      gap: 32px;
+      grid-template-columns: minmax(0, 1fr) 280px;
+      gap: 24px;
+      align-items: start;
     }
-    @media (max-width: 960px) { .rl-wrap { grid-template-columns: 1fr; } }
+    @media (max-width: 1100px) { .rl-wrap { grid-template-columns: 1fr; } }
 
     .rl-chart {
       background: var(--paper);
@@ -933,6 +934,7 @@
       border-radius: 8px;
       padding: 24px;
       aspect-ratio: 16 / 10;
+      min-width: 0;
     }
     .rl-chart svg { width: 100%; height: 100%; display: block; }
 
@@ -953,13 +955,14 @@
     .rl-side {
       display: flex;
       flex-direction: column;
-      gap: 16px;
+      gap: 14px;
+      min-width: 0;
     }
     .rl-panel {
       background: var(--bg);
       border: 1px solid var(--border);
       border-radius: 8px;
-      padding: 20px;
+      padding: 18px;
     }
     .rl-panel-title {
       font-family: var(--f-mono);
@@ -967,39 +970,47 @@
       letter-spacing: 0.15em;
       text-transform: uppercase;
       color: var(--text-3);
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
     .rl-big {
       font-family: var(--f-display);
       font-weight: 400;
-      font-size: 32px;
+      font-size: 28px;
       letter-spacing: -0.02em;
       line-height: 1;
       color: var(--accent);
       font-variation-settings: "opsz" 48;
     }
     .rl-big-sub {
-      font-size: 12px;
+      font-size: 11.5px;
       color: var(--text-2);
       margin-top: 6px;
+      line-height: 1.45;
     }
     .rl-params {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 8px;
     }
     .rl-param {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 12px;
       font-family: var(--f-mono);
-      font-size: 12px;
-      padding: 8px 0;
+      font-size: 11.5px;
+      padding: 6px 0;
       border-bottom: 1px solid var(--border);
     }
     .rl-param:last-child { border-bottom: none; }
-    .rl-param .k { color: var(--text-3); }
-    .rl-param .v { color: var(--text); }
+    .rl-param .k { color: var(--text-3); white-space: nowrap; }
+    .rl-param .v {
+      color: var(--text);
+      text-align: right;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
 
     .rl-legend {
       display: flex;
